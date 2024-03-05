@@ -1,0 +1,240 @@
+.setupwhitelist {
+    padding-top: 127px;
+
+    .mainhead {
+        h2 {
+            color: #FFF;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+        }
+
+        h6 {
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            margin-bottom: 41px;
+        }
+
+        p {
+            color: #FFF;
+            font-family: Lexend;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            /* 16px */
+            text-transform: capitalize;
+            margin-bottom: 15px;
+        }
+
+        .dropbtn {
+            .dropdown-toggle::after {
+                display: none;
+            }
+
+            .dropdown {
+                .brdr{
+                    width: 1px;
+                    height: 20px;
+                    background: #fff;
+                    margin-right: 10px;
+                }
+                .dropdown-toggle {
+                    border-radius: 7px;
+                    background: #0D0714;
+                    padding: 10px 22px;
+                    max-width: 640px;
+                    width: 100%;
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-family: Lexend;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    text-align: start;
+                    border-left: 1px solid #fff;
+                    border: none !important;
+                }
+
+                .dropdown-menu {
+
+                    max-width: 640px;
+                    width: 100%;
+                    // margin-top: 10px;
+                    // border: 1px solid rgba(134, 47, 192, 0.70);
+                    // padding: 15px;
+                    // background: #08050A;
+
+                    border-radius: 6px;
+                    border: 1px solid #251834;
+                    background: #10091A;
+                    overflow: hidden;
+                    outline: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+
+
+                .dropdown-item {
+                    display: flex;
+                    padding: 10px 22px;
+                    align-items: center;
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    border-left: 5px solid transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #1F112D !important;
+                        color: #862FC0;
+                        transition: 0.7s;
+                    }
+
+                    &:last-child {
+                        border-bottom: none !important;
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
+    .maininputss {
+        margin-top: 25px;
+        max-width: 640px;
+        width: 100%;
+
+        p {
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            /* 16px */
+            text-transform: capitalize;
+            margin-bottom: 15px;
+        }
+
+        input {
+            border-radius: 7px;
+            background: #0D0714;
+            padding: 18px 22px;
+            max-width: 640px;
+            width: 100%;
+            border: none;
+            margin-bottom: 25px;
+            color: var(--Light-Text-Color, #745F8C);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            text-transform: capitalize;
+
+            &::placeholder {
+                color: var(--Light-Text-Color, #745F8C);
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                text-transform: capitalize;
+            }
+        }
+
+        textarea {
+            border-radius: 7px;
+            background: #0D0714;
+            padding: 18px 22px;
+            max-width: 640px;
+            width: 100%;
+            border: none;
+            margin-bottom: 25px;
+            color: var(--Light-Text-Color, #745F8C);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            text-transform: capitalize;
+            height: 50px;
+
+            &::placeholder {
+                color: var(--Light-Text-Color, #745F8C);
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                text-transform: capitalize;
+            }
+        }
+
+        .innercontent {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            a {
+                color: var(--Light-Text-Color, #745F8C);
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                margin-bottom: 15px;
+            }
+        }
+
+        .btnrole {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            button {
+                border-radius: 10px;
+                border: 1px solid #862FC0;
+                padding: 15px 22px;
+                color: #862FC0;
+                text-align: center;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                background: transparent;
+                margin-bottom: 25px;
+            }
+        }
+
+        .submitbtn {
+            button {
+                border-radius: 10px;
+                background: #862FC0;
+                padding: 15px 22px;
+                max-width: 640px;
+                width: 100%;
+                color: var(--On-Surface, #FFF);
+                text-align: center;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                border: none;
+                margin-top: 25px;
+                margin-bottom: 50px;
+            }
+        }
+    }
+}

@@ -1,0 +1,269 @@
+.editprofile {
+    padding-top: 131px;
+    padding-bottom: 109px;
+
+    .main-heading {
+        margin-bottom: 40px;
+
+        h6 {
+            color: #FFF;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+        }
+    }
+
+    .bottom-twice-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        gap: 60px;
+
+        .left-content {
+            max-width: 572px;
+            width: 100%;
+
+            .option-field {
+                position: relative;
+                margin-bottom: 25px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                label {
+                    display: block;
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    margin-bottom: 15px;
+                }
+
+                input {
+                    border-radius: 7px;
+                    background: #0D0714;
+                    padding: 18px 22px;
+                    border: none;
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    // text-transform: capitalize;
+                    transition: 0.3s linear;
+                    width: 100%;
+                    border: 1px solid transparent;
+
+                    &:focus {
+                        border-radius: 10px;
+                        border: 1px solid rgba(134, 47, 192, 0.70);
+                    }
+                }
+
+                .btn-connect {
+                    position: absolute;
+                    top: 34px;
+                    right: 5px;
+                    border-radius: 0px 7px 7px 0px;
+                    background: #0D0714;
+                    border-left: 1px solid #281A37;
+                    padding: 17px 22px;
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                }
+
+                .copied {
+                    color: white;
+                    text-align: right;
+                    font-size: 13px;
+                }
+            }
+
+            .btn-update {
+                border-radius: 10px;
+                background: #862FC0;
+                padding: 15px 22px;
+                color: var(--On-Surface, #FFF);
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s linear;
+
+                &:hover {
+                    background: #9E43DB;
+                }
+            }
+        }
+
+        .right-content {
+            width: calc(100% - 572px);
+
+            .profile-picture-parent {
+                h6 {
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    margin-bottom: 34px;
+                }
+
+                .twice-content {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 34px;
+                    width: 100%;
+
+                    .profile {
+                        border-radius: 15px;
+                        width: 212px;
+                        height: 212px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .right-text {
+                        padding: 20px 30px;
+                        max-width: 305px;
+                        width: 100%;
+
+                        p {
+                            color: #FFF;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 130%;
+                            margin-bottom: 25px;
+                        }
+
+                        .btn-upload {
+                            color: #fff;
+                            background: #862FC0;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 22px;
+                            border-radius: 10px;
+                            border: none;
+                            padding: 15px 22px;
+                            width: 100%;
+                            text-align: center;
+                            cursor: pointer;
+                            transition: 0.3s linear;
+
+                            &:hover {
+                                background: #9E43DB;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .cover-photo {
+                margin-top: 61px;
+
+                h6 {
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    margin-bottom: 25px;
+                }
+
+                .cover-main {
+                    border-radius: 15px;
+                    height: 212px;
+                    width: 100%;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                }
+
+                .btn-cover {
+                    border-radius: 10px;
+                    border: none;
+                    background: #862FC0;
+                    display: block;
+                    padding: 15px 22px;
+                    color: #fff;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 22px;
+                    max-width: 200px;
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 34px;
+                    cursor: pointer;
+                    transition: 0.3s linear;
+
+                    &:hover {
+                        background: #9E43DB;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1024px) {
+    .editprofile .bottom-twice-content {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .editprofile .bottom-twice-content .left-content {
+        max-width: 100%;
+    }
+
+    .editprofile .bottom-twice-content .right-content {
+        width: 100%;
+    }
+
+    .editprofile .bottom-twice-content .right-content .profile-picture-parent .twice-content {
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-start;
+    }
+
+    .editprofile .bottom-twice-content .right-content .profile-picture-parent .twice-content .right-text {
+        padding: 15px 0;
+    }
+}

@@ -1,0 +1,964 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "name": "owner",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "OwnableInvalidOwner",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "name": "account",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "OwnableUnauthorizedAccount",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "alreadyClaimed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "alreadyFinalized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "claimNotAllowed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "invalidAmount",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "launchpadEnds",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "launchpadFinalized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "maxCapReached",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "maxWalletLimitReached",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "notFinalized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "notOwnerOfThisProject",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "notPurchaseAnyNFT",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "stageTimeError",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "timeNotReached",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "user",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "numberOfNFTs",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "ethAmount",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "Claimed",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "previousOwner",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "newOwner",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "ownerAddress",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "ipfsHash",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "name": "startTime",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "endTime",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "price",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "whiteList",
+                        "internalType": "bool",
+                        "type": "bool"
+                    }
+                ],
+                "indexed": false,
+                "name": "stagesData",
+                "internalType": "struct WizardLaunchpad.Stage[]",
+                "type": "tuple[]"
+            },
+            {
+                "indexed": false,
+                "name": "maxCap",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "erc721Contract",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "isLimitedEdition",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "name": "maxWalletLimit",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "ProjectCreated",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "name": "ownerAddress",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "success",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "name": "allowClaim",
+                "internalType": "bool",
+                "type": "bool"
+            }
+        ],
+        "name": "SaleFinalized",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "buyer",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "amount",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "payedAmount",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "islimitedAdition",
+                "internalType": "bool",
+                "type": "bool"
+            }
+        ],
+        "name": "TokenPurchased",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "ERC721Contract",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "amount",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "maxWalletMimitUpdated",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "owner",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "ERC721Deployed",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "ipfs",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "totalSupply",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "newCollectionDeployed",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "fee",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "platformFeeUpdated",
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [],
+        "name": "FEE_DECIMALS",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "FinalizeSale",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "claim",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [],
+        "name": "collectionsDeployed",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "collectionsToOwner",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "ipfsHash",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "name": "startTime",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "endTime",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "price",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "whiteList",
+                        "internalType": "bool",
+                        "type": "bool"
+                    }
+                ],
+                "name": "stagesData",
+                "internalType": "struct WizardLaunchpad.Stage[]",
+                "type": "tuple[]"
+            },
+            {
+                "name": "maxCap",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "_maxWallet",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "isLimitedEdition",
+                "internalType": "bool",
+                "type": "bool"
+            }
+        ],
+        "name": "createProject",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "ipfsHash",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "totalSupply",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "deployCollection",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "name": "projectId",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "ownerAddress",
+                        "internalType": "address",
+                        "type": "address"
+                    },
+                    {
+                        "name": "name",
+                        "internalType": "string",
+                        "type": "string"
+                    },
+                    {
+                        "name": "symbol",
+                        "internalType": "string",
+                        "type": "string"
+                    },
+                    {
+                        "name": "ipfsHash",
+                        "internalType": "string",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "name": "startTime",
+                                "internalType": "uint256",
+                                "type": "uint256"
+                            },
+                            {
+                                "name": "endTime",
+                                "internalType": "uint256",
+                                "type": "uint256"
+                            },
+                            {
+                                "name": "price",
+                                "internalType": "uint256",
+                                "type": "uint256"
+                            },
+                            {
+                                "name": "whiteList",
+                                "internalType": "bool",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "stagesInfo",
+                        "internalType": "struct WizardLaunchpad.Stage[]",
+                        "type": "tuple[]"
+                    },
+                    {
+                        "name": "maxCap",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "tokensSold",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "amountRaised",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "erc721Contract",
+                        "internalType": "address",
+                        "type": "address"
+                    },
+                    {
+                        "name": "isLimitedEdition",
+                        "internalType": "bool",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "finalize",
+                        "internalType": "bool",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "allowClaim",
+                        "internalType": "bool",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "success",
+                        "internalType": "bool",
+                        "type": "bool"
+                    }
+                ],
+                "name": "",
+                "internalType": "struct WizardLaunchpad.Project",
+                "type": "tuple"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProjectDetails",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "owner",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "name": "ERC721Address",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "ipfsURI",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "maxCap",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "idToOnlyOwnerCollectionDetails",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "maxWalletLimit",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "inputs": [],
+        "name": "owner",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [],
+        "name": "platformFee",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [],
+        "name": "projectID",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "ownerAddress",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "name": "name",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "symbol",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "ipfsHash",
+                "internalType": "string",
+                "type": "string"
+            },
+            {
+                "name": "maxCap",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "tokensSold",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "amountRaised",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "erc721Contract",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "name": "isLimitedEdition",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "name": "finalize",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "name": "allowClaim",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "name": "success",
+                "internalType": "bool",
+                "type": "bool"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "projects",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "_id",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "amount",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "purchaseTokens",
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "purchased",
+                "internalType": "bool",
+                "type": "bool"
+            },
+            {
+                "name": "NFTsBuy",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "amountSent",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "claimed",
+                "internalType": "bool",
+                "type": "bool"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "purchasedNftsInfo",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [],
+        "name": "renounceOwnership",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "projectId",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "_amount",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "setMaxWalletLimit",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "_fee",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "setPlatformFeePercent",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "newOwner",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "inputs": [],
+        "name": "treasuryWallet",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+]

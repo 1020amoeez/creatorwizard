@@ -1,0 +1,175 @@
+.top-seller {
+    padding-bottom: 70px;
+
+    .upper-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #1B1B1B;
+
+        h5 {
+            color: #FFF;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 120%;
+            text-transform: uppercase;
+        }
+
+        .right-btns {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+
+            .btn-seeall {
+                border-radius: 10px;
+                border: none;
+                background: #862FC0;
+                padding: 12px 27px;
+                color: #fff;
+                text-align: center;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 120%;
+                text-transform: uppercase;
+                transition: 0.3s linear;
+                &:hover{
+                    background: #9E43DB;
+                }
+            }
+        }
+    }
+
+    .bottom-cards {
+        margin-top: 22px;
+
+        .main-card {
+            border-radius: 10px;
+            border: 1px solid #150B1C;
+            background: #11091B;
+            padding-bottom: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            &:hover{
+                transform: translateY(-3px);
+            }
+
+            .main-img {
+                width: 100%;
+                height: 112px;
+
+                .main-img-bg {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .profile-img {
+                border-radius: 160px;
+                border: 3px solid #11091B;
+                background: #FFF;
+                width: 84px;
+                height: 84px;
+                overflow: hidden;
+                margin: 0 auto;
+                margin-top: -40px;
+                position: relative;
+                z-index: 99;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .bottom-text {
+                h5 {
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%;
+                    margin-top: 9px;
+                    margin-bottom: 5px;
+                    text-align: center;
+                }
+
+                p {
+                    color: #FFF;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%;
+                    text-align: center;
+
+                    span {
+                        color: var(--Light-Text-Color, #745F8C);
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.owl-theme .owl-nav {
+    margin: 0;
+    opacity: 0;
+    transition: 0.3s linear;
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+    position: absolute;
+    top: -5px;
+    left: -35px;
+
+}
+
+.owl-carousel .owl-nav button.owl-next {
+    position: absolute;
+    top: -5px;
+    right: -35px;
+}
+
+.owl_option {
+    transition: 0.3s linear;
+
+    &:hover {
+        transition: 0.3s linear;
+
+        .owl-nav {
+            opacity: 1;
+        }
+    }
+}
+
+.owl-theme .owl-nav [class*='owl-']:hover {
+    background-color: transparent !important;
+}
+
+.owl-theme .owl-nav .disabled {
+    opacity: 0 !important;
+}
+
+.top-seller{
+    .owl-carousel .owl-nav button.owl-prev {
+        img {
+            height: 224px;
+        }
+
+    }
+
+    .owl-carousel .owl-nav button.owl-next {
+        img {
+            height: 224px;
+        }
+    }
+}

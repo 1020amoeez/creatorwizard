@@ -1,0 +1,209 @@
+.putsalemethod {
+    padding-top: 121px;
+    padding-bottom: 100px;
+    min-height: 100vh;
+
+    .selectmethodmain {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 170px;
+
+        .selectmethodleft {
+            max-width: 640px;
+            width: 100%;
+
+            .selectmethodhead {
+                color: #FFF;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                text-transform: capitalize;
+                margin-bottom: 15px;
+            }
+
+            .nav-pills {
+                border-radius: 8px;
+                border: 1px solid rgba(134, 47, 192, 0.10);
+                background: #0D0714;
+                display: flex;
+                padding: 5px;
+                align-items: center;
+                margin-bottom: 25px;
+
+                .nav-link.active,
+                .nav-pills .show>.nav-link {
+                    background: #130A1D;
+                    color: #862FC0 !important;
+
+                    svg path {
+                        fill: #862FC0;
+                    }
+                }
+
+                .nav-item {
+                    width: 50%;
+
+                    .nav-link {
+                        border-radius: 8px;
+                        display: flex;
+                        padding: 14px 35px;
+                        justify-content: center;
+                        align-items: center;
+                        color: #FFF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%;
+                        text-transform: capitalize;
+                        gap: 10px;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .pricesalepara {
+                color: #FFF;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                text-transform: capitalize;
+                margin-bottom: 15px;
+            }
+
+            .pricesaleinputmain{
+                position: relative;
+                .calendarimg{
+                    position: absolute;
+                    top: 18px;
+                    right: 22px;
+                }
+            }
+
+            .pricesaleinput {
+                border-radius: 7px;
+                background: #0D0714;
+                padding: 20px 22px;
+                color: #FFF;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                text-transform: capitalize;
+                border: none;
+                outline: none;
+                box-shadow: none;
+                width: 100%;
+                border: 1px solid transparent;
+                margin-bottom: 25px;
+
+                &:focus {
+                    transition: 0.7s;
+                    border: 1px solid #862FC0;
+                }
+
+                &::placeholder {
+                    color: #312C37;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                }
+            }
+
+            .pricesaledata {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 25px 0px 50px;
+                border-top: 1px solid #170C23;
+
+                .pricesaletextleft {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    gap: 13px;
+                    flex-direction: column;
+
+                    .feespara {
+                        color: #FFF;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 100%;
+                        text-transform: capitalize;
+                    }
+
+                    .servicepara {
+                        color: #FFF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .percentagepara {
+                    color: #FFF;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+
+            .bluebtn {
+                display: flex;
+                padding: 15px 0px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                background: #862FC0;
+                color: var(--On-Surface, #FFF);
+                text-align: center;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                border: 1.5px solid transparent;
+                width: 100%;
+                gap: 10px;
+                transition: 0.3s linear;
+
+                &:hover {
+                    background: #9E43DB;
+                }
+            }
+        }
+        .selctmethodright{
+            border-radius: 20px;
+            background: #11091B;
+            padding: 20px !important;
+            .custom-container{
+                padding: 0 !important;
+            }
+            .live-auction{
+                padding: 0 !important;
+                .bottom-cards{
+                    margin: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:1024px){
+    .putsalemethod .selectmethodmain{
+        flex-direction: column-reverse;
+        gap: 50px;
+    }
+}

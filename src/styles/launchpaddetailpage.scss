@@ -1,0 +1,751 @@
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+.launchpaddetail {
+    position: relative;
+    padding-top: 105px;
+    min-height: 100vh;
+    padding-bottom: 100px;
+
+    .launchpaddetail-container {
+        max-width: 1280px;
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .launchpaddetailshade {
+        border-radius: 11px;
+        background: url('../../public/assets/launchpaddetailassets/mainlaunchpaddetailbanner.png'), #08050A 0px -239px / 100% 153.587% no-repeat;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(57px);
+        height: 892px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -9;
+    }
+
+    .topheadinglaunchpaddetail {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 28px;
+
+        .topheadingtext {
+            color: #FFF;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%;
+        }
+    }
+
+    .launchpaddetailinner {
+        padding-left: 55px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+
+        .mintstages {
+            border-radius: 15px;
+            background: #0D0714;
+            max-width: 561px;
+            width: 100%;
+            padding: 20px;
+
+            .minstageshead {
+                color: #FFF;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 120%;
+                margin-bottom: 15px;
+            }
+
+            .startmid {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .calendarmain {
+                    display: flex;
+                    width: 38px;
+                    height: 38px;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 10px;
+                    background: #130A1D;
+                    cursor: pointer;
+                }
+
+                .guarantyright {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 10px;
+
+                    .startspara {
+                        color: #FFF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%;
+                        text-transform: uppercase;
+                    }
+
+                    .timermain {
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+
+                        .innertimertext {
+                            display: flex;
+                            width: 38px;
+                            height: 38px;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 10px;
+                            background: #130A1D;
+                            color: #FFF;
+                            text-align: center;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 120%;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+
+            .upcomingbottom {
+                border-radius: 8px;
+                background: #130A1D;
+                padding: 15px;
+
+                .priceprogressmain {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 13px;
+
+                    .upcomingtext {
+                        border-radius: 44px;
+                        background: #1E102D;
+                        display: flex;
+                        padding: 9px 10px;
+                        align-items: center;
+                        justify-content: center;
+                        color: #FFF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 120%;
+                        max-width: fit-content;
+                    }
+
+                    .progressupper {
+                        max-width: 342px;
+                        width: 100%;
+
+                        .progressuppertext {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 6px;
+
+                            .pricepara {
+                                color: var(--Light-Text-Color, #745F8C);
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                            }
+
+                            .percentagepara {
+                                color: #FFF;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+
+                                .lighttext {
+                                    color: var(--Light-Text-Color, #745F8C);
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 100%;
+                                    margin-left: 4px;
+                                }
+                            }
+                        }
+
+                        .progress {
+                            height: 4px;
+                            border-radius: 121px;
+                            background: var(--Light-Text-Color, #745F8C);
+
+                            .progress-bar {
+                                background: #862FC0;
+                            }
+                        }
+                    }
+                }
+
+                .upcomingprice {
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    margin-bottom: 13px;
+                }
+
+                .upcomingheadcore {
+                    color: #FFF;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    margin-bottom: 13px;
+                }
+
+                .uppricebottompara {
+                    color: var(--Light-Text-Color, #745F8C);
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                }
+            }
+
+            .guarantymain {
+                border-radius: 12px;
+                border: 1px solid #251F2B;
+                padding: 19px 15px;
+                margin-bottom: 25px;
+
+                &:last-child {
+                    margin-bottom: 15px;
+                }
+
+                .grantymainbottompara {
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    .circleimg {
+                        margin: 0px 3px;
+                    }
+                }
+
+                .guarantymainupper {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+
+                    .gurantyleft {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 10px;
+
+                        .gurantyspan {
+                            border-radius: 44px;
+                            background: #130A1D;
+                            display: flex;
+                            padding: 10px 13px;
+                            justify-content: center;
+                            align-items: center;
+                            color: #FFF;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 120%;
+                        }
+                    }
+
+                    .guarantyright {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        gap: 10px;
+
+                        .startspara {
+                            color: #FFF;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 100%;
+                            text-transform: uppercase;
+                        }
+
+                        .timermain {
+                            display: flex;
+                            align-items: center;
+                            gap: 7px;
+
+                            .innertimertext {
+                                display: flex;
+                                width: 38px;
+                                height: 38px;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 10px;
+                                background: #130A1D;
+                                color: #FFF;
+                                text-align: center;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 120%;
+                                text-transform: uppercase;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .image-gallery-thumbnails .image-gallery-thumbnails-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .image-gallery {
+            max-width: 458px;
+            width: 100%;
+        }
+
+        .image-gallery-slide {
+            max-width: 458px;
+            height: 458px;
+            border-radius: 11px;
+            object-fit: cover;
+            object-position: center;
+            margin-bottom: 55px;
+        }
+
+        .image-gallery-thumbnail.active,
+        .image-gallery-thumbnail:focus,
+        .image-gallery-thumbnail:hover {
+            border: 1.5px solid #BB56FF !important;
+            box-shadow: none !important;
+            outline: none !important;
+            background: lightgray 50%;
+            transition: 0.7s;
+        }
+
+        .image-gallery-slide .image-gallery-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 11px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .image-gallery-thumbnail {
+            width: 113px;
+            height: 113px;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center;
+            border: 1.5px solid transparent !important;
+        }
+
+        .image-gallery-thumbnail .image-gallery-thumbnail-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center;
+
+            :focus-visible {
+                outline: none !important;
+            }
+        }
+
+        .image-gallery-thumbnail .image-gallery-thumbnail-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center;
+
+            :focus-visible {
+                outline: none !important;
+            }
+        }
+
+        .image-gallery-left-nav,
+        .image-gallery-right-nav {
+            display: none;
+        }
+
+        .image-gallery-play-button {
+            display: none;
+        }
+
+        .image-gallery-fullscreen-button {
+            display: none;
+        }
+    }
+
+    .launchpaddetailower {
+        padding-top: 128px;
+
+        .nav-pills {
+            margin-bottom: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(134, 47, 192, 0.10);
+            background: #0D0714;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            gap: 5px;
+            max-width: fit-content;
+
+            .nav-link.active,
+            .nav-pills .show>.nav-link {
+                background: #130A1D;
+                color: #862FC0 !important;
+            }
+
+            .nav-item {
+                .nav-link {
+                    display: flex;
+                    width: 146.75px;
+                    padding: 14px 0px;
+                    justify-content: center;
+                    align-items: center;
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    text-transform: capitalize;
+                    border-radius: 8px;
+                }
+            }
+        }
+
+        .overviewmain {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+
+            .overvieewleft {
+                max-width: 671px;
+                width: 100%;
+
+                .overviewhead {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 5px;
+                    margin-bottom: 18px;
+
+                    .overviewmainhead {
+                        color: #FFF;
+                        font-size: 30px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 120%;
+                    }
+                }
+
+                .contractmain {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 30px;
+                    margin-bottom: 18px;
+
+                    .contracthead {
+                        color: #FFF;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 120%;
+                    }
+
+                    .walletcopymain {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 12px;
+                        border-radius: 15px;
+                        background: #130A1D;
+                        padding: 10px 15px;
+
+                        .walletaddress {
+                            color: var(--Light-Text-Color, #745F8C);
+                            font-size: 13px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                        }
+                    }
+                }
+
+                .overviewparas {
+                    .overviewupperpara {
+                        color: #FFF;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 120%;
+                        margin-bottom: 18px;
+                    }
+
+                    .overviewlowerpara {
+                        color: #FFF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 130%;
+                        margin-bottom: 18px;
+                    }
+
+                    ul {
+                        list-style-type: disc;
+                        margin-left: 23px;
+                        margin-bottom: 18px;
+
+                        .overviewlist {
+                            color: #FFF;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 130%;
+                        }
+                    }
+                }
+
+                .overviewinnerlisthead {
+                    color: #FFF;
+                    font-size: 26px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 120%;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .overviewright {
+                max-width: 474px;
+                width: 100%;
+
+                .visionhead {
+                    color: #FFF;
+                    font-size: 30px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 120%;
+                    margin-bottom: 18px;
+                }
+
+                .visionmain {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    gap: 18px;
+
+                    .visionimg {
+                        height: 228px;
+                        width: 44px;
+                    }
+
+                    .visiontexts {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        gap: 48px;
+
+                        .visioninnertext {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-start;
+                            align-items: flex-start;
+                            gap: 6px;
+
+                            .visioninnerhead {
+                                color: #FFF;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 120%;
+                            }
+
+                            .visioninnerpara {
+                                color: var(--Light-Text-Color, #745F8C);
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 120%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .teammain {
+            .teamhead {
+                color: #FFF;
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                margin-bottom: 18px;
+            }
+
+            .teamscardsmain {
+                display: grid;
+                // grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+                gap: 18px;
+
+                .teamcard {
+                    border-radius: 7.48px;
+                    border: 0.748px solid #150B1C;
+                    background: #11091B;
+                    overflow: hidden;
+                    cursor: pointer;
+
+                    .teamcardimg {
+                        height: 228.14px;
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                        background: lightgray 50% / #232323;
+
+                        .teamcardinnerimg {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+
+                    .teamcardtext {
+                        padding: 12px 0px 13px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        .teamcardhead {
+                            color: #FFF;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 120%;
+                            text-transform: uppercase;
+                            text-align: center;
+                            margin-bottom: 8px;
+                        }
+
+                        .teamcardpara {
+                            color: var(--Light-Text-Color, #745F8C);
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 120%;
+                            text-align: center;
+                            margin-bottom: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1032px){
+    .launchpaddetail .launchpaddetailinner{
+        padding-left: 0px;
+    }
+}
+@media (max-width:1024px){
+    .launchpaddetail .launchpaddetailinner{
+        flex-direction: column;
+        gap: 40px;
+    }
+    .launchpaddetail .launchpaddetailshade{
+        height: 612px;
+    }
+    .launchpaddetail .launchpaddetailinner .image-gallery-slide{
+        margin-bottom: 20px;
+    }
+    .launchpaddetail .launchpaddetailower .overviewmain{
+        flex-direction: column;
+        gap: 60px;
+    }
+    .launchpaddetail .launchpaddetailower .overviewmain .overvieewleft{
+        max-width: 100%;
+    }
+    .launchpaddetail .launchpaddetailower .overviewmain .overviewright{
+        max-width: 100%;
+    }
+}
+
+@media (max-width:1024px){
+    .launchpaddetail .launchpaddetailinner .mintstages .guarantymain .guarantymainupper{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .launchpaddetail .launchpaddetailower .overviewmain .overvieewleft .contractmain .walletcopymain .walletaddress{
+        max-width: 235px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .launchpaddetail .launchpaddetailower .nav-pills{
+        max-width: 100%;
+        gap: 0px;
+        .nav-item{
+            width: 50%;
+            .nav-link{
+                width: 100%;
+            }
+        }
+    }
+    .launchpaddetail .launchpaddetailower{
+        padding-top: 40px;
+    }
+    .launchpaddetail .launchpaddetailinner .image-gallery-slide{
+        height: 390px;
+    }
+    .launchpaddetail .launchpaddetailinner .image-gallery-thumbnail{
+        height: 90px;
+    }
+    .launchpaddetail .launchpaddetailower .teammain .teamscardsmain .teamcard .teamcardimg{
+        height: 391px;
+    }
+    .launchpaddetail .launchpaddetailower .teammain .teamscardsmain{
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(391px, 1fr));
+    }
+    .launchpaddetail .launchpaddetailinner .mintstages .upcomingbottom .priceprogressmain .progressupper{
+        max-width: 160px;
+    }
+}
