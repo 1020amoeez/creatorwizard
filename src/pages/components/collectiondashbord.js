@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import useAuth from '@/hooks/useAuth';
 // import { useWeb3React } from '@web3-react/core';
 import Loader from './loader';
+import Loadertwo from './loadertwo';
 // import { useRouter } from 'next/router';
 
 
@@ -28,6 +29,7 @@ const Collectiondashbord = () => {
     const [modaldata, setModalData] = useState();
     const [ipfLink, setIpflink] = useState('');
     const [loader, setLoader] = useState(false);
+    const [loadertwo, setLoadertwo] = useState(false);
     const [contractAddress, setContractAddress] = useState('');
     const [projectId, setProjectId] = useState('');
     const [id, setId] = useState([]);
@@ -49,6 +51,7 @@ const Collectiondashbord = () => {
     // const [stagesarray, setStagesArray] = useState([]);
 
     const getNft = async (accessToken, status) => {
+        setLoadertwo(true)
         try {
             const config = {
                 method: "get",
@@ -62,6 +65,7 @@ const Collectiondashbord = () => {
             if (data && data.length > 0) {
                 const firstItem = data[0];
                 setJustLanding(data);
+                setLoadertwo(false)
 
                 // setStagesArray(data?.mintStages)
                 // console.log(data, 'geee');
@@ -69,9 +73,11 @@ const Collectiondashbord = () => {
             } else {
                 setJustLanding([]);
                 setId(null);
+                setLoadertwo(false)
             }
         } catch (error) {
             console.error("API Request Error:", error);
+            setLoadertwo(false)
         }
     };
     const ListedDetails = async (id, accessToken) => {
@@ -441,10 +447,15 @@ const Collectiondashbord = () => {
 
             {loader && (
                 <>
-
                     <Loader text="Please wait..." />
                 </>
             )}
+            {/* {loadertwo && (
+                <>
+                    <Loadertwo text="Please wait bro..." />
+                </>
+            )} */}
+
 
             <section className="maincollectiondash">
                 <div className="custom-container">
@@ -493,17 +504,52 @@ const Collectiondashbord = () => {
                                     </Link>
                                 </div>
                             </div>
-                            {activeTab === 'draft' && (
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
                                 <>
-                                    <div className='mainhead'>
-                                        {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
+                                    {activeTab === 'draft' && (
+                                        <>
+                                            <div className='mainhead'>
+                                                {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
+                    </p> */}
+                                            </div>
+                                            <div className='parentcard'>
+                                                {justlanding.length > 0 ? (
+                                                    justlanding.map((item, index) => (
+                                                        <Link onClick={HandleRemoveStorage} href={`/createlaunchpadcollection?id=${accessToken, item?._id}`} key={index}>
+                                                            <div className='maincard'>
+                                                                <div className='mainimg'>
+                                                                    <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
+                                                                </div>
+                                                                <div className='cardtext'>
+                                                                    <h6>{item?.name}</h6>
+                                                                    <p>Submitted: {moment(item?.createdAt).format('YYYY-MM-DD')}</p>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    ))
+                                                ) : (
+                                                    <p className='text-white'>No data found</p>
+                                                )}
+                                            </div>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
+                                <>
+                                    {activeTab === 'submitted' && (
+                                        <>
+                                            <div className='mainhead'>
+                                                {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
                                         </p> */}
-                                    </div>
-                                    <div className='parentcard'>
-                                        {justlanding.length > 0 ? (
-                                            justlanding.map((item, index) => (
-                                                <>
-                                                    <Link onClick={HandleRemoveStorage} href={`/createlaunchpadcollection?id=${accessToken, item?._id}`}>
+                                            </div>
+                                            <div className='parentcard'>
+                                                {justlanding.length > 0 ? (
+                                                    justlanding.map((item, index) => (
                                                         <div className='maincard' key={index}>
                                                             <div className='mainimg'>
                                                                 <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
@@ -513,115 +559,112 @@ const Collectiondashbord = () => {
                                                                 <p>Submitted: {moment(item?.createdAt).format('YYYY-MM-DD')}</p>
                                                             </div>
                                                         </div>
-                                                    </Link>
-                                                </>
-                                            ))
-                                        ) : (
-                                            <p className='text-white'>No data found</p>
-                                        )}
-                                    </div>
-                                </>
-                            )}
-                            {activeTab === 'submitted' && (
-                                <>
-                                    <div className='mainhead'>
-                                        {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
-                                        </p> */}
-                                    </div>
-                                    <div className='parentcard'>
-                                        {justlanding.length > 0 ? (
-                                            justlanding.map((item, index) => (
-                                                <div className='maincard' key={index}>
-                                                    <div className='mainimg'>
-                                                        <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
-                                                    </div>
-                                                    <div className='cardtext'>
-                                                        <h6>{item?.name}</h6>
-                                                        <p>Submitted: {moment(item?.createdAt).format('YYYY-MM-DD')}</p>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p className='text-white'>No data found</p>
-                                        )}
-                                    </div>
-                                </>
-                            )}
-                            {activeTab === 'approved' && (
-                                <>
-                                    <div className='mainhead'>
-                                    </div>
-                                    <div className='parentcard parentcardapproved'>
-                                        {justlanding.length > 0 ? (
-                                            justlanding.map((item, index) => (
-                                                <div className='maincard' key={index}>
-                                                    <div className='mainimg'>
-                                                        <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
-                                                    </div>
-                                                    <div className='cardtext'>
-                                                        <h6>{item?.name}</h6>
-                                                    </div>
-                                                    <a onClick={() => {
-                                                        handleShow();
-                                                        setModalData(item)
-                                                        // ProjectContract(item?.name, 'symbol', item?.imageUrl, item?.price, item?.totalSupply, item?.limitedEddition)
-                                                    }
-                                                    } className='btn-mint'>Finalize and List</a>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p className='text-white'>No data found</p>
-                                        )}
-                                    </div>
-                                </>
-                            )}
-                            {activeTab === 'listed' && (
-                                <>
-                                    <Launchpadlistedcard
-                                        justlanding={justlanding}
-                                        ListedDetails={ListedDetails}
-                                        stagedata={stagedata}
-                                        GetRoyality={GetRoyality}
-                                        royaliy={royaliy}
-                                        setRoyality={setRoyality}
-                                        // getFinallizeLaunchpad={getFinallizeLaunchpad}
-                                        FinalizeContract={FinalizeContract}
-                                    // modaldata={modaldata?._id}
-                                    />
-                                </>
-                            )}
-                            {activeTab === 'rejected' && (
-                                <>
-                                    <div className='mainhead'>
-                                        {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
-                                        </p> */}
-                                    </div>
-                                    {justlanding.length > 0 ? (
-                                        justlanding.map((item, index) => (
-                                            <div className='parentcard' key={index}>
-                                                <div className='maincard'>
-                                                    <div className='mainimg'>
-                                                        <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
-                                                    </div>
-                                                    <div className='cardtext'>
-                                                        <h6>{item?.name}</h6>
-                                                        <p>Submitted: {moment(item?.createdAt).format('YYYY-MM-DD')}</p>
-                                                    </div>
-                                                </div>
+                                                    ))
+                                                ) : (
+                                                    <p className='text-white'>No data found</p>
+                                                )}
                                             </div>
-                                        ))
-                                    ) : (
-                                        <p className='text-white'>No data found</p>
+                                        </>
                                     )}
                                 </>
                             )}
-                            {activeTab === 'completed' && (
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
                                 <>
-                                    <Completedcard
-                                        justlanding={justlanding}
-                                        ListedDetails={ListedDetails}
-                                        stagedata={stagedata}
-                                    />
+                                    {activeTab === 'approved' && (
+                                        <>
+                                            <div className='mainhead'>
+                                            </div>
+                                            <div className='parentcard parentcardapproved'>
+                                                {justlanding.length > 0 ? (
+                                                    justlanding.map((item, index) => (
+                                                        <div className='maincard' key={index}>
+                                                            <div className='mainimg'>
+                                                                <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
+                                                            </div>
+                                                            <div className='cardtext'>
+                                                                <h6>{item?.name}</h6>
+                                                            </div>
+                                                            <a onClick={() => {
+                                                                handleShow();
+                                                                setModalData(item)
+                                                                // ProjectContract(item?.name, 'symbol', item?.imageUrl, item?.price, item?.totalSupply, item?.limitedEddition)
+                                                            }
+                                                            } className='btn-mint'>Finalize and List</a>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className='text-white'>No data found</p>
+                                                )}
+                                            </div>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
+                                <>
+                                    {activeTab === 'listed' && (
+                                        <>
+                                            <Launchpadlistedcard
+                                                justlanding={justlanding}
+                                                ListedDetails={ListedDetails}
+                                                stagedata={stagedata}
+                                                GetRoyality={GetRoyality}
+                                                royaliy={royaliy}
+                                                setRoyality={setRoyality}
+                                                FinalizeContract={FinalizeContract}
+                                            />
+                                        </>
+                                    )}
+                                </>
+                            )}
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
+                                <>
+                                    {activeTab === 'rejected' && (
+                                        <>
+                                            <div className='mainhead'>
+                                                {/* <p>These are your unsubmitted applications - only you can see these. You can return and update these at any time.
+                                        </p> */}
+                                            </div>
+                                            {justlanding.length > 0 ? (
+                                                justlanding.map((item, index) => (
+                                                    <div className='parentcard' key={index}>
+                                                        <div className='maincard'>
+                                                            <div className='mainimg'>
+                                                                <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
+                                                            </div>
+                                                            <div className='cardtext'>
+                                                                <h6>{item?.name}</h6>
+                                                                <p>Submitted: {moment(item?.createdAt).format('YYYY-MM-DD')}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p className='text-white'>No data found</p>
+                                            )}
+                                        </>
+                                    )}
+                                </>
+                            )}
+                            {loadertwo ? (
+                                <Loadertwo />
+                            ) : (
+                                <>
+                                    {activeTab === 'completed' && (
+                                        <>
+                                            <Completedcard
+                                                justlanding={justlanding}
+                                                ListedDetails={ListedDetails}
+                                                stagedata={stagedata}
+                                            />
+                                        </>
+                                    )}
                                 </>
                             )}
                         </div>

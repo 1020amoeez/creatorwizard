@@ -82,12 +82,27 @@ const Launchpadlistedcard = ({ justlanding, ListedDetails, stagedata, getFinalli
     const currentTimeEpoch = Date.now(); // Get the current time in milliseconds since the Unix epoch
     const myCurrentTime = (Math.floor(currentTimeEpoch / 1000)); // Convert to seconds
 
+    // const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    //     return (
+    //         <>
+    //             <span>Ends: {hours}H {minutes}M {seconds}S</span>
+    //         </>
+    //     );
+    // };
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
-        return (
-            <>
-                <span>Ends: {hours}H {minutes}M {seconds}S</span>
-            </>
-        );
+        if (completed) {
+            return <span>00H 00M 00S</span>;
+        } else {
+            if (justlanding?.hasMintingStarted) {
+                return (
+                    <span>Ends in: {hours}H {minutes}M {seconds}S</span>
+                );
+            } else {
+                return (
+                    <span>Starts in: {hours}H {minutes}M {seconds}S</span>
+                );
+            }
+        }
     };
 
     return (
@@ -97,16 +112,15 @@ const Launchpadlistedcard = ({ justlanding, ListedDetails, stagedata, getFinalli
                     {justlanding?.length > 0 ? (
                         justlanding?.map((card, index) => {
                             const startTime = moment(card?.mintStartTime);
-
                             const endTime = moment(card?.mintEndTime);
                             const epochTime = Date.parse(card?.mintEndTime);
-                            console.log(epochTime / 1000, card?.mintEndTime, endTime, "asdfsda");
                             const duration = moment.duration(endTime.diff(startTime));
                             const hours = Math.floor(duration.asHours()).toString().padStart(2, '0');
                             const minutes = moment.utc(duration.asMilliseconds()).format('mm');
                             const seconds = moment.utc(duration.asMilliseconds()).format('ss');
                             const formattedDuration = `${hours}h ${minutes}m ${seconds}s`;
                             const currentTime = moment();
+                            const hasMintingStarted = currentTime.isAfter(startTime);
                             const hasMintingEnded = endTime.isBefore(currentTime);
                             console.log(hasMintingEnded);
                             return (
@@ -129,7 +143,7 @@ const Launchpadlistedcard = ({ justlanding, ListedDetails, stagedata, getFinalli
                                             <p>{parseFloat(card?.minted || 0) * parseFloat(card?.price || 0)} CORE</p>
                                         </div>
                                         <div className="timer-div">
-                                            {hasMintingEnded ? (
+                                            {/* {hasMintingEnded ? (
                                                 <p className="text-danger">
                                                     Ended
                                                 </p>
@@ -140,11 +154,28 @@ const Launchpadlistedcard = ({ justlanding, ListedDetails, stagedata, getFinalli
                                                     </svg>
                                                     Live
                                                 </p>
+                                            )} */}
+                                            {hasMintingEnded ? (
+                                                <p className="text-danger">
+                                                    Ended
+                                                </p>
+                                            ) : hasMintingStarted ? (
+                                                <p className="live">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+                                                        <circle cx="5" cy="5.5" r="5" fill="#04C182" />
+                                                    </svg>
+                                                    Live
+                                                </p>
+                                            ) : (
+                                                <p className="upcoming text-warning">
+                                                    Upcoming
+                                                </p>
                                             )}
+
                                             <h6>
                                                 <Countdown
                                                     className='text-white'
-                                                    date={endTime}
+                                                    date={hasMintingStarted ? endTime : startTime}
                                                     renderer={renderer}
                                                 />
                                             </h6>
