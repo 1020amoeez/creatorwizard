@@ -145,7 +145,7 @@ const Signup = () => {
                                 {account ? (
                                     <a onClick={() => disconnectWallet()} href="#" className='connect-btn ifdisconnect'>Disconnect</a>
                                 ) : (
-                                    <a onClick={() => connectWallet('1115')} href="#" className='connect-btn'>Connect Wallet</a>
+                                    <a onClick={() => connectWallet('1116')} href="#" className='connect-btn'>Connect Wallet</a>
                                 )}
                             </div>
                             {addresserror && <p className="text-danger">{addresserror}</p>}

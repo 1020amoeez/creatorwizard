@@ -284,8 +284,8 @@ const Launchpadlistedcard = ({ justlanding, ListedDetails, stagedata, getFinalli
                                 <input value={royality} onChange={(e) => setRoyality(e.target.value)} placeholder='Royalities' type="text" />
                                 <span>%</span>
                             </p>
-                            <button onClick={(e) => GetRoyality(stagedata?.contractAddress)} className='btn-send'>Send</button>
-                            {/* <p className='text-white'> {stagedata?.contractAddress}</p> */}
+                            <button onClick={() => GetRoyality(stagedata?.[0]?.contractAddress)} className='btn-send'>Send</button>
+                            {/* <p className='text-white'> {stagedata?.[0]?.contractAddress}</p> */}
                         </div>
                         <div className="mintstagesmain">
                             <h6 className="minthead">Mint Stages</h6>

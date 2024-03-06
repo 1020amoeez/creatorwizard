@@ -6,7 +6,7 @@ const useAuth = () => {
   const login = async (connectorID, chain) => {
     const connector = connectorsByName[connectorID];
     if (connector) {
-      if (chain === '1115') {
+      if (chain === '1116') {
         console.log(chain, 'coretestnet');
         const hasSetup = await setupNetwork(chain);
         if (hasSetup) {

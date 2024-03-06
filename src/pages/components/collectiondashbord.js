@@ -407,6 +407,10 @@ const Collectiondashbord = () => {
     const GetRoyality = async (contractAddress) => {
         console.log(contractAddress, royaliy, 'royal');
         const val = localStorage.getItem("accessToken");
+        if (!royaliy) {
+            toast('Please enter royalties before sending.');
+            return;
+        }
 
         if (!account) {
             toast.error("Please connect Metamask to continue");
@@ -450,12 +454,7 @@ const Collectiondashbord = () => {
                     <Loader text="Please wait..." />
                 </>
             )}
-            {/* {loadertwo && (
-                <>
-                    <Loadertwo text="Please wait bro..." />
-                </>
-            )} */}
-
+          
 
             <section className="maincollectiondash">
                 <div className="custom-container">
@@ -692,7 +691,7 @@ const Collectiondashbord = () => {
                             Disconnect Wallet
                         </button>
                     ) : (
-                        <button onClick={() => connectWallet('1115')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
+                        <button onClick={() => connectWallet('1116')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                             Connect Wallet
                         </button>
                     )}

@@ -134,7 +134,7 @@ export const setupNetwork = async (chainId) => {
                 iconUrls: [''],
               }],
             });
-          } else if (chainId === 1115) {
+          } else if (chainId === 1116) {
             await provider.request({
               method: 'wallet_addEthereumChain',
               params: [{

@@ -205,7 +205,7 @@ const MyCollection = () => {
             return;
         }
         try {
-            let weiAmounttwo = web3.utils.toWei(totalSupply.toString(), "ether")
+            // let weiAmounttwo = web3.utils.toWei(totalSupply.toString(), "ether")
             var gasFunPrice;
             web3.eth.getGasPrice().then((result) => {
                 var result2 = parseInt(result) + 3000000000
@@ -219,9 +219,9 @@ const MyCollection = () => {
                 setLoader(false);
                 return
             }
-            const gas = await contract.methods.deployCollection(name, symbol, ipfLink, weiAmounttwo)
+            const gas = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
                 .estimateGas({ from: account });
-            const staked = await contract.methods.deployCollection(name, symbol, ipfLink, weiAmounttwo)
+            const staked = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
                 .send({ from: account, gas, gasPrice: gasFunPrice });
             // console.log(staked, staked?.events?.newCollectionDeployed?.returnValues?.ERC721Deployed, 'stakedd');
             const contractAddress = staked?.events?.newCollectionDeployed?.returnValues?.ERC721Deployed;
@@ -337,7 +337,7 @@ const MyCollection = () => {
             {loader && (
                 <>
 
-                    <Loader text="Please wait while we fetch your metadata..." />
+                    <Loader text="Please wait..." />
                 </>
             )}
 
@@ -477,7 +477,7 @@ const MyCollection = () => {
                                                                 setModalData(item)
                                                                 // ProjectContract(item?.name, 'symbol', item?.imageUrl, item?.price, item?.totalSupply, item?.limitedEddition)
                                                             }
-                                                            } className='btn-mint'>Finalize and List</a>
+                                                            } className='btn-mint'>Deploy Collection</a>
                                                         </div>
                                                     ))
                                                 ) : (
@@ -584,7 +584,7 @@ const MyCollection = () => {
                             Disconnect Wallet
                         </button>
                     ) : (
-                        <button onClick={() => connectWallet('1115')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
+                        <button onClick={() => connectWallet('1116')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                             Connect Wallet
                         </button>
                     )}
