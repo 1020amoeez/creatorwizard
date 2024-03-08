@@ -28,7 +28,7 @@
             font-weight: 400;
             line-height: 100%;
             /* 16px */
-            text-transform: capitalize;
+            
             margin-bottom: 15px;
         }
 
@@ -56,7 +56,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 100%;
-                    text-transform: capitalize;
+                    
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
@@ -94,7 +94,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 100%;
-                    text-transform: capitalize;
+                    
                     border-left: 5px solid transparent;
                     cursor: pointer;
 
@@ -127,7 +127,7 @@
             font-weight: 400;
             line-height: 100%;
             /* 16px */
-            text-transform: capitalize;
+            
             margin-bottom: 15px;
         }
 
@@ -144,7 +144,7 @@
             font-style: normal;
             font-weight: 400;
             line-height: 100%;
-            text-transform: capitalize;
+            
 
             &::placeholder {
                 color: var(--Light-Text-Color, #745F8C);
@@ -152,7 +152,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: 100%;
-                text-transform: capitalize;
+                
             }
         }
 
@@ -169,7 +169,7 @@
             font-style: normal;
             font-weight: 400;
             line-height: 100%;
-            text-transform: capitalize;
+            
             height: 50px;
 
             &::placeholder {
@@ -178,7 +178,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: 100%;
-                text-transform: capitalize;
+                
             }
         }
 
