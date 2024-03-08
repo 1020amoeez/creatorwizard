@@ -116,6 +116,15 @@ const MyCollection = () => {
     };
 
 
+    // const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
+    //     for (let i = 0; i < retries; i++) {
+    //         try {
+    //             return await axios.get(url, { timeout: timeout });
+    //         } catch (error) {
+    //             if (i === retries - 1) throw error;
+    //         }
+    //     }
+    // };
     const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
         for (let i = 0; i < retries; i++) {
             try {
@@ -125,31 +134,7 @@ const MyCollection = () => {
             }
         }
     };
-    // const fetchImages = async (ipfsLink) => {
-    //     try {
-    //         const response = await fetchWithRetry(ipfsLink);
-    //         const parser = new DOMParser();
-    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
-    //         const links = htmlDocument.getElementsByTagName('a');
-    //         const jsonFiles = Array.from(links)
-    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
-    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
-
-    //         const metadataList = [];
-
-    //         for (const file of jsonFiles) {
-    //             const jsonRes = await fetchWithRetry(file);
-    //             if (jsonRes.data) { // Check if JSON data exists
-    //                 metadataList.push(jsonRes.data);
-    //             }
-    //         }
-
-    //         console.log(metadataList, 'metadata');
-    //         return metadataList;
-    //     } catch (error) {
-    //         console.error('Error fetching images:', error);
-    //     }
-    // };
+    
     const fetchImages = async (ipfsLink) => {
         try {
             const response = await fetchWithRetry(ipfsLink);
@@ -160,13 +145,24 @@ const MyCollection = () => {
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
                 .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
             const imageUrlsSet = new Set();
-            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+            console.log(jsonFiles,'jsonFiles');
+            //this for loop is for .png images 
+            // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+            //     const jsonRes = await fetchWithRetry(file);
+            //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+            //         imageUrlsSet.add(jsonRes.data.image);
+            //     }
+            // }
+            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
                 const jsonRes = await fetchWithRetry(file);
                 if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-                    imageUrlsSet.add(jsonRes.data.image);
+                    // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+                    const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                    // Add the updated image link to the set
+                    imageUrlsSet.add(updatedImageLink);
                 }
             }
-
+            
             const successfulImages = Array.from(imageUrlsSet);
             // setImages(successfulImages);
             console.log(successfulImages, 'success');
@@ -176,19 +172,7 @@ const MyCollection = () => {
             console.error('Error fetching images:', error);
         }
     };
-
-    // const transformStages = (mintStages, mintStartTime) => {
-    //     return mintStages.map((stage, index) => {
-    //         let startTime = index === 0 ? new Date(mintStartTime).getTime() / 1000 : new Date(mintStages[index - 1].mintStageTime).getTime() / 1000;
-    //         let endTime = new Date(stage.mintStageTime).getTime() / 1000;
-    //         let price = web3.utils.toWei(stage.price, 'ether');
-    //         let whiteList = false;
-
-    //         return [startTime, endTime, price, whiteList];
-    //     });
-    // };
-    console.log(modaldata);
-
+   
     const ProjectContractCollection = async (name, symbol, ipfLink, totalSupply) => {
         const val = localStorage.getItem("accessToken");
         console.log(ipfLink, "dwde");
@@ -213,11 +197,22 @@ const MyCollection = () => {
             })
             setLoader(true);
 
-            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`);
-            if (res.length < modaldata?.totalSupply) {
-                toast.error(`Your Ipfs images must be equal to ${modaldata?.totalSupply}`)
+            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            console.log(res,modaldata?.totalSupply,"dats");
+            if (res?.length === 0) {
+                    toast.warning(`Hash is not valid!`);
+                    setLoader(false);
+                    return
+            }
+            //if supply is greater than hash images then give error 
+            if (res?.length !== modaldata?.totalSupply) {
+                if (res?.length < modaldata?.totalSupply) {
+                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
+                    setLoader(false);
+                    return
+                } 
                 setLoader(false);
-                return
+                return;
             }
             const gas = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
                 .estimateGas({ from: account });
@@ -239,6 +234,9 @@ const MyCollection = () => {
         }
     };
 
+   
+    
+
     const getCollection = async (id, contractAddress) => {
         try {
             // console.log(contractAddress, projectId, 'koko');
@@ -258,7 +256,7 @@ const MyCollection = () => {
 
             await axios(config);
             // onNext();
-            toast.success("Collection Created Succesfully")
+           
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 console.error("Error in getLaunchpad:", error);
@@ -286,6 +284,7 @@ const MyCollection = () => {
 
             await axios(config);
             // onNext();
+            toast.success("Collection Created Succesfully")
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 console.error("Error in getLaunchpad:", error);
@@ -402,7 +401,7 @@ const MyCollection = () => {
                                                 {justlanding.length > 0 ? (
                                                     justlanding.map((item, index) => (
                                                         <>
-                                                            <Link onClick={HandleRemoveStorage} href={`/createlaunchpadcollection?id=${accessToken, item?._id}`}>
+                                                            <Link onClick={HandleRemoveStorage} href={`/createnewcollections?id=${accessToken, item?._id}`}>
                                                                 <div className='maincard' key={index}>
                                                                     <div className='mainimg'>
                                                                         <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />

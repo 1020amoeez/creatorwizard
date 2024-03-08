@@ -130,6 +130,7 @@ const Collectiondashbord = () => {
             }
         }
     };
+  
     // const fetchImages = async (ipfsLink) => {
     //     try {
     //         const response = await fetchWithRetry(ipfsLink);
@@ -139,18 +140,19 @@ const Collectiondashbord = () => {
     //         const jsonFiles = Array.from(links)
     //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
     //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
-
-    //         const metadataList = [];
-
-    //         for (const file of jsonFiles) {
+    //         const imageUrlsSet = new Set();
+    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
     //             const jsonRes = await fetchWithRetry(file);
-    //             if (jsonRes.data) { // Check if JSON data exists
-    //                 metadataList.push(jsonRes.data);
+    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //                 imageUrlsSet.add(jsonRes.data.image);
     //             }
     //         }
 
-    //         console.log(metadataList, 'metadata');
-    //         return metadataList;
+    //         const successfulImages = Array.from(imageUrlsSet);
+    //         // setImages(successfulImages);
+    //         console.log(successfulImages, 'success');
+    //         return successfulImages;
+
     //     } catch (error) {
     //         console.error('Error fetching images:', error);
     //     }
@@ -165,13 +167,24 @@ const Collectiondashbord = () => {
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
                 .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
             const imageUrlsSet = new Set();
-            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+            // console.log(jsonFiles,'jsonFiles');
+            //this for loop is for .png images 
+            // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+            //     const jsonRes = await fetchWithRetry(file);
+            //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+            //         imageUrlsSet.add(jsonRes.data.image);
+            //     }
+            // }
+            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
                 const jsonRes = await fetchWithRetry(file);
                 if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-                    imageUrlsSet.add(jsonRes.data.image);
+                    // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+                    const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                    // Add the updated image link to the set
+                    imageUrlsSet.add(updatedImageLink);
                 }
             }
-
+            
             const successfulImages = Array.from(imageUrlsSet);
             // setImages(successfulImages);
             console.log(successfulImages, 'success');
@@ -219,13 +232,30 @@ const Collectiondashbord = () => {
             })
             setLoader(true);
 
-            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`);
-            if (res.length < modaldata?.totalSupply) {
-                toast.error(`Your Ipfs images must be equal to ${modaldata?.totalSupply}`)
+            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`);
+            // if (res.length < modaldata?.totalSupply) {
+            //     toast.error(`Your Ipfs images must be equal to ${modaldata?.totalSupply}`)
+            //     setLoader(false);
+            //     return
+            // }
+            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            if (res?.length === 0) {
+                    toast.warning(`Hash is not valid!`);
+                    setLoader(false);
+                    return
+            }
+            if (res?.length !== modaldata?.totalSupply) {
+                if (res?.length < modaldata?.totalSupply) {
+                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
+                    setLoader(false);
+                    return
+                } 
                 setLoader(false);
-                return
+                return;
             }
             let stagesData = transformStages(mintStages, mintStartTime);
+
+          
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
                 .estimateGas({ from: account });
