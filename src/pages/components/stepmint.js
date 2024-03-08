@@ -73,6 +73,8 @@ const StepMint = ({ onNext, createcollection, setCreateCollection }) => {
             await axios(config);
             onNext();
         } catch (error) {
+            toast.error(error?.response?.data?.details?.[0]?.name);
+            toast.error(error?.response?.data?.details?.[0]?.description);
             // Handle error
         }
     };

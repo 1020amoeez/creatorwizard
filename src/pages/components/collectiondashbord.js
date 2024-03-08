@@ -408,7 +408,7 @@ const Collectiondashbord = () => {
         console.log(contractAddress, royaliy, 'royal');
         const val = localStorage.getItem("accessToken");
         if (!royaliy) {
-            toast('Please enter royalties before sending.');
+            toast.error('Please enter royalties before sending.');
             return;
         }
 
@@ -691,7 +691,7 @@ const Collectiondashbord = () => {
                             Disconnect Wallet
                         </button>
                     ) : (
-                        <button onClick={() => connectWallet('1116')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
+                        <button onClick={() => connectWallet('1115')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                             Connect Wallet
                         </button>
                     )}

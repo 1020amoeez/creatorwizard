@@ -221,7 +221,7 @@ const Teaminfo = ({ onNext, formDataname, setFormDataName, id, draftdata }) => {
             discordUrl: formDataName?.discordUrl,
             twitterUrl: formDataName?.twitterUrl,
             // email: formDataName?.email,
-            price: formDataName?.price,
+            // price: formDataName?.price,
             // totalSupply: formDataName?.totalSupply,
             teamMembers: formDataName?.teamMembers,
             imageUrl: formDataName?.imageUrl,

@@ -262,7 +262,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             twitterUrl: formDataName?.twitterUrl,
             perWalletLimit: formDataName?.perWalletLimit,
             // email: formDataName?.email,
-            price: formDataName?.price,
+            // price: formDataName?.price,
             imageUrl: formDataName?.imageUrl,
             featureImageUrl: featureImageUrl,
             teamMembers: formDataName?.teamMembers || [],

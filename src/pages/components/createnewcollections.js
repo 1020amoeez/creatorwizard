@@ -103,16 +103,16 @@ const CreateNewCollections = () => {
                 Authorization: "Bearer " + accessToken,
             },
         };
-        const response = await axios(config);
+        // const response = await axios(config);
         toast.success(response?.data?.message);
         router.push("/mycollection");
         localStorage.removeItem('currentCollection');
         localStorage.removeItem('createcollection');
-
         try {
             await axios(config);
             onNext();
         } catch (error) {
+            toast.error(error?.response?.data?.details?.[0]?.totalSupply);
             // Handle error
         }
     };
@@ -191,7 +191,6 @@ const CreateNewCollections = () => {
                                             <a
                                                 className={currentCollection === index + 1 ? 'active listinner' : 'listinner'}
                                                 onClick={() => handleTabClick(index + 1)}
-
                                             >
                                                 {tab}
                                                 {completedSteps.includes(index + 1) ? (

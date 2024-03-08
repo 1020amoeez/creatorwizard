@@ -109,8 +109,6 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
             toast.error('Select an edition type');
         } else if (!formDataname?.totalSupply && !formDataname?.limitedEddition && !formDataname?.openEddition) {
             toast.error('Enter Total Supply');
-        } else if (!formDataname?.price) {
-            toast.error('Enter Price');
         } else if (!formDataname?.websiteUrl) {
             toast.error('Website URL is Required');
         } else if (!isValidUrl(formDataname?.websiteUrl)) {
@@ -158,7 +156,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
             websiteUrl: formDataname?.websiteUrl,
             discordUrl: formDataname?.discordUrl,
             twitterUrl: formDataname?.twitterUrl,
-            price: formDataname?.price
+            // price: formDataname?.price
         };
         if (formDataname?.limitedEddition) {
             launchpadData.limitedEddition = formDataname?.limitedEddition;
@@ -190,7 +188,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
             await axios(config);
             onNext();
         } catch (error) {
-            toast.error(error?.response?.data?.details?.[0]?.price);
+            // toast.error(error?.response?.data?.details?.[0]?.price);
             toast.error(error?.response?.data?.details?.[0]?.totalSupply);
             toast.error(error?.response?.data?.details?.[0]?.twitterUrl);
         }
@@ -377,10 +375,10 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                             />
                         </div>
                     )}
-                    <div className="stepinputmain">
+                    {/* <div className="stepinputmain">
                         <p className="stepinputpara">Price</p>
                         <input value={formDataname?.price} onChange={(e) => setFormDataName({ ...formDataname, price: e.target.value })} type="text" className="stepinput" placeholder='Price' />
-                    </div>
+                    </div> */}
                     {/* <div className="stepinputmain">
                         <p className="stepinputpara">Email</p>
                         <input value={formDataname?.email} onChange={(e) => setFormDataName({ ...formDataname, email: e.target.value })} type="text" className="stepinput" placeholder='Email' />
