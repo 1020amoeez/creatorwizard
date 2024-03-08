@@ -188,7 +188,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
             await axios(config);
             onNext();
         } catch (error) {
-            // toast.error(error?.response?.data?.details?.[0]?.price);
+            toast.error(error?.response?.data?.message);
             toast.error(error?.response?.data?.details?.[0]?.totalSupply);
             toast.error(error?.response?.data?.details?.[0]?.twitterUrl);
         }

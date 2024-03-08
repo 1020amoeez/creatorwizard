@@ -249,6 +249,7 @@ const Teaminfo = ({ onNext, formDataname, setFormDataName, id, draftdata }) => {
             // toast.success(response?.data?.message);
         } catch (error) {
             // toast.error(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
             toast.error(error?.response?.data?.details?.[0]?.twitterUrl);
         }
     };

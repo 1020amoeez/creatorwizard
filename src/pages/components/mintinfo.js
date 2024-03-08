@@ -291,6 +291,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             onNext();
             window.location.reload();
         } catch (error) {
+            toast.error(error?.response?.data?.message);
             toast.error(error?.response?.data?.details?.[0]?.mintEndTime);
             toast.error(error?.response?.data?.details?.[0]?.name);
             toast.error(error?.response?.data?.details?.[0]?.mintStartTime);
