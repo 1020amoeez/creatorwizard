@@ -326,7 +326,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
 
                     </div>
                     <div className="stepinputmain">
-                        <p className="stepinputpara">Per-wallet mint limit (optional)</p>
+                        <p className="stepinputpara">Per-wallet mint limit</p>
                         <input value={formDataname?.perWalletLimit} onChange={(e) => setFormDataName({ ...formDataname, perWalletLimit: e.target.value })} type="text" className="stepinput" placeholder='Mint limit' />
                     </div>
 

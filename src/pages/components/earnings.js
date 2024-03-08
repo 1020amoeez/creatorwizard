@@ -311,7 +311,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                     </div>
                     <div className="twice-field">
                         <div className="single-field">
-                            <h6>Per-wallet mint limit (optional)</h6>
+                            <h6>Per-wallet mint limit</h6>
                             {
                                 isSwitchOn && <input className='oncheckinput' type='text' placeholder='0' />
                             }

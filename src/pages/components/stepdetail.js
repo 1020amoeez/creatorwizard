@@ -256,12 +256,12 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                             <input value={createcollection?.twitterUrl} onChange={(e) => setCreateCollection({ ...createcollection, twitterUrl: e.target.value })} type="text" className="stepinput" placeholder='https://supercollection.io' />
                         </div>
                         <div className="stepinputmain marginmain">
-                            <p className="stepinputpara">Discord Invite Code (Optional)</p>
+                            <p className="stepinputpara">Discord Invite Code</p>
                             <p className="ligthsteppara">https://discord.gg/</p>
                             <input value={createcollection?.discordUrl} onChange={(e) => setCreateCollection({ ...createcollection, discordUrl: e.target.value })} type="text" className="stepinput" placeholder='-' />
                         </div>
                         <div className="stepinputmain marginmain">
-                            <p className="stepinputpara">Website Url (Optional)</p>
+                            <p className="stepinputpara">Website Url</p>
                             <input value={createcollection?.websiteUrl} onChange={(e) => setCreateCollection({ ...createcollection, websiteUrl: e.target.value })} type="text" className="stepinput" placeholder='https://supercollection.io' />
                         </div>
                     </div>
