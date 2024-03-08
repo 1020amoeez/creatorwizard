@@ -202,7 +202,7 @@
                         font-style: normal;
                         font-weight: 400;
                         line-height: 120%;
-                        text-transform: capitalize;
+                        
                         padding: 15px 15px 15px 40px;
                         width: 100%;
                         outline: none;
@@ -217,7 +217,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 120%;
-                            text-transform: capitalize;
+                            
                         }
 
                         &:focus {
@@ -252,7 +252,7 @@
                     font-style: normal;
                     font-weight: 300;
                     line-height: 120%;
-                    text-transform: capitalize;
+                    
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -283,7 +283,7 @@
                         font-style: normal;
                         font-weight: 400;
                         line-height: 100%;
-                        text-transform: capitalize;
+                        
                         border-left: 5px solid transparent;
                         cursor: pointer;
 
@@ -307,7 +307,7 @@
                 font-style: normal;
                 font-weight: 300;
                 line-height: 120%;
-                text-transform: capitalize;
+                
                 display: flex;
                 align-items: center;
                 gap: 7px;
@@ -968,7 +968,7 @@
         font-style: normal;
         font-weight: 400;
         line-height: 100%;
-        text-transform: capitalize;
+        
 
         &.active {
             color: #fff;

@@ -43,7 +43,6 @@
             font-style: normal;
             font-weight: 300;
             line-height: 30px;
-            text-transform: capitalize;
             margin-top: 15px;
             margin-bottom: 44px;
             max-width: 409px;
@@ -169,6 +168,8 @@
         justify-content: space-between;
 
         .left {
+            max-width: 777px;
+            width: 100%;
             .heading {
                 h2 {
                     color: var(--On-Surface, #FFF);
@@ -185,13 +186,21 @@
                     font-style: normal;
                     font-weight: 300;
                     line-height: 30px;
-                    text-transform: capitalize;
 
                 }
             }
 
             .mainpara {
                 margin-top: 40px;
+
+                h4{
+                    color: var(--On-Surface, #FFF);
+                    font-size: 22px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 120%;
+                    margin-bottom: 15px;
+                }
 
                 p {
                     color: var(--Secondary, #EBEBEB);
@@ -205,6 +214,19 @@
 
                     &:last-child {
                         margin-bottom: 0px;
+                    }
+                }
+
+                ol{
+                    li{
+                        color: var(--Secondary, #EBEBEB);
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: 150%;
+                        margin-bottom: 15px;
+                        max-width: 777px;
+                        width: 100%;
                     }
                 }
 
@@ -276,7 +298,6 @@
             font-style: normal;
             font-weight: 300;
             line-height: 30px;
-            text-transform: capitalize;
             text-align: center;
         }
     }
@@ -287,6 +308,7 @@
         justify-content: center;
         gap: 50px;
         flex-wrap: wrap;
+        padding: 0px 100px;
     }
 
 }
@@ -320,7 +342,6 @@
             font-style: normal;
             font-weight: 300;
             line-height: 30px;
-            text-transform: capitalize;
             text-align: center;
         }
     }
@@ -367,7 +388,6 @@
                     font-style: normal;
                     font-weight: 300;
                     line-height: 130%;
-                    text-transform: capitalize;
                 }
 
                 p {
@@ -376,7 +396,6 @@
                     font-style: normal;
                     font-weight: 300;
                     line-height: 130%;
-                    text-transform: capitalize;
 
                 }
             }
@@ -386,7 +405,9 @@
 }
 
 @media(max-width:1024px){
-
+    .backed .mainimages{
+        padding: 0px;
+    }
     .forwardthinking .mainimages{
         grid-template-columns:1fr 1fr;
         gap: 20px;
