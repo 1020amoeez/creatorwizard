@@ -103,7 +103,7 @@ const CreateNewCollections = () => {
                 Authorization: "Bearer " + accessToken,
             },
         };
-        // const response = await axios(config);
+        const response = await axios(config);
         toast.success(response?.data?.message);
         router.push("/mycollection");
         localStorage.removeItem('currentCollection');
