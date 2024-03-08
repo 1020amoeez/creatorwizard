@@ -27,6 +27,7 @@ import "@/styles/collectiondetail.scss"
 import "@/styles/launchpad.scss"
 import "@/styles/contactus.scss"
 import "@/styles/login.scss"
+import "@/styles/privacypolicy.scss"
 import { Provider } from "react-redux"
 import store from "@/store/store"
 import { Web3ReactProvider } from "@web3-react/core";

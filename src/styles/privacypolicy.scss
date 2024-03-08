@@ -1,0 +1,28 @@
+.privacypolicymain{
+    padding: 110px 0px 50px;
+    .privacyhead{
+        color: #FFF;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        margin-bottom: 30px;
+    }
+    .privacypara{
+        color: #FFF;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; 
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width:600px){
+    .privacypolicymain .privacyhead{
+        font-size: 30px;
+    } 
+    .privacypolicymain .privacypara{
+        font-size: 14px;
+    }
+}
