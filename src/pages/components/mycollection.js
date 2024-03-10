@@ -38,7 +38,7 @@ const MyCollection = () => {
     console.log(stakingAddress, true, "dedf4f");
     const contract = getCreatersContract(stakingAddress, web3);
     const { login, logout } = useAuth();
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [stagedata, setStageData] = useState([] || '');
@@ -575,7 +575,9 @@ const MyCollection = () => {
                         <label>IPF Link</label>
                         <input value={ipfLink}
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
+                             <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
                     </div>
+                   
                     {/* <button onClick={() => connectWallet('5')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                         {account ? "Disconnect" : "Connect Wallet"}   </button> */}
 
