@@ -125,7 +125,7 @@ const MyCollection = () => {
     //         }
     //     }
     // };
-    const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
+    const fetchWithRetry = async (url, retries =3, timeout = 30000) => {
         for (let i = 0; i < retries; i++) {
             try {
                 return await axios.get(url, { timeout: timeout });
@@ -172,7 +172,9 @@ const MyCollection = () => {
             console.error('Error fetching images:', error);
         }
     };
-   
+
+ const [res,setRes] = useState(0)
+ 
     const ProjectContractCollection = async (name, symbol, ipfLink, totalSupply) => {
         const val = localStorage.getItem("accessToken");
         console.log(ipfLink, "dwde");
@@ -198,7 +200,8 @@ const MyCollection = () => {
             setLoader(true);
 
             let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
-            console.log(res,modaldata?.totalSupply,"dats");
+            setRes(res)
+            console.log(res,"dats");
             if (res?.length === 0) {
                     toast.warning(`Hash is not valid!`);
                     setLoader(false);
@@ -221,7 +224,7 @@ const MyCollection = () => {
             // console.log(staked, staked?.events?.newCollectionDeployed?.returnValues?.ERC721Deployed, 'stakedd');
             const contractAddress = staked?.events?.newCollectionDeployed?.returnValues?.ERC721Deployed;
             console.log(contractAddress, 'dededeuu');
-            // setContractAddress(contractAddress);
+            setContractAddress(contractAddress);
             await getCollection(modaldata?._id, contractAddress);
             await getIpfsCollection(modaldata?._id, account, res)
             setLoader(false);
@@ -256,7 +259,7 @@ const MyCollection = () => {
 
             await axios(config);
             // onNext();
-           
+            toast.success("Collection Created Succesfully")
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 console.error("Error in getLaunchpad:", error);
@@ -284,7 +287,6 @@ const MyCollection = () => {
 
             await axios(config);
             // onNext();
-            toast.success("Collection Created Succesfully")
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 console.error("Error in getLaunchpad:", error);
@@ -335,8 +337,7 @@ const MyCollection = () => {
 
             {loader && (
                 <>
-
-                    <Loader text="Please wait..." />
+                    <Loader modaldata={modaldata} res={res} text="Please wait..." />
                 </>
             )}
 

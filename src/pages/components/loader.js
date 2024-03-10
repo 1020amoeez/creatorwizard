@@ -1,7 +1,7 @@
 import useWindowDimensions from '@/hooks/getDimensions';
 import React from 'react';
 // import mainloader from '../Assets/img/mainloader.svg';
-function Loader({ text, text2 }) {
+function Loader({ text, text2 ,res,modaldata}) {
   const { width } = useWindowDimensions();
   return (
     <>
@@ -38,6 +38,7 @@ function Loader({ text, text2 }) {
             left: '47%',
             top: '59%',
           }}>{text}</p>
+           Uploading {res ? res?.length : 0}/{modaldata?.totalSupply} files to IPFS...
           {/* )} */}
           {/* {text2 && (
             <p className="text-white text-center mr-5 new-loaderrr" style={{

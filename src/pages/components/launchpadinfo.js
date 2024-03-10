@@ -85,7 +85,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                         imageUrl: imageUrl
                     });
                 } catch (error) {
-                    toast.error("Failed to upload image. Please provide a PNG, JPG, or JPEG file.");
+                    toast.error("Failed to upload image. Please provide a PNG, JPG,JPEG or Gif file.");
                 }
             };
             reader.readAsDataURL(file);
@@ -173,7 +173,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
             const featureImageUrl = await getMetaData(accessToken, formDataname.featureImageUrl);
             launchpadData.featureImageUrl = featureImageUrl;
         } catch (error) {
-            toast.error("Failed to upload image. Please provide a PNG, JPG, or JPEG file.");
+            toast.error("Failed to upload image. Please provide a PNG, JPG,JPEG or Gif file.");
             return;
         }
         var config = {
