@@ -244,8 +244,8 @@ const Navbar = () => {
               <img src="\assets\navbarassets\logo.svg" alt="logoimg" className="logoimg" />
             </Link>
             <div className="mid-links">
-              <Link className={router.asPath === "/collectiondashbord" ?'active': ""} href="/collectiondashbord" >Launchpads</Link>
-              <Link href="/mycollection" className={router.asPath === "/mycollection" ?'active': ""}>Collections</Link>
+              <Link className={router.pathname === "/components/collectiondashbord" ?'active': ""} href="/collectiondashbord" >Launchpads</Link>
+              <Link href="/mycollection" className={router.pathname === "/components/mycollection" ?'active': ""}>Collections</Link>
             </div>
             <div className="twice-items">
               {
