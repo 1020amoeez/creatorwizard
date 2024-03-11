@@ -406,6 +406,7 @@ const Collectiondashbord = () => {
             setLoaderthree(false);
             getFinallizeLaunchpad(id)
             getNft(accessToken, activeTab);
+            handleClose()
             return staked;
         } catch (error) {
             console.error('Error in FinalizeContract:', error);
