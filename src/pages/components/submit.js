@@ -185,11 +185,11 @@ const Submit = ({ formDataname, handleButtonClick, draftdata }) => {
                                         </div>
                                         <div className="single-text">
                                             <p>Platfrom Fees</p>
-                                            <h6>90%</h6>
+                                            <h6>5%</h6>
                                         </div>
                                         <div className="single-text">
                                             <p>Your Earning</p>
-                                            <h6>10%</h6>
+                                            <h6>95%</h6>
                                         </div>
                                     </div>
                                 </div>
