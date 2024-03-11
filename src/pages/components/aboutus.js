@@ -35,7 +35,7 @@ const Aboutus = () => {
                     <div className="row">
                         <div className="col-xl-7 col-12 m-auto padd-sm">
                             <div className="main-content">
-                                <h4>Buy, Own & Sell NFTs <span>In The Wizard NFT</span>Marketplace</h4>
+                                <h4>Buy, Own & Sell NFTs <span>In The Wizard Gallery</span>Marketplace</h4>
                                 {/* <p>Wizard Gallery is the first NFT marketplace built for the Core ecosystem.</p> */}
                                 <p>Wizard Gallery is a marketplace built on and for the Core ecosystem</p>
                                 <div className="twice-btns">

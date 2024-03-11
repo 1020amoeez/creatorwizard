@@ -30,6 +30,7 @@ const Collectiondashbord = () => {
     const [ipfLink, setIpflink] = useState('');
     const [loader, setLoader] = useState(false);
     const [loadertwo, setLoadertwo] = useState(false);
+    const [loaderthree, setLoaderthree] = useState(false);
     const [contractAddress, setContractAddress] = useState('');
     const [projectId, setProjectId] = useState('');
     const [id, setId] = useState([]);
@@ -130,7 +131,7 @@ const Collectiondashbord = () => {
             }
         }
     };
-  
+
     // const fetchImages = async (ipfsLink) => {
     //     try {
     //         const response = await fetchWithRetry(ipfsLink);
@@ -157,6 +158,46 @@ const Collectiondashbord = () => {
     //         console.error('Error fetching images:', error);
     //     }
     // };
+    // const fetchImages = async (ipfsLink) => {
+    //     try {
+    //         const response = await fetchWithRetry(ipfsLink);
+    //         const parser = new DOMParser();
+    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
+    //         const links = htmlDocument.getElementsByTagName('a');
+    //         const jsonFiles = Array.from(links)
+    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
+    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
+    //         const imageUrlsSet = new Set();
+    //         // console.log(jsonFiles,'jsonFiles');
+    //         //this for loop is for .png images 
+    //         // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+    //         //     const jsonRes = await fetchWithRetry(file);
+    //         //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //         //         imageUrlsSet.add(jsonRes.data.image);
+    //         //     }
+    //         // }
+    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
+    //             const jsonRes = await fetchWithRetry(file);
+    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+    //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+    //                 // Add the updated image link to the set
+    //                 imageUrlsSet.add(updatedImageLink);
+    //             }
+    //         }
+
+    //         const successfulImages = Array.from(imageUrlsSet);
+    //         // setImages(successfulImages);
+    //         console.log(successfulImages, 'success');
+    //         return successfulImages;
+
+    //     } catch (error) {
+    //         console.error('Error fetching images:', error);
+    //     }
+    // };
+
+    const [uploadedImages, setUploadedImages] = useState(null);
+    const [totalImages, setTotalImages] = useState(null);
     const fetchImages = async (ipfsLink) => {
         try {
             const response = await fetchWithRetry(ipfsLink);
@@ -167,14 +208,10 @@ const Collectiondashbord = () => {
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
                 .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
             const imageUrlsSet = new Set();
-            // console.log(jsonFiles,'jsonFiles');
-            //this for loop is for .png images 
-            // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
-            //     const jsonRes = await fetchWithRetry(file);
-            //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-            //         imageUrlsSet.add(jsonRes.data.image);
-            //     }
-            // }
+
+            // Update totalImages here
+            setTotalImages(jsonFiles.length);
+
             for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
                 const jsonRes = await fetchWithRetry(file);
                 if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
@@ -183,17 +220,18 @@ const Collectiondashbord = () => {
                     // Add the updated image link to the set
                     imageUrlsSet.add(updatedImageLink);
                 }
-            }
-            
-            const successfulImages = Array.from(imageUrlsSet);
-            // setImages(successfulImages);
-            console.log(successfulImages, 'success');
-            return successfulImages;
 
+                // Update uploadedImages here
+                setUploadedImages(imageUrlsSet.size);
+            }
+            const successfulImages = Array.from(imageUrlsSet);
+            return successfulImages;
+            // Rest of the code...
         } catch (error) {
             console.error('Error fetching images:', error);
         }
     };
+
 
     const transformStages = (mintStages, mintStartTime) => {
         return mintStages.map((stage, index) => {
@@ -240,22 +278,22 @@ const Collectiondashbord = () => {
             // }
             let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
             if (res?.length === 0) {
-                    toast.warning(`Hash is not valid!`);
-                    setLoader(false);
-                    return
+                toast.warning(`Hash is not valid!`);
+                setLoader(false);
+                return
             }
             if (res?.length !== modaldata?.totalSupply) {
                 if (res?.length < modaldata?.totalSupply) {
                     toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
                     setLoader(false);
                     return
-                } 
+                }
                 setLoader(false);
                 return;
             }
             let stagesData = transformStages(mintStages, mintStartTime);
 
-          
+
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
                 .estimateGas({ from: account });
@@ -358,20 +396,20 @@ const Collectiondashbord = () => {
                 var result2 = parseInt(result) + 3000000000
                 gasFunPrice = result2.toString()
             })
-            setLoader(true);
+            setLoaderthree(true);
             // const projectId = modaldata && modaldata.projectId ? Number(modaldata.projectId) : 0;
             // console.log(id, 'project');
             const gas = await contract.methods.FinalizeSale(projectId)
                 .estimateGas({ from: account });
             const staked = await contract.methods.FinalizeSale(projectId)
                 .send({ from: account, gas, gasPrice: gasFunPrice });
-            setLoader(false);
+            setLoaderthree(false);
             getFinallizeLaunchpad(id)
             getNft(accessToken, activeTab);
             return staked;
         } catch (error) {
             console.error('Error in FinalizeContract:', error);
-            setLoader(false);
+            setLoaderthree(false);
             throw error;
         }
     };
@@ -481,10 +519,24 @@ const Collectiondashbord = () => {
 
             {loader && (
                 <>
-                    <Loader text="Please wait..." />
+                    <Loader
+                        uploadedImages={uploadedImages}
+                        totalImages={totalImages}
+                        modaldata={modaldata}
+                        text="Please wait..."
+                    />
                 </>
             )}
-          
+
+            {loaderthree && (
+                <>
+                    <Loader
+                        text2="Please wait..."
+                    />
+                </>
+            )} 
+
+
 
             <section className="maincollectiondash">
                 <div className="custom-container">
@@ -712,6 +764,7 @@ const Collectiondashbord = () => {
                         <label>IPF Link</label>
                         <input value={ipfLink}
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
+                        <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
                     </div>
                     {/* <button onClick={() => connectWallet('5')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                         {account ? "Disconnect" : "Connect Wallet"}   </button> */}

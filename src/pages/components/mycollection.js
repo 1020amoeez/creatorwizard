@@ -38,7 +38,7 @@ const MyCollection = () => {
     console.log(stakingAddress, true, "dedf4f");
     const contract = getCreatersContract(stakingAddress, web3);
     const { login, logout } = useAuth();
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [stagedata, setStageData] = useState([] || '');
@@ -125,7 +125,7 @@ const MyCollection = () => {
     //         }
     //     }
     // };
-    const fetchWithRetry = async (url, retries =3, timeout = 30000) => {
+    const fetchWithRetry = async (url, retries = 3, timeout = 30000) => {
         for (let i = 0; i < retries; i++) {
             try {
                 return await axios.get(url, { timeout: timeout });
@@ -134,7 +134,46 @@ const MyCollection = () => {
             }
         }
     };
-    
+
+    // const fetchImages = async (ipfsLink) => {
+    //     try {
+    //         const response = await fetchWithRetry(ipfsLink);
+    //         const parser = new DOMParser();
+    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
+    //         const links = htmlDocument.getElementsByTagName('a');
+    //         const jsonFiles = Array.from(links)
+    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
+    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
+    //         const imageUrlsSet = new Set();
+    //         console.log(jsonFiles,'jsonFiles');
+    //         //this for loop is for .png images 
+    //         // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
+    //         //     const jsonRes = await fetchWithRetry(file);
+    //         //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //         //         imageUrlsSet.add(jsonRes.data.image);
+    //         //     }
+    //         // }
+    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
+    //             const jsonRes = await fetchWithRetry(file);
+    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+    //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+    //                 // Add the updated image link to the set
+    //                 imageUrlsSet.add(updatedImageLink);
+    //             }
+    //         }
+
+    //         const successfulImages = Array.from(imageUrlsSet);
+    //         // setImages(successfulImages);
+    //         console.log(successfulImages, 'success');
+    //         return successfulImages;
+
+    //     } catch (error) {
+    //         console.error('Error fetching images:', error);
+    //     }
+    // };
+    const [uploadedImages, setUploadedImages] = useState(null);
+    const [totalImages, setTotalImages] = useState(null);
     const fetchImages = async (ipfsLink) => {
         try {
             const response = await fetchWithRetry(ipfsLink);
@@ -145,14 +184,10 @@ const MyCollection = () => {
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
                 .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
             const imageUrlsSet = new Set();
-            console.log(jsonFiles,'jsonFiles');
-            //this for loop is for .png images 
-            // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
-            //     const jsonRes = await fetchWithRetry(file);
-            //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-            //         imageUrlsSet.add(jsonRes.data.image);
-            //     }
-            // }
+
+            // Update totalImages here
+            setTotalImages(jsonFiles.length);
+
             for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
                 const jsonRes = await fetchWithRetry(file);
                 if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
@@ -161,20 +196,21 @@ const MyCollection = () => {
                     // Add the updated image link to the set
                     imageUrlsSet.add(updatedImageLink);
                 }
-            }
-            
-            const successfulImages = Array.from(imageUrlsSet);
-            // setImages(successfulImages);
-            console.log(successfulImages, 'success');
-            return successfulImages;
 
+                // Update uploadedImages here
+                setUploadedImages(imageUrlsSet.size);
+            }
+            const successfulImages = Array.from(imageUrlsSet);
+            //         // setImages(successfulImages);
+            //         console.log(successfulImages, 'success');
+            return successfulImages;
+            // Rest of the code...
         } catch (error) {
             console.error('Error fetching images:', error);
         }
     };
 
- const [res,setRes] = useState(0)
- 
+
     const ProjectContractCollection = async (name, symbol, ipfLink, totalSupply) => {
         const val = localStorage.getItem("accessToken");
         console.log(ipfLink, "dwde");
@@ -200,12 +236,11 @@ const MyCollection = () => {
             setLoader(true);
 
             let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
-            setRes(res)
-            console.log(res,"dats");
+
             if (res?.length === 0) {
-                    toast.warning(`Hash is not valid!`);
-                    setLoader(false);
-                    return
+                toast.warning(`Hash is not valid!`);
+                setLoader(false);
+                return
             }
             //if supply is greater than hash images then give error 
             if (res?.length !== modaldata?.totalSupply) {
@@ -213,7 +248,7 @@ const MyCollection = () => {
                     toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
                     setLoader(false);
                     return
-                } 
+                }
                 setLoader(false);
                 return;
             }
@@ -237,8 +272,8 @@ const MyCollection = () => {
         }
     };
 
-   
-    
+
+
 
     const getCollection = async (id, contractAddress) => {
         try {
@@ -337,7 +372,11 @@ const MyCollection = () => {
 
             {loader && (
                 <>
-                    <Loader modaldata={modaldata} res={res} text="Please wait..." />
+                    <Loader
+                        uploadedImages={uploadedImages}
+                        totalImages={totalImages}
+                        modaldata={modaldata}
+                        text="Please wait..." />
                 </>
             )}
 
@@ -575,9 +614,9 @@ const MyCollection = () => {
                         <label>IPF Link</label>
                         <input value={ipfLink}
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
-                             <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
+                        <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
+
                     </div>
-                   
                     {/* <button onClick={() => connectWallet('5')} style={{ maxWidth: "100%" }} className="stepbtn bluebtn">
                         {account ? "Disconnect" : "Connect Wallet"}   </button> */}
 
@@ -600,7 +639,7 @@ const MyCollection = () => {
                             modaldata?.totalSupply,
                         );
                     }}>
-                        List Launchpad
+                        List Collection
                     </button>
                 </Modal.Body>
             </Modal>

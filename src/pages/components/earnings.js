@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import Environment from '@/utils/Enviroment';
 import axios from 'axios';
+import { useWeb3React } from '@web3-react/core';
 
 const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     const api_url = Environment.api_url;
@@ -13,6 +14,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
     const [accessToken, setAccessToken] = useState("");
+    const { account } = useWeb3React();
 
     useEffect(() => {
         const val = localStorage.getItem("accessToken");
@@ -77,7 +79,10 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
 
 
 
+
+
     // const handleButtonClick = () => {
+    //     const featureImageUrl = localStorage.getItem('featureImageUrl');
     //     if (!formDataname?.earningAddress) {
     //         toast.error('Enter Wallet Address');
     //     } else if (formDataname?.earningAddress.length !== 42) {
@@ -85,76 +90,36 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     //     } else {
     //         const earningAddress = formDataname?.earningAddress;
     //         const formDataName = JSON.parse(localStorage.getItem('formDataname'));
-    //         // const mintStages = formDataName?.mintStages || [];
-    //         const mintStartDateTime = formDataName?.mintStartTime ? new Date(formDataName?.mintStartTime) : new Date();
-    //         mintStartDateTime.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds());
-    //         const mintStartTime = mintStartDateTime.toISOString();
-    //         const mintEndTime = formDataName?.mintEndTime || new Date().toISOString();
+    //         const mintStartTime = new Date(formDataName?.mintStartTime);
+    //         const mintEndTime = new Date(formDataName?.mintEndTime);
     //         const formData = {
     //             earningAddress,
     //             name: formDataName?.name || '',
+    //             symbol: formDataname?.symbol || '',
     //             description: formDataName?.description || '',
+    //             websiteUrl: formDataname?.websiteUrl || '',
     //             discordUrl: formDataName?.discordUrl || '',
     //             twitterUrl: formDataName?.twitterUrl || '',
-    //             email: formDataName?.email || '',
-    //             price: formDataName?.price || '',
-    //             totalSupply: formDataName?.totalSupply || '',
     //             imageUrl: formDataName?.imageUrl || '',
+    //             featureImageUrl: featureImageUrl || '',
+    //             perWalletLimit: formDataName?.perWalletLimit || '',
     //             teamMembers: formDataName?.teamMembers || [],
     //             mintStartTime: mintStartTime,
     //             mintStages: formDataName?.mintStages || [],
     //             mintEndTime: mintEndTime,
     //         };
+
     //         if (formDataName?.limitedEddition) {
     //             formData.limitedEddition = formDataName.limitedEddition;
+    //             formData.totalSupply = formDataName.totalSupply;
     //         }
     //         if (formDataName?.openEddition) {
     //             formData.openEddition = formDataName.openEddition;
     //         }
+
     //         CreateLaunchPad(formData);
     //     }
     // };
-
-    // const handleButtonClick = () => {
-    //     if (!formDataname?.earningAddress) {
-    //         toast.error('Enter Wallet Address');
-    //     } else if (formDataname?.earningAddress.length !== 42) {
-    //         toast.error('Wallet Address length must be 42 characters long');
-    //     } else {
-    //         const earningAddress = formDataname?.earningAddress;
-    //         const formDataName = JSON.parse(localStorage.getItem('formDataname'));
-    //         const mintStartDateTime = formDataName?.mintStartTime ? new Date(formDataName?.mintStartTime) : new Date();
-    //         mintStartDateTime.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds());
-    //         const mintStartTime = mintStartDateTime.toISOString();
-    //         const mintEndDateTime = formDataName?.mintEndTime ? new Date(formDataName?.mintEndTime) : new Date();
-    //         mintEndDateTime.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds());
-    //         const mintEndTime = mintEndDateTime.toISOString();
-    //         const formData = {
-    //             earningAddress,
-    //             name: formDataName?.name || '',
-    //             description: formDataName?.description || '',
-    //             discordUrl: formDataName?.discordUrl || '',
-    //             twitterUrl: formDataName?.twitterUrl || '',
-    //             email: formDataName?.email || '',
-    //             price: formDataName?.price || '',
-    //             totalSupply: formDataName?.totalSupply || '',
-    //             imageUrl: formDataName?.imageUrl || '',
-    //             teamMembers: formDataName?.teamMembers || [],
-    //             mintStartTime,
-    //             mintStages: formDataName?.mintStages || [],
-    //             mintEndTime,
-    //         };
-    //         if (formDataName?.limitedEddition) {
-    //             formData.limitedEddition = formDataName.limitedEddition;
-    //         }
-    //         if (formDataName?.openEddition) {
-    //             formData.openEddition = formDataName.openEddition;
-    //         }
-    //         CreateLaunchPad(formData);
-    //     }
-    // };
-
-
 
     const handleButtonClick = () => {
         const featureImageUrl = localStorage.getItem('featureImageUrl');
@@ -165,8 +130,15 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         } else {
             const earningAddress = formDataname?.earningAddress;
             const formDataName = JSON.parse(localStorage.getItem('formDataname'));
+            
+            // Parse dates from localStorage
             const mintStartTime = new Date(formDataName?.mintStartTime);
             const mintEndTime = new Date(formDataName?.mintEndTime);
+            
+            // Clone mintStages array to prevent mutation
+            const mintStages = [...formDataName?.mintStages];
+    
+            // Prepare formData object
             const formData = {
                 earningAddress,
                 name: formDataName?.name || '',
@@ -175,19 +147,16 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                 websiteUrl: formDataname?.websiteUrl || '',
                 discordUrl: formDataName?.discordUrl || '',
                 twitterUrl: formDataName?.twitterUrl || '',
-                // email: formDataName?.email || '',
-                // price: formDataName?.price || '',
-                // totalSupply: formDataName?.totalSupply || '',
                 imageUrl: formDataName?.imageUrl || '',
                 featureImageUrl: featureImageUrl || '',
                 perWalletLimit: formDataName?.perWalletLimit || '',
                 teamMembers: formDataName?.teamMembers || [],
-                mintStartTime: mintStartTime,
-                mintStages: formDataName?.mintStages || [],
-                mintEndTime: mintEndTime,
-                // royalties: formDataName?.royalties,
+                mintStartTime,
+                mintStages,
+                mintEndTime,
             };
-
+    
+            // Handle additional properties
             if (formDataName?.limitedEddition) {
                 formData.limitedEddition = formDataName.limitedEddition;
                 formData.totalSupply = formDataName.totalSupply;
@@ -195,12 +164,11 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             if (formDataName?.openEddition) {
                 formData.openEddition = formDataName.openEddition;
             }
-
+    
             CreateLaunchPad(formData);
         }
     };
-
-
+    
 
 
 
@@ -222,6 +190,12 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
 
 
 
+    // useEffect(() => {
+    //     if (account) {
+    //         setFormDataName({ ...formDataname, earningAddress: account });
+    //     }
+    // }, [account]);
+
 
     return (
         <>
@@ -241,6 +215,15 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                                 <p className="addres-text-new">
                                     <input placeholder='Earning Address' type="text" value={formDataname?.earningAddress} onChange={(e) => setFormDataName({ ...formDataname, earningAddress: e.target.value })} />
                                 </p>
+                                {/* <p className="addres-text-new">
+                                    <input
+                                        placeholder='Earning Address'
+                                        type="text"
+                                        value={formDataname?.earningAddress ? `${formDataname.earningAddress.slice(0, 15)}...${formDataname.earningAddress.slice(-4)}` : ''}
+                                        onChange={(e) => setFormDataName({ ...formDataname, earningAddress: e.target.value })}
+                                    />
+                                </p> */}
+
                                 <div className="input-field">
                                     <input type="text" placeholder='90' />
                                     <span>%</span>

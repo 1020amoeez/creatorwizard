@@ -261,17 +261,13 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             discordUrl: formDataName?.discordUrl,
             twitterUrl: formDataName?.twitterUrl,
             perWalletLimit: formDataName?.perWalletLimit,
-            // email: formDataName?.email,
-            // price: formDataName?.price,
             imageUrl: formDataName?.imageUrl,
             featureImageUrl: featureImageUrl,
             teamMembers: formDataName?.teamMembers || [],
             mintStages: stages,
             mintEndTime: mintEndTime
         };
-        // if (formDataName?.perWalletMintLimit) {
-        //     launchpadData.perWalletMintLimit = formDataName?.perWalletMintLimit;
-        // }
+       
         if (formDataName?.limitedEddition) {
             launchpadData.limitedEddition = formDataName?.limitedEddition;
         }
