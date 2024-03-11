@@ -140,6 +140,9 @@ const MyCollection = () => {
         }
     };
 
+    
+    // const [uploadedImages, setUploadedImages] = useState(null);
+    // const [totalImages, setTotalImages] = useState(null);
     // const fetchImages = async (ipfsLink) => {
     //     try {
     //         const response = await fetchWithRetry(ipfsLink);
@@ -150,14 +153,10 @@ const MyCollection = () => {
     //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
     //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
     //         const imageUrlsSet = new Set();
-    //         console.log(jsonFiles,'jsonFiles');
-    //         //this for loop is for .png images 
-    //         // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
-    //         //     const jsonRes = await fetchWithRetry(file);
-    //         //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-    //         //         imageUrlsSet.add(jsonRes.data.image);
-    //         //     }
-    //         // }
+
+    //         // Update totalImages here
+    //         setTotalImages(jsonFiles.length);
+
     //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
     //             const jsonRes = await fetchWithRetry(file);
     //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
@@ -166,19 +165,22 @@ const MyCollection = () => {
     //                 // Add the updated image link to the set
     //                 imageUrlsSet.add(updatedImageLink);
     //             }
+
+    //             // Update uploadedImages here
+    //             setUploadedImages(imageUrlsSet.size);
     //         }
-
     //         const successfulImages = Array.from(imageUrlsSet);
-    //         // setImages(successfulImages);
-    //         console.log(successfulImages, 'success');
+    //         //         // setImages(successfulImages);
+    //         //         console.log(successfulImages, 'success');
     //         return successfulImages;
-
+    //         // Rest of the code...
     //     } catch (error) {
     //         console.error('Error fetching images:', error);
     //     }
     // };
-    const [uploadedImages, setUploadedImages] = useState(null);
+    const [uploadedImages, setUploadedImages] = useState(1);
     const [totalImages, setTotalImages] = useState(null);
+
     const fetchImages = async (ipfsLink) => {
         try {
             const response = await fetchWithRetry(ipfsLink);
@@ -202,18 +204,17 @@ const MyCollection = () => {
                     imageUrlsSet.add(updatedImageLink);
                 }
 
-                // Update uploadedImages here
-                setUploadedImages(imageUrlsSet.size);
+                // Update uploadedImages using the functional form of setState
+                setUploadedImages(prevUploadedImages => prevUploadedImages + 1);
             }
             const successfulImages = Array.from(imageUrlsSet);
-            //         // setImages(successfulImages);
-            //         console.log(successfulImages, 'success');
             return successfulImages;
             // Rest of the code...
         } catch (error) {
             console.error('Error fetching images:', error);
         }
     };
+
 
     const ProjectContractCollection = async (name, symbol, ipfLink, totalSupply) => {
         const val = localStorage.getItem("accessToken");

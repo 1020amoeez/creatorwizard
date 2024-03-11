@@ -200,8 +200,44 @@ const Collectiondashbord = () => {
     //     }
     // };
 
-    const [uploadedImages, setUploadedImages] = useState(null);
+    // const [uploadedImages, setUploadedImages] = useState(null);
+    // const [totalImages, setTotalImages] = useState(null);
+    // const fetchImages = async (ipfsLink) => {
+    //     try {
+    //         const response = await fetchWithRetry(ipfsLink);
+    //         const parser = new DOMParser();
+    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
+    //         const links = htmlDocument.getElementsByTagName('a');
+    //         const jsonFiles = Array.from(links)
+    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
+    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
+    //         const imageUrlsSet = new Set();
+
+    //         // Update totalImages here
+    //         setTotalImages(jsonFiles.length);
+
+    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
+    //             const jsonRes = await fetchWithRetry(file);
+    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+    //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+    //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+    //                 // Add the updated image link to the set
+    //                 imageUrlsSet.add(updatedImageLink);
+    //             }
+
+    //             // Update uploadedImages here
+    //             setUploadedImages(imageUrlsSet.size);
+    //         }
+    //         const successfulImages = Array.from(imageUrlsSet);
+    //         return successfulImages;
+    //         // Rest of the code...
+    //     } catch (error) {
+    //         console.error('Error fetching images:', error);
+    //     }
+    // };
+    const [uploadedImages, setUploadedImages] = useState(1);
     const [totalImages, setTotalImages] = useState(null);
+
     const fetchImages = async (ipfsLink) => {
         try {
             const response = await fetchWithRetry(ipfsLink);
@@ -225,8 +261,8 @@ const Collectiondashbord = () => {
                     imageUrlsSet.add(updatedImageLink);
                 }
 
-                // Update uploadedImages here
-                setUploadedImages(imageUrlsSet.size);
+                // Update uploadedImages using the functional form of setState
+                setUploadedImages(prevUploadedImages => prevUploadedImages + 1);
             }
             const successfulImages = Array.from(imageUrlsSet);
             return successfulImages;
@@ -235,6 +271,7 @@ const Collectiondashbord = () => {
             console.error('Error fetching images:', error);
         }
     };
+
 
 
     const transformStages = (mintStages, mintStartTime) => {
