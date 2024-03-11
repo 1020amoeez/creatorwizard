@@ -103,12 +103,15 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
           }}>{text}</p>
           )}
           {uploadedImages !== null && (
-          <p className="text-white text-center mr-5 new-loaderrr" style={{
-            position: 'absolute',
-            top: "50%",
-            left: "50%",
-            transform: 'translate(-50%, 400%)',
-          }}>Uploading {uploadedImages}/{totalImages} files to IPFS...</p>
+         <p className="text-white text-center mr-5 new-loaderrr" style={{
+          position: 'absolute',
+          top: "50%",
+          left: "50%",
+          transform: 'translate(-50%, 400%)',
+      }}>
+          Uploading {Math.round(uploadedImages/2)}/{Math.round(totalImages/2)} files to IPFS...
+      </p>
+      
           )}
           {text2 && (
             <p className="text-white text-center mr-5 new-loaderrr" style={{

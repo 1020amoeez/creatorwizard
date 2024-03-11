@@ -247,7 +247,7 @@ const Collectiondashbord = () => {
             return [startTime, endTime, price, whiteList];
         });
     };
-    console.log(modaldata);
+    // console.log(modaldata);
 
     const ProjectContract = async (name, symbol, ipfLink, mintStages, totalSupply, perWalletLimit, LimitedEddition, mintStartTime) => {
         const val = localStorage.getItem("accessToken");
