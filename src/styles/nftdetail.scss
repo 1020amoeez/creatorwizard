@@ -2073,3 +2073,99 @@
     word-break: break-all;
 }
 
+
+.twice-itemssss{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    label{
+        margin: 0 !important;
+    }
+    a{
+        color: #862FC0 !important;
+        text-decoration: underline !important;
+
+
+    }
+}
+
+
+.guideline-modal{
+    text-align: start !important;
+    .modal-body{
+        max-height: 500px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+          }
+          
+    
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+          }
+           
+        
+          &::-webkit-scrollbar-thumb {
+            background: #862FC0; 
+            border-radius: 10px;
+          }
+          
+      
+          &::-webkit-scrollbar-thumb:hover {
+            background: #862FC0; 
+          }
+        
+    }
+    h2{
+        color: #FFF;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%; 
+        margin-bottom: 15px;
+        text-align: start !important;
+    }
+    ol{
+        li{
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            text-align: start !important; 
+            margin-bottom: 8px;
+        }
+        code{
+            color: #862FC0 !important;
+
+
+        }
+    }
+    pre{
+        color: #862FC0 !important;
+        text-align: justify;
+        &::-webkit-scrollbar {
+            height: 5px;
+          }
+          
+    
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+          }
+           
+        
+          &::-webkit-scrollbar-thumb {
+            background: #862FC0; 
+            border-radius: 10px;
+          }
+          
+      
+          &::-webkit-scrollbar-thumb:hover {
+            background: #862FC0; 
+          }
+    }
+}
