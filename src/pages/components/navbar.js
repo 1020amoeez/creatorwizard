@@ -291,7 +291,7 @@ const Navbar = () => {
                         </div>
                         <div className="balancetexts">
                           <p className="balancepara">Balance</p>
-                          <h6 className="balancehead">{balance}ETH</h6>
+                          <h6 className="balancehead">{balance}CORE</h6>
 
                         </div>
                       </div>
