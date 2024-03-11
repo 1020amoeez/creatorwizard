@@ -103,7 +103,7 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
               position: 'absolute',
               left: '42%',
               top: '58%',
-            }}>Uploading {uploadedImages}/{totalImages} files to IPFS...</p>
+            }}>Uploading {Math.round(uploadedImages/2)}/{Math.round(totalImages/2)} files to IPFS...</p>
           )}
            {text2 && (
             <p className="text-white text-center mr-5 new-loaderrr" style={{

@@ -870,6 +870,26 @@
                 border-radius: 15px;
                 border: 1.5px dashed #2C2238;
                 background: #0D0714;
+                .featuremainimg {
+                    border: 1.5px dashed #2C2238;
+                    background: #0D0714;
+                    width: 100%;
+                    height: 180px;
+                    object-fit: cover;
+                    object-position: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 15px;
+        
+                    .featureinnerimg {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                        border-radius: 15px;
+                    }
+                }
             }
 
             .featurepara {

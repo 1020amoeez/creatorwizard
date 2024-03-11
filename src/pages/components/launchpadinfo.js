@@ -334,24 +334,32 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                     <div className="featuredmain">
                         <h6 className="featurehead">Featured image</h6>
                         <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
-                        {/* {!isUploaded && ( // Render featureuploaddiv only if image is not uploaded */}
-                        <div className="featureuploaddiv" onClick={handleButtonClickimg2}>
-                            <div className="fetureuploadinnerdiv">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
-                                    <path d="M22.5 16.0791H7.5C6.9875 16.0791 6.5625 15.6541 6.5625 15.1416C6.5625 14.6291 6.9875 14.2041 7.5 14.2041H22.5C23.0125 14.2041 23.4375 14.6291 23.4375 15.1416C23.4375 15.6541 23.0125 16.0791 22.5 16.0791Z" fill="white" />
-                                    <path d="M15 23.5791C14.4875 23.5791 14.0625 23.1541 14.0625 22.6416V7.6416C14.0625 7.1291 14.4875 6.7041 15 6.7041C15.5125 6.7041 15.9375 7.1291 15.9375 7.6416V22.6416C15.9375 23.1541 15.5125 23.5791 15 23.5791Z" fill="white" />
-                                </svg>
-                            </div>
-                            <p className="featurepara">Recommended size: 600 x 400</p>
+                       
+                        <div className="featuredmain">
+                            <h6 className="featurehead">Featured image</h6>
+                            <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
+                   
+                            {formDataname?.featureImageUrl ? (
+                                <div className="featuremainimg">
+                                    <img src={formDataname.featureImageUrl} alt="Uploaded feature image" className="featureinnerimg" />
+                                </div>
+                            ) : (
+                                <div className="featureuploaddiv" onClick={handleButtonClickimg2}>
+                                    <div className="fetureuploadinnerdiv">
+                                    
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
+                                            <path d="M22.5 16.0791H7.5C6.9875 16.0791 6.5625 15.6541 6.5625 15.1416C6.5625 14.6291 6.9875 14.2041 7.5 14.2041H22.5C23.0125 14.2041 23.4375 14.6291 23.4375 15.1416C23.4375 15.6541 23.0125 16.0791 22.5 16.0791Z" fill="white" />
+                                            <path d="M15 23.5791C14.4875 23.5791 14.0625 23.1541 14.0625 22.6416V7.6416C14.0625 7.1291 14.4875 6.7041 15 6.7041C15.5125 6.7041 15.9375 7.1291 15.9375 7.6416V22.6416C15.9375 23.1541 15.5125 23.5791 15 23.5791Z" fill="white" />
+                                        </svg>
+                                    </div>
+                                    <p className="featurepara">Recommended size: 600 x 400</p>
+                                </div>
+                            )}
+                            <input type="file" ref={fileInputRef2} style={{ display: 'none' }} onChange={handleImageChange2} />
                         </div>
-                        {/* )} */}
                         <input type="file" ref={fileInputRef2} style={{ display: 'none' }} onChange={handleImageChange2} />
-                        {formDataname?.featureImageUrl && ( // Render featuremainimg only if image is uploaded
-                            <div className="featuremainimg">
-                                <img src={formDataname?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
-                            </div>
-                        )}
                     </div>
+
                     <div className="editions-div">
                         <div onClick={handleLimited} className={`inner-edition ${activeEdition === 'limited' ? 'active' : ''}`}>
                             <h6>Limited edition</h6>

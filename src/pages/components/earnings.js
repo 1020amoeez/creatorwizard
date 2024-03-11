@@ -121,6 +121,13 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     //     }
     // };
 
+    useEffect(() => {
+        if (account) {
+            setFormDataName({ ...formDataname, earningAddress: account });
+        }
+    }, [account]);
+
+
     const handleButtonClick = () => {
         const featureImageUrl = localStorage.getItem('featureImageUrl');
         if (!formDataname?.earningAddress) {
@@ -130,15 +137,9 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         } else {
             const earningAddress = formDataname?.earningAddress;
             const formDataName = JSON.parse(localStorage.getItem('formDataname'));
-            
-            // Parse dates from localStorage
             const mintStartTime = new Date(formDataName?.mintStartTime);
             const mintEndTime = new Date(formDataName?.mintEndTime);
-            
-            // Clone mintStages array to prevent mutation
-            const mintStages = [...formDataName?.mintStages];
-    
-            // Prepare formData object
+            // const mintStages = [...formDataName?.mintStages];
             const formData = {
                 earningAddress,
                 name: formDataName?.name || '',
@@ -151,9 +152,9 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                 featureImageUrl: featureImageUrl || '',
                 perWalletLimit: formDataName?.perWalletLimit || '',
                 teamMembers: formDataName?.teamMembers || [],
-                mintStartTime,
-                mintStages,
-                mintEndTime,
+                mintStartTime: mintStartTime,
+                mintStages: formDataName?.mintStages || [],
+                mintEndTime: mintEndTime,
             };
     
             // Handle additional properties
@@ -189,12 +190,6 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     };
 
 
-
-    // useEffect(() => {
-    //     if (account) {
-    //         setFormDataName({ ...formDataname, earningAddress: account });
-    //     }
-    // }, [account]);
 
 
     return (
