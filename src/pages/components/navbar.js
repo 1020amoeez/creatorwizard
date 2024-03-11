@@ -413,8 +413,8 @@ const Navbar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="mblnavlinks">
-          <Link className={router.asPath === "/collectiondashbord" ?'dropitemmbl active': "dropitemmbl"} href="/collectiondashbord" >Launchpads</Link>
-              <Link href="/mycollection" className={router.asPath === "/mycollection" ?'dropitemmbl active': "dropitemmbl"}>Collections</Link>
+          <Link className={router.pathname === "/components/collectiondashbord" ?'dropitemmbl active': "dropitemmbl"} href="/collectiondashbord" >Launchpads</Link>
+              <Link href="/mycollection" className={router.pathname === "/components/mycollection" ?'dropitemmbl active': "dropitemmbl"}>Collections</Link>
             
           </div>
           <div className="mblbtns">
