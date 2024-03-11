@@ -228,7 +228,7 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                         <p className='para'>This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
                         <div onClick={handleButtonClickimg2} className="upload-feature">
                            {
-                            createcollection.featureImageUrl ? "" :  <label htmlFor="upload">
+                            createcollection?.featureImageUrl ? "" :  <label htmlFor="upload">
                             <div className="upload">
                                 {createcollection?.featureImageUrl ? (
                                     <div className="featuremainimg">
@@ -246,7 +246,7 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                            }
                            {createcollection?.featureImageUrl ? "" :  <p>Recommended size: 600 x 400</p>}
                            {
-                            createcollection.featureImageUrl &&  <label htmlFor="upload " className="imgafterupload">
+                            createcollection?.featureImageUrl &&  <label htmlFor="upload " className="imgafterupload">
                             <div className="upload ">
                                     <div className="featuremainimg">
                                         <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
