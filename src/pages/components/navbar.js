@@ -244,8 +244,8 @@ const Navbar = () => {
               <img src="\assets\navbarassets\logo.svg" alt="logoimg" className="logoimg" />
             </Link>
             <div className="mid-links">
-              <Link className={router.asPath === "/collectiondashbord" ?'active': ""} href="/collectiondashbord" >Launchpads</Link>
-              <Link href="/mycollection" className={router.asPath === "/mycollection" ?'active': ""}>Collections</Link>
+              <Link className={router.pathname === "/components/collectiondashbord" ?'active': ""} href="/collectiondashbord" >Launchpads</Link>
+              <Link href="/mycollection" className={router.pathname === "/components/mycollection" ?'active': ""}>Collections</Link>
             </div>
             <div className="twice-items">
               {
@@ -412,16 +412,11 @@ const Navbar = () => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <div className="mblnavlinks">
-            <Link href={'/discovercollection'}>
-              <p className="dropitemmbl">Discover</p>
-            </Link>
-            <p className="dropitemmbl">Mint</p>
-            <Link href="/createlaunchpadcollection" className="dropitemmbl marginleft">Launchpad</Link>
-            <Link href="/launchpad?tab=edition" className="dropitemmbl marginleft">Open Editions</Link>
-            <Link href="/collectiondashbord" className="dropitemmbl">Creator Dashboard</Link>
-            <Link href="/applylaunchpad" className="dropitemmbl marginleft">Apply for launchpad</Link>
-          </div> */}
+          <div className="mblnavlinks">
+          <Link className={router.pathname === "/components/collectiondashbord" ?'dropitemmbl active': "dropitemmbl"} href="/collectiondashbord" >Launchpads</Link>
+              <Link href="/mycollection" className={router.pathname === "/components/mycollection" ?'dropitemmbl active': "dropitemmbl"}>Collections</Link>
+            
+          </div>
           <div className="mblbtns">
             {
               !account ?
