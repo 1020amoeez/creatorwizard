@@ -38,7 +38,7 @@ const MyCollection = () => {
     console.log(stakingAddress, true, "dedf4f");
     const contract = getCreatersContract(stakingAddress, web3);
     const { login, logout } = useAuth();
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [stagedata, setStageData] = useState([] || '');

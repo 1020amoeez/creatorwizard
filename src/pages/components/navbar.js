@@ -412,16 +412,11 @@ const Navbar = () => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <div className="mblnavlinks">
-            <Link href={'/discovercollection'}>
-              <p className="dropitemmbl">Discover</p>
-            </Link>
-            <p className="dropitemmbl">Mint</p>
-            <Link href="/createlaunchpadcollection" className="dropitemmbl marginleft">Launchpad</Link>
-            <Link href="/launchpad?tab=edition" className="dropitemmbl marginleft">Open Editions</Link>
-            <Link href="/collectiondashbord" className="dropitemmbl">Creator Dashboard</Link>
-            <Link href="/applylaunchpad" className="dropitemmbl marginleft">Apply for launchpad</Link>
-          </div> */}
+          <div className="mblnavlinks">
+          <Link className={router.asPath === "/collectiondashbord" ?'dropitemmbl active': "dropitemmbl"} href="/collectiondashbord" >Launchpads</Link>
+              <Link href="/mycollection" className={router.asPath === "/mycollection" ?'dropitemmbl active': "dropitemmbl"}>Collections</Link>
+            
+          </div>
           <div className="mblbtns">
             {
               !account ?
