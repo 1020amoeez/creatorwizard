@@ -254,7 +254,7 @@ const MyCollection = () => {
                     return
                 }
                 setLoader(false);
-                return;
+                // return;
             }
             const gas = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
                 .estimateGas({ from: account });

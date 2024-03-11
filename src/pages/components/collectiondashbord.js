@@ -330,7 +330,7 @@ const Collectiondashbord = () => {
                     return
                 }
                 setLoader(false);
-                return;
+                // return;
             }
             let stagesData = transformStages(mintStages, mintStartTime);
 
