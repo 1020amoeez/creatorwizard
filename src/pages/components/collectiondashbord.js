@@ -51,6 +51,10 @@ const Collectiondashbord = () => {
     const [royaliy, setRoyality] = useState('');
     // const [stagesarray, setStagesArray] = useState([]);
 
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
+
     const getNft = async (accessToken, status) => {
         setLoadertwo(true)
         try {
@@ -91,7 +95,7 @@ const Collectiondashbord = () => {
                 },
             };
             const response = await axios(config);
-            setStageData(response?.data?.data);
+            setStageData(response?.data?.data?.[0]);
             console.log("details", response?.data?.data);
         } catch (error) {
             if (error?.response?.status === 501 || error?.response?.status === 401) {
@@ -535,7 +539,7 @@ const Collectiondashbord = () => {
                         text2="Please wait..."
                     />
                 </>
-            )} 
+            )}
 
 
 
@@ -762,7 +766,14 @@ const Collectiondashbord = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="option-field">
-                        <label>IPF Link</label>
+                        <div className="twice-itemssss">
+                            <label>IPF Link</label>
+                            <a onClick={() => {
+                                handleClose();
+                                handleShow1();
+                            }} className='btn-guide'>Guide</a>
+                        </div>
+                        {/* <label>IPF Link</label>s */}
                         <input value={ipfLink}
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
                         <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
@@ -798,6 +809,47 @@ const Collectiondashbord = () => {
                     {/* <p className='text-white'> {modaldata?.[1]?.mintStages?.[0]?.perWalletMintLimit}</p> */}
                 </Modal.Body>
             </Modal >
+
+            <Modal className='buymodal guideline-modal' show={show1} onHide={handleClose1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Launch Collection Guideline</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="guide-text">
+                        <div>
+                            <h2>Follow these steps in order to generate the IPFS hash for multiple images</h2>
+                            <ol>
+                                <li>Create a folder and paste all your images into it.</li>
+                                <li>Ensure that the images are named like 1.png, 2.png, 3.png, and so on up to 100.png.</li>
+                                <li>Now, go to the Pinata website and create an account. After that, click on the "Upload" button at the top right corner, then select "Folder" and upload your images folder.</li>
+                                <li>After uploading, navigate to your uploaded folder on Pinata and copy the entire URL. The URL should look like: <code>https://pinata/.../</code>. This URL will be used to fetch your images.</li>
+                                <li>Save this URL (<code>https://pinata/.../</code>) and create another folder. In this folder, create JSON files for all your 100 images. Each JSON file should be named like 1.json, 2.json, 3.json, similar to how you named your images.</li>
+                                <li>In each JSON file, include the following structure, replacing the image URL with the actual URL of your images:</li>
+                                <pre>
+                                    {`
+          {
+            "name": "Wizard NFTs",
+            "image": "https://aqua-familiar-marmot-952.mypinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku/1.png"
+          }
+          `}
+                                </pre>
+                                <li>In each JSON file, update the image URL to include the specific image name and extension. For example, for the first image, the URL should be <code>https://pinata/.../1.png</code>.</li>
+                                <li>Once you've updated all JSON files, return to Pinata, click on the "Upload" button again, select "Folder", and upload your JSON folder.</li>
+                                <li>After uploading, open your uploaded folder and copy the entire URL. This URL will be added in the smart contract, and it should look like: <code>https://pinata/.../</code>.</li>
+                                <li>Provide this URL when deploying your collection, and the contract will automatically add the image names and extensions for each JSON file.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+
+                    <button onClick={() => {
+                        handleClose1();
+                        handleShow();
+                    }} style={{ maxWidth: "100%", marginTop: "18px" }} className="bluebtn">
+                        Back to IPF Link
+                    </button>
+                </Modal.Body>
+            </Modal>
 
         </>
     )
