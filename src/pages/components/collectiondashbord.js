@@ -302,8 +302,6 @@ const Collectiondashbord = () => {
             return;
         }
         try {
-            // let weiAmount = web3.utils.toWei(price.toString(), "ether")
-            // let weiAmounttwo = web3.utils.toWei(totalSupply.toString(), "ether")
             var gasFunPrice;
             web3.eth.getGasPrice().then((result) => {
                 var result2 = parseInt(result) + 3000000000
@@ -311,13 +309,8 @@ const Collectiondashbord = () => {
             })
             setLoader(true);
 
-            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`);
-            // if (res.length < modaldata?.totalSupply) {
-            //     toast.error(`Your Ipfs images must be equal to ${modaldata?.totalSupply}`)
-            //     setLoader(false);
-            //     return
-            // }
-            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            let res = await fetchImages(ipfLink, modaldata?.totalSupply);
             if (res?.length === 0) {
                 toast.warning(`Hash is not valid!`);
                 setLoader(false);
