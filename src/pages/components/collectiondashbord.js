@@ -127,6 +127,7 @@ const Collectiondashbord = () => {
 
 
     const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
+        console.log('fetchWithRetry', url);
         for (let i = 0; i < retries; i++) {
             try {
                 return await axios.get(url, { timeout: timeout });
@@ -136,69 +137,8 @@ const Collectiondashbord = () => {
         }
     };
 
-    // const fetchImages = async (ipfsLink) => {
-    //     try {
-    //         const response = await fetchWithRetry(ipfsLink);
-    //         const parser = new DOMParser();
-    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
-    //         const links = htmlDocument.getElementsByTagName('a');
-    //         const jsonFiles = Array.from(links)
-    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
-    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
-    //         const imageUrlsSet = new Set();
-    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
-    //             const jsonRes = await fetchWithRetry(file);
-    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-    //                 imageUrlsSet.add(jsonRes.data.image);
-    //             }
-    //         }
 
-    //         const successfulImages = Array.from(imageUrlsSet);
-    //         // setImages(successfulImages);
-    //         console.log(successfulImages, 'success');
-    //         return successfulImages;
 
-    //     } catch (error) {
-    //         console.error('Error fetching images:', error);
-    //     }
-    // };
-    // const fetchImages = async (ipfsLink) => {
-    //     try {
-    //         const response = await fetchWithRetry(ipfsLink);
-    //         const parser = new DOMParser();
-    //         const htmlDocument = parser.parseFromString(response.data, 'text/html');
-    //         const links = htmlDocument.getElementsByTagName('a');
-    //         const jsonFiles = Array.from(links)
-    //             .map(link => 'https://ipfs.io' + link.getAttribute('href'))
-    //             .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
-    //         const imageUrlsSet = new Set();
-    //         // console.log(jsonFiles,'jsonFiles');
-    //         //this for loop is for .png images 
-    //         // for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) { //if it cause issue remove  ?.slice(0, modaldata?.totalSupply * 2)
-    //         //     const jsonRes = await fetchWithRetry(file);
-    //         //     if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-    //         //         imageUrlsSet.add(jsonRes.data.image);
-    //         //     }
-    //         // }
-    //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
-    //             const jsonRes = await fetchWithRetry(file);
-    //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-    //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
-    //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
-    //                 // Add the updated image link to the set
-    //                 imageUrlsSet.add(updatedImageLink);
-    //             }
-    //         }
-
-    //         const successfulImages = Array.from(imageUrlsSet);
-    //         // setImages(successfulImages);
-    //         console.log(successfulImages, 'success');
-    //         return successfulImages;
-
-    //     } catch (error) {
-    //         console.error('Error fetching images:', error);
-    //     }
-    // };
 
     // const [uploadedImages, setUploadedImages] = useState(null);
     // const [totalImages, setTotalImages] = useState(null);
@@ -215,9 +155,10 @@ const Collectiondashbord = () => {
 
     //         // Update totalImages here
     //         setTotalImages(jsonFiles.length);
-
+    //         console.log(jsonFiles,"ress");
     //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
     //             const jsonRes = await fetchWithRetry(file);
+
     //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
     //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
     //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
@@ -235,44 +176,56 @@ const Collectiondashbord = () => {
     //         console.error('Error fetching images:', error);
     //     }
     // };
-    const [uploadedImages, setUploadedImages] = useState(1);
+    const [uploadedImages, setUploadedImages] = useState(0);
     const [totalImages, setTotalImages] = useState(null);
 
     const fetchImages = async (ipfsLink) => {
         try {
-            const response = await fetchWithRetry(ipfsLink);
+            const response =  await axios.get(ipfsLink);
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(response.data, 'text/html');
             const links = htmlDocument.getElementsByTagName('a');
             const jsonFiles = Array.from(links)
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
                 .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
-            const imageUrlsSet = new Set();
+            const imageUrlsSet = [];
 
-            // Update totalImages here
-            setTotalImages(jsonFiles.length);
-
-            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
-                const jsonRes = await fetchWithRetry(file);
-                if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
-                    // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
-                    const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
-                    // Add the updated image link to the set
-                    imageUrlsSet.add(updatedImageLink);
+            console.log(jsonFiles, jsonFiles.length, 'jsonnn');
+            // setTotalImages(jsonFiles.length);
+            if (jsonFiles?.length / 2 !== modaldata?.totalSupply) {
+                if (jsonFiles?.length / 2  <= modaldata?.totalSupply) {
+                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
+                    setLoader(false);
+                    return false;
                 }
-
-                // Update uploadedImages using the functional form of setState
-                setUploadedImages(prevUploadedImages => prevUploadedImages + 1);
             }
-            const successfulImages = Array.from(imageUrlsSet);
+            for (const file of jsonFiles?.slice(0, parseInt(modaldata?.totalSupply * 2))) {
+                let jsonRes;
+                if (file.includes('?filename=')) {
+                    // If the URL includes a filename, skip fetchWithRetry and directly add the file to the set
+                    // imageUrlsSet.add(file);
+                } else {
+                    // If the URL doesn't include a filename, use fetchWithRetry to fetch the file
+                    jsonRes = await fetchWithRetry(file);
+                    // if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+                    if (jsonRes.data.image) {
+                        // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+                        const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                        // Add the updated image link to the set
+                        imageUrlsSet.push(updatedImageLink);
+                        // Update uploadedImages only when an image is successfully processed
+                        setUploadedImages(prevUploadedImages => prevUploadedImages + 1);
+                    }
+                }
+            }
+            const successfulImages = imageUrlsSet;
+            console.log(successfulImages, 'dasdfasdffasdf');
             return successfulImages;
             // Rest of the code...
         } catch (error) {
             console.error('Error fetching images:', error);
         }
     };
-
-
 
     const transformStages = (mintStages, mintStartTime) => {
         return mintStages.map((stage, index) => {
@@ -312,19 +265,16 @@ const Collectiondashbord = () => {
             // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
             let res = await fetchImages(ipfLink, modaldata?.totalSupply);
             if (res?.length === 0) {
-                toast.warning(`Hash is not valid!`);
+                toast.info(`Please Retry`);
                 setLoader(false);
-                // return
+                return
             }
-            if (res?.length !== modaldata?.totalSupply) {
-                if (res?.length < modaldata?.totalSupply) {
-                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
-                    setLoader(false);
-                    return
-                }
-                setLoader(false);
-                return;
+
+            if(!res){
+                return ;
             }
+            // console.log(res?.length, modaldata?.totalSupply, 'totall');
+          
             let stagesData = transformStages(mintStages, mintStartTime);
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
@@ -554,7 +504,7 @@ const Collectiondashbord = () => {
                 <>
                     <Loader
                         uploadedImages={uploadedImages}
-                        totalImages={totalImages}
+                        totalImages={modaldata?.totalSupply}
                         modaldata={modaldata}
                         text="Please wait..."
                     />

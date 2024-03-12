@@ -109,7 +109,7 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
           left: "50%",
           transform: 'translate(-50%, 400%)',
       }}>
-          Uploading {Math.round(uploadedImages/2)}/{Math.round(totalImages/2)} files to IPFS...
+          Uploading {Math.round(uploadedImages)}/{Math.round(totalImages)} files to IPFS...
       </p>
       
           )}
