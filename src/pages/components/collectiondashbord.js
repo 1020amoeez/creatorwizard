@@ -321,7 +321,7 @@ const Collectiondashbord = () => {
             if (res?.length === 0) {
                 toast.warning(`Hash is not valid!`);
                 setLoader(false);
-                return
+                // return
             }
             if (res?.length !== modaldata?.totalSupply) {
                 if (res?.length < modaldata?.totalSupply) {
@@ -330,11 +330,9 @@ const Collectiondashbord = () => {
                     return
                 }
                 setLoader(false);
-                // return;
+                return;
             }
             let stagesData = transformStages(mintStages, mintStartTime);
-
-
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
                 .estimateGas({ from: account });

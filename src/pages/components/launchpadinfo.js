@@ -332,8 +332,8 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                         ue={formDataname?.totalSupply} onChange={(e) => setFormDataName({ ...formDataname, totalSupply: e.target.value })} type="text" className="stepinput" placeholder='Total Supply' />
                     </div> */}
                    <div className="featuredmain">
-                        <h6 className="featurehead">Featured image</h6>
-                        <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
+                        {/* <h6 className="featurehead">Featured image</h6>
+                        <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p> */}
                        
                         <div className="featuredmain">
                             <h6 className="featurehead">Featured image</h6>

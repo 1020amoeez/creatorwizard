@@ -244,7 +244,7 @@ const MyCollection = () => {
             if (res?.length === 0) {
                 toast.warning(`Hash is not valid!`);
                 setLoader(false);
-                return
+                // return
             }
             //if supply is greater than hash images then give error 
             if (res?.length !== modaldata?.totalSupply) {
