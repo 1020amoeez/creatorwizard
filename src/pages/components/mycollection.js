@@ -240,7 +240,8 @@ const MyCollection = () => {
             })
             setLoader(true);
 
-            let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            let res = await fetchImages(ipfLink, modaldata?.totalSupply);
             if (res?.length === 0) {
                 toast.warning(`Hash is not valid!`);
                 setLoader(false);
