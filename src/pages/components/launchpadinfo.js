@@ -331,15 +331,9 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                         <input val
                         ue={formDataname?.totalSupply} onChange={(e) => setFormDataName({ ...formDataname, totalSupply: e.target.value })} type="text" className="stepinput" placeholder='Total Supply' />
                     </div> */}
-<<<<<<< HEAD
-                    <div className="featuredmain">
-                        <h6 className="featurehead">Featured image</h6>
-                        <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
-=======
                    <div className="featuredmain">
                         {/* <h6 className="featurehead">Featured image</h6>
                         <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p> */}
->>>>>>> 55ad88e15de1c1eb04737cee681b930968aa8fb5
                        
                         <div className="featuredmain">
                             <h6 className="featurehead">Featured image</h6>

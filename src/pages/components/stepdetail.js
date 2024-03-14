@@ -137,11 +137,7 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
         } else if (!createcollection?.featureImageUrl) {
             toast.error('Provide Feature Image');
         } else if (!createcollection?.twitterUrl) {
-<<<<<<< HEAD
-            toast.error('Enter Twitter URL');
-=======
             toast.error('Enter Twitter Url');
->>>>>>> 55ad88e15de1c1eb04737cee681b930968aa8fb5
         } else if (!isValidUrl(createcollection?.twitterUrl)) {
             toast.error('Twitter URL must be a valid URL');
         } else {
