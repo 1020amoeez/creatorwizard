@@ -12,10 +12,8 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
     const items1 = ["Pfps", "Games", "Art", "Virtual_worlds", "Music", "Photography", "Sports", "Games", "Art", "Virtual_worlds", "Music", "Photography", "Sports"]
 
     const [image, setImage] = useState(null);
-
     const fileInputRef = useRef(null);
     const fileInputRef2 = useRef(null);
-
 
     // const handleImageChange = (e) => {
     //     const file = e.target.files[0];
@@ -115,7 +113,6 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
     };
 
 
-
     const handleUpload = () => {
         setImage(null);
     };
@@ -192,63 +189,6 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
             return false;
         }
     };
-    const [video, setVideo] = useState(null);
-    const [videoFile, setVideoFile] = useState(null);
-    const fileInputRefVideo = useRef(null);
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setVideoFile(file);
-    };
-
-    // const handleVideoChange = async () => {
-    //     if (videoFile) {
-    //         const reader = new FileReader();
-    //         reader.onload = async () => {
-    //             try {
-    //                 const videoUrl = await uploadVideo(accessToken, reader.result);
-    //                 setVideo(reader.result);
-    //                 // Here you can do something with the uploaded video URL
-    //                 console.log('Uploaded video URL:', videoUrl);
-    //             } catch (error) {
-    //                 toast.error("Failed to upload video. Please provide a valid video file.");
-    //             }
-    //         };
-    //         reader.readAsDataURL(videoFile);
-    //     }
-    // };
-
-    // const uploadVideo = async (accessToken, video) => {
-    //     const formData = new FormData();
-    //     const base64Video = video;
-    //     const file = await dataURLtoFile(base64Video, 'video.mp4');
-    //     formData.append("fileName", file?.name);
-    //     formData.append("destination", "videos");
-    //     try {
-    //         const response = await axios.post(api_url + "/metadata/multipart-upload/init", formData, {
-    //             headers: {
-    //                 Authorization: "Bearer " + accessToken,
-    //                 'Content-Type': 'multipart/form-data',
-    //             },
-    //         });
-
-    //         if (response?.data?.url) {
-    //             return response.data.url;
-    //         }
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // };
-
-    // const handleButtonClickVideo = () => {
-    //     if (fileInputRefVideo.current) {
-    //         fileInputRefVideo.current.click();
-    //     }
-    // };
-
-
-
-
 
     return (
         <>
@@ -286,27 +226,25 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                     <div className="feature-img">
                         <h6>Featured image</h6>
                         <p className='para'>This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
-                        {/* <div onClick={handleButtonClickimg2} className="upload-feature">                      
-                                <div className="upload"> */}
-                        {createcollection?.featureImageUrl ? (
-                            <div className="featuremainimg">
-                                <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
-                            </div>
-                        ) : (
-                            <div className="upload-feature" onClick={handleButtonClickimg2}>
-                                <div className="upload">
+                        <div onClick={handleButtonClickimg2} className="upload-feature">
+                           {
+                            createcollection?.featureImageUrl ? "" :  <label htmlFor="upload">
+                            <div className="upload">
+                                {createcollection?.featureImageUrl ? (
+                                    <div className="featuremainimg">
+                                        <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
+                                    </div>
+                                ) : (
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
                                         <path d="M22.5 16.4639H7.5C6.9875 16.4639 6.5625 16.0389 6.5625 15.5264C6.5625 15.0139 6.9875 14.5889 7.5 14.5889H22.5C23.0125 14.5889 23.4375 15.0139 23.4375 15.5264C23.4375 16.0389 23.0125 16.4639 22.5 16.4639Z" fill="white" />
                                         <path d="M15 23.9639C14.4875 23.9639 14.0625 23.5389 14.0625 23.0264V8.02637C14.0625 7.51387 14.4875 7.08887 15 7.08887C15.5125 7.08887 15.9375 7.51387 15.9375 8.02637V23.0264C15.9375 23.5389 15.5125 23.9639 15 23.9639Z" fill="white" />
                                     </svg>
-                                </div>
-                                <p className="featurepara">Recommended size: 600 x 400</p>
+                                )}
+                                <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
                             </div>
-                        )}
-                        <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
-                    </div>
-                    <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
-                    {/* {createcollection?.featureImageUrl ? "" :  <p>Recommended size: 600 x 400</p>}
+                        </label>
+                           }
+                           {createcollection?.featureImageUrl ? "" :  <p>Recommended size: 600 x 400</p>}
                            {
                             createcollection?.featureImageUrl &&  <label htmlFor="upload " className="imgafterupload">
                             <div className="upload ">
@@ -316,51 +254,9 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                                 <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
                             </div>
                         </label>
-                           } */}
-                    {/* </div>
-                    </div> */}
-
-                    {/* 
-
-                    <div className="feature-img">
-                        <h6>Featured {videoFile ? 'Video' : 'Image'}</h6>
-                        <p className='para'>{videoFile ? 'This video will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.' : 'This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.'}</p>
-                        <div onClick={videoFile ? handleButtonClickVideo : handleButtonClickimg2} className="upload-feature">
-                            {createcollection?.featureImageUrl && !videoFile ? "" : <label htmlFor="upload">
-                                <div className="upload">
-                                    {createcollection?.featureImageUrl && !videoFile ? (
-                                        <div className="featuremainimg">
-                                            <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
-                                        </div>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
-                                            <path d="M22.5 16.4639H7.5C6.9875 16.4639 6.5625 16.0389 6.5625 15.5264C6.5625 15.0139 6.9875 14.5889 7.5 14.5889H22.5C23.0125 14.5889 23.4375 15.0139 23.4375 15.5264C23.4375 16.0389 23.0125 16.4639 22.5 16.4639Z" fill="white" />
-                                            <path d="M15 23.9639C14.4875 23.9639 14.0625 23.5389 14.0625 23.0264V8.02637C14.0625 7.51387 14.4875 7.08887 15 7.08887C15.5125 7.08887 15.9375 7.51387 15.9375 8.02637V23.0264C15.9375 23.5389 15.5125 23.9639 15 23.9639Z" fill="white" />
-                                        </svg>
-                                    )}
-                            
-                                    <input className='d-none' id='upload' type="file" accept="video/*" onChange={handleFileChange} />
-
-                                </div>
-                            </label>
-                            }
-
-                            {createcollection?.featureImageUrl && !videoFile ? "" : <p>{videoFile ? 'Recommended size: 600 x 400' : 'Recommended size: 600 x 400'}</p>}
-                            {
-                                createcollection?.featureImageUrl && !videoFile && <label htmlFor="upload " className="imgafterupload">
-                                    <div className="upload ">
-                                        <div className="featuremainimg">
-                                            <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
-                                        </div>
-                                        <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
-                                    </div>
-                                </label>
-                            }
+                           }
                         </div>
                     </div>
-
-                    <button onClick={(e) => handleVideoChange(videoFile)}>asd</button> */}
-
                     <div className="socialweblinks">
                         <h3 className="socialwebhead">Social & Web Links</h3>
                         <p className="socialwebpara">Input your social and website links for your collection. These links will be displayed on your collection page</p>
