@@ -58,6 +58,17 @@ export default function App({ Component, pageProps }) {
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
+            <meta name="Wizard Gallery Marketplace"
+              content="Wizard Gallery is a marketplace built on and for the Core ecosystem" />
+            <meta property="og:title" content="Wizard Gallery Marketplace" />
+            <meta property="og:description" content="Wizard Gallery is a marketplace built on and for the Core ecosystem" />
+            <meta property="og:URL"
+              content="https://res.cloudinary.com/drt6vurtt/image/upload/c_pad,w_300/v1710158979/wizardnft/preview_elhm1b.png" />
+            <meta property="og:image"
+              content="https://res.cloudinary.com/drt6vurtt/image/upload/c_pad,w_300/v1710158979/wizardnft/preview_elhm1b.png" />
+
+            <title>Wizard Gallery Marketplace</title>
+
           </Head>
 
           <Component {...pageProps} />

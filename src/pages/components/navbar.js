@@ -291,7 +291,11 @@ const Navbar = () => {
                         </div>
                         <div className="balancetexts">
                           <p className="balancepara">Balance</p>
+<<<<<<< HEAD
                           <h6 className="balancehead">{balance}Core</h6>
+=======
+                          <h6 className="balancehead">{balance}CORE</h6>
+>>>>>>> 55ad88e15de1c1eb04737cee681b930968aa8fb5
 
                         </div>
                       </div>

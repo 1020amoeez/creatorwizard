@@ -71,9 +71,12 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
           className='position-fixed w-100'
           style={{
             zIndex: 1100,
-            marginTop: -200,
-            height: '135%',
-            marginLeft: width > 992 ? 0 : 0,
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: 'translate(-50%, -50%)',
+            width: "100%",
+            height: "100%",
             background: 'rgba(8, 5, 10, 0.5)',
             backdropFilter: 'blur(20px)'
           }}
@@ -92,27 +95,33 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
             </div>
           </div>
           {text && (
-            <p className="text-white text-center mr-5 new-loaderrr" style={{
-              position: 'absolute',
-              left: '47%',
-              top: '56%',
-            }}>{text}</p>
+          <p className="text-white text-center mr-5 new-loaderrr" style={{
+            position: 'absolute',
+            top: "50%",
+            left: "50%",
+            transform: 'translate(-50%, 300%)',
+          }}>{text}</p>
           )}
           {uploadedImages !== null && (
-            <p className="text-white text-center mr-5 new-loaderrr" style={{
-              position: 'absolute',
-              left: '42%',
-              top: '58%',
-            }}>Uploading {Math.round(uploadedImages/2)}/{Math.round(totalImages/2)} files to IPFS...</p>
+         <p className="text-white text-center mr-5 new-loaderrr" style={{
+          position: 'absolute',
+          top: "50%",
+          left: "50%",
+          transform: 'translate(-50%, 400%)',
+      }}>
+          Uploading {Math.round(uploadedImages)}/{Math.round(totalImages)} files to IPFS...
+      </p>
+      
           )}
-           {text2 && (
+          {text2 && (
             <p className="text-white text-center mr-5 new-loaderrr" style={{
               position: 'absolute',
-              left: '47%',
-              top: '56%',
+              top: "50%",
+              left: "50%",
+              transform: 'translate(-50%, 400%)',
             }}>{text2}</p>
           )}
-     
+
           <div className="progress" style={{ width: '80%', margin: '20px auto' }}>
             <div
               className="progress-bar"

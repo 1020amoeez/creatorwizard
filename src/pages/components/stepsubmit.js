@@ -67,10 +67,10 @@ const StepMint = ({ CreateCollection, createcollection }) => {
                             </div>
                         </div>
                         <div className="twice-field-text">
-                            <div className="single-text">
+                            {/* <div className="single-text">
                                 <p>Discord</p>
                                 <h6>{createcollection?.discordUrl}</h6>
-                            </div>
+                            </div> */}
                             <div className="single-text">
                                 <p>Website (URL)</p>
                                 <h6>{createcollection?.websiteUrl}</h6>

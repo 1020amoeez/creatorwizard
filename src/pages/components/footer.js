@@ -16,20 +16,20 @@ const Footer = () => {
               <div className="footerlinks">
                 <div className="footerlinksinner">
                   <h6 className="footerhead">Company</h6>
-                  <a href="https://wizard-user-mainnet.vercel.app/aboutus" target='_blank' className="footerpara">About Us</a>
+                  <a href="https://www.wizardgallery.xyz/aboutus" target='_blank' className="footerpara">About Us</a>
                 </div>
                 <div className="footerlinksinner">
                 <h6 className="footerhead">Marketplace</h6>
-                <a target='_blank' href="https://wizard-user-mainnet.vercel.app/discovercollection" className="footerpara">Explore Collections</a>
-                <a target='_blank' href="https://wizard-user-mainnet.vercel.app/launchpad" className="footerpara">Launchpad</a>
+                <a target='_blank' href="https://www.wizardgallery.xyz/discovercollection" className="footerpara">Explore Collections</a>
+                <a target='_blank' href="https://www.wizardgallery.xyz/launchpad" className="footerpara">Launchpad</a>
                 <Link href="/mycollection" className="footerpara">Create Collection</Link>
               </div>
                 <div className="footerlinksinner">
                   <h6 className="footerhead">Resources</h6>
-                  <a href="https://wizard-user-mainnet.vercel.app/faqs" target='_blank' className="footerpara">FAQS</a>
-                  <a href="https://wizard-user-mainnet.vercel.app/walletguide" target='_blank' className="footerpara">Wallet Guide</a>
-                  <a href="https://wizard-user-mainnet.vercel.app/termsandcondition" target='_blank' className="footerpara">Terms of Service</a>
-                  <a href="https://wizard-user-mainnet.vercel.app/privacypolicy" target='_blank' className="footerpara">Privacy Policy</a>
+                  <a href="https://www.wizardgallery.xyz/faqs" target='_blank' className="footerpara">FAQS</a>
+                  <a href="https://www.wizardgallery.xyz/walletguide" target='_blank' className="footerpara">Wallet Guide</a>
+                  <a href="https://www.wizardgallery.xyz/termsandcondition" target='_blank' className="footerpara">Terms of Service</a>
+                  <a href="https://www.wizardgallery.xyz/privacypolicy" target='_blank' className="footerpara">Privacy Policy</a>
                 </div>
                 <div className="footerlinksinner">
                   <h6 className="footerhead">follow</h6>

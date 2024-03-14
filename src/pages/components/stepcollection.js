@@ -58,7 +58,7 @@ const Stepcollection = ({ onNext, createcollection, setCreateCollection }) => {
                     </div>
                     <div className="stepinputmain">
                         <p className="stepinputpara marginless">Collection Symbol</p>
-                        <p className="ligthsteppara">https://magiceden.io/marketplace/</p>
+                        <p className="ligthsteppara">https://www.wizardgallery.xyz/</p>
                         <input
                             value={createcollection?.symbol}
                             onChange={(e) => setCreateCollection({ ...createcollection, symbol: e.target.value })}

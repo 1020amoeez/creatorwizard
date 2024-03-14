@@ -127,6 +127,7 @@ const Collectiondashbord = () => {
 
 
     const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
+        console.log('fetchWithRetry', url);
         for (let i = 0; i < retries; i++) {
             try {
                 return await axios.get(url, { timeout: timeout });
@@ -138,8 +139,9 @@ const Collectiondashbord = () => {
 
 
 
-    const [uploadedImages, setUploadedImages] = useState(null);
-    const [totalImages, setTotalImages] = useState(null);
+
+    // const [uploadedImages, setUploadedImages] = useState(null);
+    // const [totalImages, setTotalImages] = useState(null);
     // const fetchImages = async (ipfsLink) => {
     //     try {
     //         const response = await fetchWithRetry(ipfsLink);
@@ -153,9 +155,10 @@ const Collectiondashbord = () => {
 
     //         // Update totalImages here
     //         setTotalImages(jsonFiles.length);
-
+    //         console.log(jsonFiles,"ress");
     //         for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
     //             const jsonRes = await fetchWithRetry(file);
+
     //             if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
     //                 // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
     //                 const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
@@ -173,32 +176,58 @@ const Collectiondashbord = () => {
     //         console.error('Error fetching images:', error);
     //     }
     // };
-    const fetchMetadata = async (ipfsLink) => {
+    const [uploadedImages, setUploadedImages] = useState(0);
+    const [totalImages, setTotalImages] = useState(null);
+
+    const fetchImages = async (ipfsLink) => {
         try {
-            const response = await fetchWithRetry(ipfsLink);
+            const response =  await axios.get(ipfsLink);
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(response.data, 'text/html');
             const links = htmlDocument.getElementsByTagName('a');
             const jsonFiles = Array.from(links)
                 .map(link => 'https://ipfs.io' + link.getAttribute('href'))
-                .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));         
-            setTotalImages(jsonFiles.length);    
-            const metadata = [];  
-            for (const file of jsonFiles?.slice(0, modaldata?.totalSupply * 2)) {
-                const jsonRes = await fetchWithRetry(file);
-                metadata.push(jsonRes.data); 
-                setUploadedImages(metadata.length);
+                .filter(href => href.endsWith('.json') && !href.includes('_metadata.json'));
+            const imageUrlsSet = [];
+
+            console.log(jsonFiles, jsonFiles.length, 'jsonnn');
+            // setTotalImages(jsonFiles.length);
+            if (jsonFiles?.length / 2 !== modaldata?.totalSupply) {
+                if (jsonFiles?.length / 2  <= modaldata?.totalSupply) {
+                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
+                    setLoader(false);
+                    return false;
+                }
             }
-    
-            return metadata;
-    
+            for (const file of jsonFiles?.slice(0, parseInt(modaldata?.totalSupply * 2))) {
+                let jsonRes;
+                if (file.includes('?filename=')) {
+                    // If the URL includes a filename, skip fetchWithRetry and directly add the file to the set
+                    // imageUrlsSet.add(file);
+                } else {
+                    // If the URL doesn't include a filename, use fetchWithRetry to fetch the file
+                    jsonRes = await fetchWithRetry(file);
+                    // if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
+                    if (jsonRes.data.image) {
+                        // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
+                        const updatedImageLink = jsonRes.data.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                        // Add the updated image link to the set
+                        imageUrlsSet.push(updatedImageLink);
+                        // Update uploadedImages only when an image is successfully processed
+                        setUploadedImages(prevUploadedImages => prevUploadedImages + 1);
+                    }
+                }
+            }
+            const successfulImages = imageUrlsSet;
+            console.log(successfulImages, 'dasdfasdffasdf');
+            return successfulImages;
+            // Rest of the code...
         } catch (error) {
             console.error('Error fetching metadata:', error);
             throw error;
         }
     };
     
-
 
     const transformStages = (mintStages, mintStartTime) => {
         return mintStages.map((stage, index) => {
@@ -210,7 +239,7 @@ const Collectiondashbord = () => {
             return [startTime, endTime, price, whiteList];
         });
     };
-    console.log(modaldata);
+    // console.log(modaldata);
 
     const ProjectContract = async (name, symbol, ipfLink, mintStages, totalSupply, perWalletLimit, LimitedEddition, mintStartTime) => {
         const val = localStorage.getItem("accessToken");
@@ -228,8 +257,6 @@ const Collectiondashbord = () => {
             return;
         }
         try {
-            // let weiAmount = web3.utils.toWei(price.toString(), "ether")
-            // let weiAmounttwo = web3.utils.toWei(totalSupply.toString(), "ether")
             var gasFunPrice;
             web3.eth.getGasPrice().then((result) => {
                 var result2 = parseInt(result) + 3000000000
@@ -237,27 +264,19 @@ const Collectiondashbord = () => {
             })
             setLoader(true);
 
-            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`);
-            // if (res.length < modaldata?.totalSupply) {
-            //     toast.error(`Your Ipfs images must be equal to ${modaldata?.totalSupply}`)
-            //     setLoader(false);
-            //     return
-            // }
-            // let res = await fetchMetadata(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
-            let res = await fetchMetadata(ipfLink, modaldata?.totalSupply);
+            // let res = await fetchImages(`https://ipfs.io/ipfs/${ipfLink}`, modaldata?.totalSupply);
+            let res = await fetchImages(ipfLink, modaldata?.totalSupply);
             if (res?.length === 0) {
-                toast.warning(`Hash is not valid!`);
+                toast.info(`Please Retry`);
                 setLoader(false);
                 return
             }
-            if (res?.length !== modaldata?.totalSupply) {
-                if (res?.length < modaldata?.totalSupply) {
-                    toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
-                    setLoader(false);
-                    return
-                }
-                setLoader(false);        
+
+            if(!res){
+                return ;
             }
+            // console.log(res?.length, modaldata?.totalSupply, 'totall');
+          
             let stagesData = transformStages(mintStages, mintStartTime);
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, symbol, ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
@@ -486,7 +505,7 @@ const Collectiondashbord = () => {
                 <>
                     <Loader
                         uploadedImages={uploadedImages}
-                        totalImages={totalImages}
+                        totalImages={modaldata?.totalSupply}
                         modaldata={modaldata}
                         text="Please wait..."
                     />

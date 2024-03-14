@@ -220,7 +220,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                                 </p> */}
 
                                 <div className="input-field">
-                                    <input type="text" placeholder='90' />
+                                    <input type="text" placeholder='95' readOnly />
                                     <span>%</span>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                                     Wizard NFT
                                 </p>
                                 <div className="input-field">
-                                    <input type="text" placeholder='10' />
+                                    <input type="text" placeholder='5' readOnly />
                                     <span>%</span>
                                 </div>
                             </div>
