@@ -337,8 +337,7 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                        
                         <div className="featuredmain">
                             <h6 className="featurehead">Featured image</h6>
-                            <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
-                   
+                            <p className="featurepara">This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>               
                             {formDataname?.featureImageUrl ? (
                                 <div className="featuremainimg">
                                     <img src={formDataname.featureImageUrl} alt="Uploaded feature image" className="featureinnerimg" />
@@ -359,7 +358,6 @@ const Launchpadinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => 
                         </div>
                         <input type="file" ref={fileInputRef2} style={{ display: 'none' }} onChange={handleImageChange2} />
                     </div>
-
                     <div className="editions-div">
                         <div onClick={handleLimited} className={`inner-edition ${activeEdition === 'limited' ? 'active' : ''}`}>
                             <h6>Limited edition</h6>
