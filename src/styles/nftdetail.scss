@@ -340,7 +340,7 @@
                         font-style: normal;
                         font-weight: 300;
                         line-height: 120%;
-                        
+
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -371,7 +371,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                             cursor: pointer;
                             gap: 7px;
 
@@ -590,7 +590,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 100%;
-                    
+
                 }
             }
         }
@@ -1163,7 +1163,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 140%;
-                            
+
                         }
 
                         .percentagepara {
@@ -1202,7 +1202,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 140%;
-                            
+
                             margin-bottom: 25px;
                             text-align: left;
                         }
@@ -1224,7 +1224,7 @@
                                 font-style: normal;
                                 font-weight: 400;
                                 line-height: 140%;
-                                
+
                                 text-align: left;
                                 margin-bottom: 20px;
                             }
@@ -1257,7 +1257,7 @@
                                         font-style: normal;
                                         font-weight: 400;
                                         line-height: 140%;
-                                        
+
                                     }
                                 }
 
@@ -1283,7 +1283,7 @@
                                         font-style: normal;
                                         font-weight: 400;
                                         line-height: 140%;
-                                        
+
                                     }
 
                                     .bluepara {
@@ -1292,7 +1292,7 @@
                                         font-style: normal;
                                         font-weight: 400;
                                         line-height: 140%;
-                                        
+
                                         display: flex;
                                         align-items: center;
                                         gap: 6px;
@@ -1329,7 +1329,7 @@
                                         font-style: normal;
                                         font-weight: 400;
                                         line-height: 140%;
-                                        
+
                                     }
                                 }
                             }
@@ -1411,7 +1411,7 @@
                     font-weight: 400;
                     line-height: 140%;
                     /* 30.8px */
-                    
+
                     margin-bottom: 18px;
                 }
 
@@ -1422,7 +1422,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 140%;
-                    
+
                 }
 
                 .purchasedimg {
@@ -1460,7 +1460,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 140%;
-                    
+
                     max-width: 455px;
                     width: 100%;
                     margin: 0 auto;
@@ -1501,7 +1501,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: 140%;
-                    
+
                     margin-top: 24px;
 
                     .whitetext {
@@ -1521,7 +1521,7 @@
                         font-style: normal;
                         font-weight: 400;
                         line-height: 100%;
-                        
+
                     }
 
                     .buyitemright {
@@ -1535,7 +1535,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                         }
 
                         .buyitemrightpara {
@@ -1569,7 +1569,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                         }
 
                         .buydataright {
@@ -1578,7 +1578,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                         }
                     }
                 }
@@ -1596,7 +1596,7 @@
                         font-style: normal;
                         font-weight: 400;
                         line-height: 100%;
-                        
+
                         margin-bottom: 15px;
                     }
 
@@ -1626,7 +1626,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 120%;
-                            
+
                         }
                     }
                 }
@@ -1651,7 +1651,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                         }
 
                         .placebiddataright {
@@ -1660,7 +1660,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%;
-                            
+
                         }
                     }
                 }
@@ -1733,7 +1733,7 @@
             font-style: normal;
             font-weight: 400;
             line-height: 100%;
-            
+
             margin-bottom: 15px;
             text-align: start;
         }
@@ -2066,7 +2066,7 @@
     }
 }
 
-.note-text{
+.note-text {
     color: #E84A4A;
     text-align: start;
     margin-top: 10px;
@@ -2074,15 +2074,17 @@
 }
 
 
-.twice-itemssss{
+.twice-itemssss {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    label{
+
+    label {
         margin: 0 !important;
     }
-    a{
+
+    a {
         color: #862FC0 !important;
         text-decoration: underline !important;
 
@@ -2091,81 +2093,179 @@
 }
 
 
-.guideline-modal{
+.guideline-modal {
     text-align: start !important;
-    .modal-body{
+
+    .modal-body {
         max-height: 500px;
         overflow-y: auto;
 
         &::-webkit-scrollbar {
             width: 5px;
-          }
-          
-    
-          &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey; 
+        }
+
+
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
             border-radius: 10px;
-          }
-           
-        
-          &::-webkit-scrollbar-thumb {
-            background: #862FC0; 
+        }
+
+
+        &::-webkit-scrollbar-thumb {
+            background: #862FC0;
             border-radius: 10px;
-          }
-          
-      
-          &::-webkit-scrollbar-thumb:hover {
-            background: #862FC0; 
-          }
-        
+        }
+
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #862FC0;
+        }
+
     }
-    h2{
+
+    h2 {
         color: #FFF;
         font-size: 20px;
         font-style: normal;
         font-weight: 500;
-        line-height: 110%; 
+        line-height: 110%;
         margin-bottom: 15px;
         text-align: start !important;
     }
-    ol{
-        li{
+
+    ol {
+        li {
             color: #FFF;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
             line-height: 140%;
-            text-align: start !important; 
+            text-align: start !important;
             margin-bottom: 8px;
         }
-        code{
+
+        code {
             color: #862FC0 !important;
 
 
         }
     }
-    pre{
+
+    pre {
         color: #862FC0 !important;
         text-align: justify;
+
         &::-webkit-scrollbar {
             height: 5px;
-          }
-          
-    
-          &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey; 
+        }
+
+
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
             border-radius: 10px;
-          }
-           
-        
-          &::-webkit-scrollbar-thumb {
-            background: #862FC0; 
+        }
+
+
+        &::-webkit-scrollbar-thumb {
+            background: #862FC0;
             border-radius: 10px;
-          }
-          
-      
-          &::-webkit-scrollbar-thumb:hover {
-            background: #862FC0; 
-          }
+        }
+
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #862FC0;
+        }
+    }
+}
+
+
+.buymodal {
+    .select-media {
+        border-radius: 7px;
+        background: #140B1E;
+        padding: 18px 15px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 20px;
+        .right-side{
+            h6{
+                color: #FFF;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%; 
+                margin-bottom: 12px;
+                text-align: start;
+            }
+            p{
+                color: #604E76;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 150%;
+                text-align: start; 
+            }
+        }
+
+    }
+    .select-metadata{
+        border-radius: 7px;
+        background: #140B1E;
+        padding: 18px 15px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 20px;
+        .right-side{
+            h6{
+                color: #FFF;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%; 
+                margin-bottom: 12px;
+                text-align: start;
+            }
+            p{
+                color: #604E76;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 150%; 
+                text-align: start;
+            }
+        }
+    }
+    .twice-btn{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        a{
+            width: 49%;
+            padding: 17px 22px;
+        }
+        .btn-cancel{
+            border-radius: 10px;
+            border: 1px solid #862FC0;
+            color: #862FC0;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%; 
+        }
+        .btn-save{
+            border-radius: 10px;
+            background: #862FC0;
+            color: #FFF;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%; 
+        }
     }
 }
