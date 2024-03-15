@@ -121,11 +121,11 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     //     }
     // };
 
-    useEffect(() => {
-        if (account) {
-            setFormDataName({ ...formDataname, earningAddress: account });
-        }
-    }, [account]);
+    // useEffect(() => {
+    //     if (account) {
+    //         setFormDataName({ ...formDataname, earningAddress: account });
+    //     }
+    // }, [account]);
 
 
     const handleButtonClick = () => {
