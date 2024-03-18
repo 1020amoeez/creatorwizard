@@ -140,7 +140,7 @@ const MyCollection = () => {
         }
     };
 
-    
+
     // const [uploadedImages, setUploadedImages] = useState(null);
     // const [totalImages, setTotalImages] = useState(null);
     // const fetchImages = async (ipfsLink) => {
@@ -183,7 +183,7 @@ const MyCollection = () => {
 
     const fetchImages = async (ipfsLink) => {
         try {
-            const response =  await axios.get(ipfsLink);
+            const response = await axios.get(ipfsLink);
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(response.data, 'text/html');
             const links = htmlDocument.getElementsByTagName('a');
@@ -195,7 +195,7 @@ const MyCollection = () => {
             console.log(jsonFiles, jsonFiles.length, 'jsonnn');
             // setTotalImages(jsonFiles.length);
             if (jsonFiles?.length / 2 !== modaldata?.totalSpply) {
-                if (jsonFiles?.length / 2  <= modaldata?.totalSpply) {
+                if (jsonFiles?.length / 2 <= modaldata?.totalSpply) {
                     toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
                     setLoader(false);
                     return false;
@@ -260,11 +260,11 @@ const MyCollection = () => {
                 setLoader(false);
                 return
             }
-            if(!res){
-                return ;
+            if (!res) {
+                return;
             }
-        
-        
+
+
             const gas = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
                 .estimateGas({ from: account });
             const staked = await contract.methods.deployCollection(name, symbol, ipfLink, totalSupply)
@@ -377,6 +377,8 @@ const MyCollection = () => {
     const HandleRemoveStorage = () => {
         localStorage.removeItem("formDataname")
     }
+
+    const [showData, setShowData] = useState(false);
 
     return (
         <>
@@ -563,6 +565,12 @@ const MyCollection = () => {
                                                 justlanding.map((item, index) => (
                                                     <div className='parentcard' key={index}>
                                                         <div className='maincard'>
+                                                        {/* <a className='question-tool' onMouseEnter={() => setShowData(true)} onMouseLeave={() => setShowData(false)}><img src="\assets\question-tooltip.svg" alt="img" className='img-fluid' /></a> */}
+                                                            <div className="dataonshow" style={{ display: showData ? 'block' : 'none' }}>
+                                                                <h6>Reason of Rejecting</h6>
+                                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.
+                                                                    quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+                                                            </div>
                                                             <div className='mainimg'>
                                                                 <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
                                                             </div>
