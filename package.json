@@ -24,8 +24,10 @@
     "jodit-react": "^1.3.39",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
+    "mime": "^4.0.1",
     "moment": "^2.30.1",
     "next": "14.0.4",
+    "nft.storage": "^7.1.1",
     "react": "^18",
     "react-bootstrap": "^2.9.2",
     "react-countdown": "^2.3.5",
@@ -42,5 +44,11 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.4"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }
+
