@@ -181,7 +181,7 @@ const Collectiondashbord = () => {
 
     const fetchImages = async (ipfsLink) => {
         try {
-            const response =  await axios.get(ipfsLink);
+            const response = await axios.get(ipfsLink);
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(response.data, 'text/html');
             const links = htmlDocument.getElementsByTagName('a');
@@ -193,7 +193,7 @@ const Collectiondashbord = () => {
             console.log(jsonFiles, jsonFiles.length, 'jsonnn');
             // setTotalImages(jsonFiles.length);
             if (jsonFiles?.length / 2 !== modaldata?.totalSupply) {
-                if (jsonFiles?.length / 2  <= modaldata?.totalSupply) {
+                if (jsonFiles?.length / 2 <= modaldata?.totalSupply) {
                     toast.error(`The number of IPFS images is less than the total supply (${modaldata?.totalSupply})`);
                     setLoader(false);
                     return false;
@@ -270,11 +270,11 @@ const Collectiondashbord = () => {
                 return
             }
 
-            if(!res){
-                return ;
+            if (!res) {
+                return;
             }
             // console.log(res?.length, modaldata?.totalSupply, 'totall');
-          
+
             let stagesData = transformStages(mintStages, mintStartTime);
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
             const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
@@ -494,7 +494,7 @@ const Collectiondashbord = () => {
             throw error;
         }
     };
-
+    const [showData, setShowData] = useState(null);
     return (
         <>
             <Navbar setProfile={setProfile} profile={profile} />
@@ -699,6 +699,20 @@ const Collectiondashbord = () => {
                                                 justlanding.map((item, index) => (
                                                     <div className='parentcard' key={index}>
                                                         <div className='maincard'>
+                                                            <a className='question-tool'>
+                                                                <img  onMouseEnter={() => setShowData(index)} onMouseLeave={() => setShowData(null)} src="\assets\question-tooltip.svg" alt="img" className='img-fluid' />
+                                                            </a>
+                                                            {showData === index && (
+                                                                <>
+                                                                    <div className="dataonshow" 
+                                                                    // style={{ display: showData ? 'block' : 'none' }}
+                                                                    >
+                                                                        <h6>Reason of Rejecting</h6>
+                                                                        <p>{item?.rejectedReason}</p>
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                            }
                                                             <div className='mainimg'>
                                                                 <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
                                                             </div>

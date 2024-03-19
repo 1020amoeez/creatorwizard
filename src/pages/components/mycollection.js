@@ -378,7 +378,7 @@ const MyCollection = () => {
         localStorage.removeItem("formDataname")
     }
 
-    const [showData, setShowData] = useState(false);
+    const [showData, setShowData] = useState(null);
 
     return (
         <>
@@ -563,14 +563,21 @@ const MyCollection = () => {
                                             </div>
                                             {justlanding.length > 0 ? (
                                                 justlanding.map((item, index) => (
-                                                    <div className='parentcard' key={index}>
+                                                    <div className='parentcard' >
                                                         <div className='maincard'>
-                                                        {/* <a className='question-tool' onMouseEnter={() => setShowData(true)} onMouseLeave={() => setShowData(false)}><img src="\assets\question-tooltip.svg" alt="img" className='img-fluid' /></a> */}
-                                                            <div className="dataonshow" style={{ display: showData ? 'block' : 'none' }}>
-                                                                <h6>Reason of Rejecting</h6>
-                                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.
-                                                                    quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
-                                                            </div>
+                                                            <a className='question-tool' ><img onMouseEnter={() => setShowData(index)} onMouseLeave={() => setShowData(null)} src="\assets\question-tooltip.svg" alt="img" className='img-fluid' /></a>
+                                                
+                                                            {showData === index && (
+                                                                <>
+                                                                    <div className="dataonshow"
+                                                                    // style={{ display: showData ? 'block' : 'none' }}
+                                                                    >
+                                                                        <h6>Reason of Rejecting</h6>
+                                                                        <p>{item?.rejectedReason}</p>
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                            }
                                                             <div className='mainimg'>
                                                                 <img src={item?.imageUrl} alt='img' className='img-fluid imgmain' />
                                                             </div>
