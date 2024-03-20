@@ -227,34 +227,34 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
                         <h6>Featured image</h6>
                         <p className='para'>This image will be used for featuring your collection on the homepage, category pages, or other display areas of Wizard.</p>
                         <div onClick={handleButtonClickimg2} className="upload-feature">
-                           {
-                            createcollection?.featureImageUrl ? "" :  <label htmlFor="upload">
-                            <div className="upload">
-                                {createcollection?.featureImageUrl ? (
-                                    <div className="featuremainimg">
-                                        <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
+                            {
+                                createcollection?.featureImageUrl ? "" : <label htmlFor="upload">
+                                    <div className="upload">
+                                        {createcollection?.featureImageUrl ? (
+                                            <div className="featuremainimg">
+                                                <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
+                                            </div>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
+                                                <path d="M22.5 16.4639H7.5C6.9875 16.4639 6.5625 16.0389 6.5625 15.5264C6.5625 15.0139 6.9875 14.5889 7.5 14.5889H22.5C23.0125 14.5889 23.4375 15.0139 23.4375 15.5264C23.4375 16.0389 23.0125 16.4639 22.5 16.4639Z" fill="white" />
+                                                <path d="M15 23.9639C14.4875 23.9639 14.0625 23.5389 14.0625 23.0264V8.02637C14.0625 7.51387 14.4875 7.08887 15 7.08887C15.5125 7.08887 15.9375 7.51387 15.9375 8.02637V23.0264C15.9375 23.5389 15.5125 23.9639 15 23.9639Z" fill="white" />
+                                            </svg>
+                                        )}
+                                        <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
                                     </div>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
-                                        <path d="M22.5 16.4639H7.5C6.9875 16.4639 6.5625 16.0389 6.5625 15.5264C6.5625 15.0139 6.9875 14.5889 7.5 14.5889H22.5C23.0125 14.5889 23.4375 15.0139 23.4375 15.5264C23.4375 16.0389 23.0125 16.4639 22.5 16.4639Z" fill="white" />
-                                        <path d="M15 23.9639C14.4875 23.9639 14.0625 23.5389 14.0625 23.0264V8.02637C14.0625 7.51387 14.4875 7.08887 15 7.08887C15.5125 7.08887 15.9375 7.51387 15.9375 8.02637V23.0264C15.9375 23.5389 15.5125 23.9639 15 23.9639Z" fill="white" />
-                                    </svg>
-                                )}
-                                <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
-                            </div>
-                        </label>
-                           }
-                           {createcollection?.featureImageUrl ? "" :  <p>Recommended size: 600 x 400</p>}
-                           {
-                            createcollection?.featureImageUrl &&  <label htmlFor="upload " className="imgafterupload">
-                            <div className="upload ">
-                                    <div className="featuremainimg">
-                                        <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
+                                </label>
+                            }
+                            {createcollection?.featureImageUrl ? "" : <p>Recommended size: 600 x 400</p>}
+                            {createcollection?.featureImageUrl &&
+                                <label htmlFor="upload " className="imgafterupload">
+                                    <div className="upload ">
+                                        <div className="featuremainimg">
+                                            <img src={createcollection?.featureImageUrl} alt="featureinnerimg" className="featureinnerimg" />
+                                        </div>
+                                        <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
                                     </div>
-                                <input ref={fileInputRef2} onChange={handleImageChange2} type="file" className='d-none' id='upload' />
-                            </div>
-                        </label>
-                           }
+                                </label>
+                            }
                         </div>
                     </div>
                     <div className="socialweblinks">

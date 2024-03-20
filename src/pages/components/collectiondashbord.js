@@ -504,28 +504,18 @@ const Collectiondashbord = () => {
     };
     const projectIde = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI4MGUyMjBhRmFmZDM3MjJEMEUzYWM4YjMzMDdFNjI4YjNDYkQ2ZkQiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTcxMDc4MzU3MTg5NSwibmFtZSI6Im1vZXoifQ.C8yAt4G2mHRZ02_ozgGewL2MDZrgLxNh0-9rS8Ae91M';
 
-    const auth = 'Basic ' + Buffer.from(projectIde).toString('base64');
+    // const auth = 'Basic ' + Buffer.from(projectIde).toString('base64');
 
     async function storeNFT(imagePath, name, description) {
         const image = await fileFromPath(imagePath);
-
         const nftstorage = new NFTStorage({ token: projectIde });
-
         return nftstorage.store({
             image,
             name,
             description,
         });
     }
-    async function storeNFTimage(imagePath) {
-        const image = await fileFromPath(imagePath);
 
-        const nftstorage = new NFTStorage({ token: projectIde });
-
-        return nftstorage.store({
-            image,
-        });
-    }
 
     async function fileFromPath(filePath) {
         return new Promise((resolve, reject) => {
@@ -587,63 +577,58 @@ const Collectiondashbord = () => {
     //     }
     // };
 
-    //     const handleImageChange = async (event) => {
-    //         setLoaderthree(true);
-    //         const file = event.target.files[0];
-    //         if (!file) return;
-    //         try {
-    //             const result = await storeNFT(file, 'name','description');
-    // console.log(result,'result')
-    //             toast.success("Images uploaded successfully!");
-    //             setLoaderthree(false);
-    //             setMetadataUploaded(true);
-    //         } catch (error) {
-    //             console.error('Error uploading metadata:', error);
-    //             alert("Error uploading metadata. Please try again.");
-    //             setLoaderthree(false);
-    //         }
-    //     };
-    const apikey = "abe309bc89d182c2dd16"
-    const secretapikey = "9bbd417897c320cd04e5894acd00762adee32e6e72dfd393dec2f061df895c6c"
-    const [image1, setImage1] = useState('');
-
-    const ipfs = create({
-        host: 'ipfs.api.pinata.cloud',
-        port: 443,
-        protocol: 'https',
-        headers: {
-            'pinata_api_key': apikey,
-        }
-    });
-
     const handleImageChange = async (event) => {
-        event.preventDefault();
+        setLoaderthree(true);
         const file = event.target.files[0];
-        if (typeof file !== 'undefined') {
-            try {
-                const formData = new FormData();
-                formData.append('file', file);
-
-                const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'pinata_api_key': `${apikey}`,
-                        'pinata_secret_api_key': `${secretapikey}`
-                    }
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    setImage1(`https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`);
-                } else {
-                    throw new Error('Failed to upload image to Pinata');
-                }
-            } catch (error) {
-                console.error("Pinata image upload error:", error);
-            }
+        if (!file) return;
+        try {
+            const result = await storeNFT(file, 'name', 'description');
+            console.log(result, 'result');
+            toast.success("Images uploaded successfully!");
+            setLoaderthree(false);
+            setMetadataUploaded(true);
+        } catch (error) {
+            console.error('Error uploading metadata:', error);
+            alert("Error uploading metadata. Please try again.");
+            setLoaderthree(false);
         }
-    }
+    };
+
+
+    // const apikey = "abe309bc89d182c2dd16"
+    // const secretapikey = "9bbd417897c320cd04e5894acd00762adee32e6e72dfd393dec2f061df895c6c"
+    // const [image1, setImage1] = useState('');
+
+
+
+    // const handleImageChange = async (event) => {
+    //     event.preventDefault();
+    //     const file = event.target.files[0];
+    //     if (typeof file !== 'undefined') {
+    //         try {
+    //             const formData = new FormData();
+    //             formData.append('file', file);
+
+    //             const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+    //                 method: 'POST',
+    //                 body: formData,
+    //                 headers: {
+    //                     'pinata_api_key': `${apikey}`,
+    //                     'pinata_secret_api_key': `${secretapikey}`
+    //                 }
+    //             });
+
+    //             if (response.ok) {
+    //                 const result = await response.json();
+    //                 setImage1(`https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`);
+    //             } else {
+    //                 throw new Error('Failed to upload image to Pinata');
+    //             }
+    //         } catch (error) {
+    //             console.error("Pinata image upload error:", error);
+    //         }
+    //     }
+    // }
 
 
 
@@ -964,7 +949,7 @@ const Collectiondashbord = () => {
                         <input value={ipfLink}
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
                     </div> */}
-                    {/* <div>
+                    <div>
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -972,7 +957,7 @@ const Collectiondashbord = () => {
                             onChange={handleImageChange}
                             multiple
                         />
-                        <div onClick={handleButtonClickimg}className="select-media">
+                        <div onClick={() => fileInputRef.current.click()} className="select-media">
                             <div className="left-side">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" viewBox="0 0 31 32" fill="none">
                                     <path d="M19.3747 29.8851H11.6247C4.61092 29.8851 1.61426 26.8884 1.61426 19.8747V12.1247C1.61426 5.11092 4.61092 2.11426 11.6247 2.11426H19.3747C26.3884 2.11426 29.3851 5.11092 29.3851 12.1247V19.8747C29.3851 26.8884 26.3884 29.8851 19.3747 29.8851ZM11.6247 4.05176C5.67009 4.05176 3.55176 6.17009 3.55176 12.1247V19.8747C3.55176 25.8293 5.67009 27.9476 11.6247 27.9476H19.3747C25.3293 27.9476 27.4476 25.8293 27.4476 19.8747V12.1247C27.4476 6.17009 25.3293 4.05176 19.3747 4.05176H11.6247Z" fill="#862FC0" />
@@ -985,8 +970,8 @@ const Collectiondashbord = () => {
                                 <p>Drag and drop or click to select up to 10,000 media files, up to a total size of 5GB. JPG, PNG, SVG, and GIF are supported.</p>
                             </div>
                         </div>
-                    </div>          */}
-                    <div>
+                    </div>
+                    {/* <div>
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -1008,7 +993,7 @@ const Collectiondashbord = () => {
                                 <p>Drag and drop or click to select up to 10,000 media files, up to a total size of 5GB. JPG, PNG, SVG, and GIF are supported.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <input
                             type="file"
