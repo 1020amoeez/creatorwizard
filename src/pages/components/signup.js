@@ -143,7 +143,7 @@ const Signup = () => {
                             <label>Email</label>
                             <div className="twice-inputeye">
                                 <input style={{ paddingRight: "22px" }} value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Your email...' />
-                                <a onClick={handleShow} className='eye verify-text'>Verify</a>
+                                {/* <a onClick={handleShow} className='eye verify-text'>Verify</a> */}
                             </div>
                             {emailError && <p className="text-danger">{emailError}</p>}
                         </div>
