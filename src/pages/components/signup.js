@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/hooks/useAuth";
+import { Modal } from "react-bootstrap";
 
 const Signup = () => {
   const api_url = Environment.api_url;
@@ -94,6 +95,28 @@ const Signup = () => {
       });
   };
 
+  //   const connectWallet = async (e) => {
+  //     if (account) {
+  //       const connectorId = window.localStorage.getItem("connectorId");
+  //       await logout(connectorId);
+  //       localStorage.removeItem("connectorId");
+  //       localStorage.removeItem("flag");
+  //     } else {
+  //       await login("injected", e);
+  //       localStorage.setItem("connectorId", "injected");
+  //       localStorage.setItem("flag", "true");
+  //       localStorage.setItem("chain", e);
+  //     }
+  //   };
+
+  //   const disconnectWallet = async () => {
+  //     const connectorId = window.localStorage.getItem("connectorId");
+  //     logout(connectorId);
+  //     localStorage.removeItem("connectorId");
+  //     localStorage.removeItem("flag");
+  //     localStorage.removeItem("chain");
+  //   };
+
   const connectWallet = async (e) => {
     if (account) {
       const connectorId = window.localStorage.getItem("connectorId");
@@ -116,6 +139,10 @@ const Signup = () => {
     localStorage.removeItem("chain");
   };
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <section className="login-section">
@@ -133,13 +160,16 @@ const Signup = () => {
             </div>
             <div className="option-field">
               <label>Email</label>
-              <input
-                style={{ paddingRight: "22px" }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Your email..."
-              />
+              <div className="twice-inputeye">
+                <input
+                  style={{ paddingRight: "22px" }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Your email..."
+                />
+                {/* <a onClick={handleShow} className='eye verify-text'>Verify</a> */}
+              </div>
               {emailError && <p className="text-danger">{emailError}</p>}
             </div>
             <div className="option-field wallletaddress-field">
@@ -410,6 +440,24 @@ const Signup = () => {
           </div>
         </div>
       </section>
+
+      <Modal className="buymodal" show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Verify Email</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="confirmemail-address">
+            <p>You’re just one step away from unlocking a magical journey.</p>
+            <p>
+              To complete your signup and start your journey with us, please
+              confirm your email address by clicking the link below:
+            </p>
+          </div>
+          <div className="buymodalbtns">
+            <button className="bluebtn">Confirm Email Address</button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
