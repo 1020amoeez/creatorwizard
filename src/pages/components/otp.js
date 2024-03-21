@@ -1,20 +1,8 @@
 import Link from 'next/link'
-import React, { useState, useEffect } from "react";
-import axios from 'axios'
-import Environment from '@/utils/Enviroment'
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import React from "react";
+
 
 const Otp = () => {
-    const api_url = Environment.api_url;
-    const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
-    const [emailerrorregister, setEmailErrorRegister] = useState("");
-    const [errorpassword, setErrorPassword] = useState("");
-    const [error, setError] = useState(null);
-    const [showPass, setShowPass] = useState("password");
 
     return (
         <>
