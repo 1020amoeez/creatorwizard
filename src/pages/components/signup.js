@@ -14,9 +14,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [otp, setOtp] = useState("");
   const [addresserror, setAddressError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [otpError, setOtpError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [showPass, setShowPass] = useState("password");
@@ -65,6 +67,10 @@ const Signup = () => {
       setConfirmPasswordError("Passwords do not match");
       return;
     }
+    if (otp.length === 0) {
+      setOtpError("Otp is Required");
+      return;
+    }
 
     if (!account) {
       toast.error("Connect Wallet to Signup");
@@ -76,6 +82,7 @@ const Signup = () => {
       password: password,
       confirmPassword: confirmPassword,
       walletAddress: account || address,
+      otpCode: otp,
     });
     var config = {
       method: "post",
@@ -92,6 +99,23 @@ const Signup = () => {
       })
       .catch(function (error) {
         toast.error(error.response?.data?.message);
+      });
+  };
+
+  const VerifyEmail = () => {
+    const payload = {
+      email: email,
+    };
+    axios
+      .post(`${api_url}/genrateOtp/create-email-verification-code`, payload)
+      .then((response) => {
+        toast.info("Otp Sent To Your Email");
+        handleClose();
+        // window.location.href = "https://mail.google.com";
+        console.log("Email verification code sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error sending email verification code:", error);
       });
   };
 
@@ -168,7 +192,9 @@ const Signup = () => {
                   type="email"
                   placeholder="Your email..."
                 />
-                {/* <a onClick={handleShow} className='eye verify-text'>Verify</a> */}
+                <a onClick={handleShow} className="eye verify-text">
+                  Verify
+                </a>
               </div>
               {emailError && <p className="text-danger">{emailError}</p>}
             </div>
@@ -428,6 +454,28 @@ const Signup = () => {
             {confirmPasswordError && (
               <p className="text-danger mb-5">{confirmPasswordError}</p>
             )}
+            <div className="option-field">
+              <label>Enter Otp</label>
+              <div className="twice-inputeye">
+                <input
+                  value={otp}
+                  onChange={(e) => {
+                    setOtp(e.target.value);
+                    setOtpError("");
+                  }}
+                  placeholder="Enter Otp"
+                />
+              </div>
+              {otpError && <p className="text-danger mb-5">{otpError}</p>}
+              {/* <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="25"
+                                height="25"
+                                viewBox="0 0 25 25"
+                                fill="none"
+                            >
+                            </svg> */}
+            </div>
             <button onClick={userRegister} className="btn-sign">
               Sign Up
             </button>
@@ -454,7 +502,9 @@ const Signup = () => {
             </p>
           </div>
           <div className="buymodalbtns">
-            <button className="bluebtn">Confirm Email Address</button>
+            <button onClick={VerifyEmail} className="bluebtn">
+              Verify Email Address
+            </button>
           </div>
         </Modal.Body>
       </Modal>
