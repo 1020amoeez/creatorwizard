@@ -19,12 +19,13 @@ import useAuth from "@/hooks/useAuth";
 import Loader from "./loader";
 import Loadertwo from "./loadertwo";
 // import { useRouter } from 'next/router';
-import { create } from "ipfs-http-client";
 import { NFTStorage, File } from "nft.storage";
 import mime from "mime";
 // import { create as ipfsHttpClient } from 'ipfs-http-client'
 // import fs from 'fs';
 // import path from 'path';
+import { create } from "ipfs-http-client";
+import { IpfsStorage2 } from "./ipfs";
 
 const Collectiondashbord = () => {
   const api_url = Environment.api_url;
@@ -212,21 +213,14 @@ const Collectiondashbord = () => {
       )) {
         let jsonRes;
         if (file.includes("?filename=")) {
-          // If the URL includes a filename, skip fetchWithRetry and directly add the file to the set
-          // imageUrlsSet.add(file);
         } else {
-          // If the URL doesn't include a filename, use fetchWithRetry to fetch the file
           jsonRes = await fetchWithRetry(file);
-          // if (jsonRes.data.image && !imageUrlsSet.has(jsonRes.data.image)) {
           if (jsonRes.data.image) {
-            // Remove "ipfs://" prefix and append "https://ipfs.io/ipfs/"
             const updatedImageLink = jsonRes.data.image.replace(
               "ipfs://",
               "https://ipfs.io/ipfs/"
             );
-            // Add the updated image link to the set
             imageUrlsSet.push(updatedImageLink);
-            // Update uploadedImages only when an image is successfully processed
             setUploadedImages((prevUploadedImages) => prevUploadedImages + 1);
           }
         }
@@ -549,13 +543,14 @@ const Collectiondashbord = () => {
 
   // const auth = 'Basic ' + Buffer.from(projectIde).toString('base64');
 
-  async function storeNFT(imagePath, name, description) {
+  async function storeNFT(imagePath, name, description, hash) {
     const image = await fileFromPath(imagePath);
     const nftstorage = new NFTStorage({ token: projectIde });
     return nftstorage.store({
       image,
       name,
       description,
+      hash,
     });
   }
 
@@ -632,47 +627,107 @@ const Collectiondashbord = () => {
   //         setLoaderthree(false);
   //     }
   // };
-
+  const [hash, setHash] = useState("");
   const apikey = "abe309bc89d182c2dd16";
   const secretapikey =
     "9bbd417897c320cd04e5894acd00762adee32e6e72dfd393dec2f061df895c6c";
-  const [image1, setImage1] = useState("");
 
-  const handleImageChange = async (event) => {
+  const [selectedFile, setSelectedFile] = useState();
+  const [fileHashes, setFileHashes] = useState([]);
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files);
+  };
+
+  const handleImageChange = async () => {
     setLoaderthree(true);
-    event.preventDefault();
-    const file = event.target.files[0];
-    if (typeof file !== "undefined") {
-      try {
-        const formData = new FormData();
+    try {
+      const formData = new FormData();
+      Array.from(selectedFile).forEach((file) => {
         formData.append("file", file);
+      });
+      const metadata = JSON.stringify({
+        name: "File name",
+      });
+      formData.append("pinataMetadata", metadata);
 
-        const response = await fetch(
-          "https://api.pinata.cloud/pinning/pinFileToIPFS",
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              pinata_api_key: `${apikey}`,
-              pinata_secret_api_key: `${secretapikey}`,
-            },
-          }
-        );
-        setLoaderthree(false);
-        if (response.ok) {
-          const result = await response.json();
-          setImage1(`https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`);
-          setLoaderthree(false);
-        } else {
-          throw new Error("Failed to upload image to Pinata");
-          setLoaderthree(false);
+      const options = JSON.stringify({
+        cidVersion: 0,
+      });
+      formData.append("pinataOptions", options);
+
+      const res = await fetch(
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        {
+          method: "POST",
+          headers: {
+            pinata_api_key: `${apikey}`,
+            pinata_secret_api_key: `${secretapikey}`,
+          },
+          body: formData,
         }
-      } catch (error) {
-        console.error("Pinata image upload error:", error);
-        setLoaderthree(false);
+      );
+
+      if (res.ok) {
+        const resData = await res.json();
+        console.log("Parent Hash:", resData.IpfsHash);
+        const filesResponse = await fetch(
+          `https://gateway.pinata.cloud/ipfs/${resData.IpfsHash}`
+        );
+        const filesText = await filesResponse.text();
+        console.log("Response Body:", filesText);
+        console.error("Response is not in JSON format");
+        if (!filesResponse.ok) {
+          console.error(
+            "Failed to retrieve files within the parent hash:",
+            filesResponse.statusText
+          );
+        }
+      } else {
+        console.error("Failed to pin the file to IPFS");
       }
+
+      setLoaderthree(false);
+    } catch (error) {
+      console.error("Error while processing response:", error);
+      setLoaderthree(false);
     }
   };
+
+  //   const handleImageChange = async (event) => {
+  //     setLoaderthree(true);
+  //     event.preventDefault();
+  //     const files = event.target.files;
+  //     if (files.length > 0) {
+  //       try {
+  //         const formData = new FormData();
+  //         for (const file of files) {
+  //           formData.append("file", file);
+  //         }
+
+  //         const response = await fetch(
+  //           "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //           {
+  //             method: "POST",
+  //             body: formData,
+  //             headers: {
+  //               pinata_api_key: `${apikey}`,
+  //               pinata_secret_api_key: `${secretapikey}`,
+  //             },
+  //           }
+  //         );
+
+  //         if (response.ok) {
+  //           const result = await response.json();
+  //           //   console.log(result.IpfsHash, "result");
+  //           setHash(result.IpfsHash);
+  //         }
+  //         setLoaderthree(false);
+  //       } catch (error) {
+  //         console.error("Pinata image upload error:", error);
+  //         setLoaderthree(false);
+  //       }
+  //     }
+  //   };
 
   const handleMetaChange = async (event) => {
     setLoaderthree(true);
@@ -681,11 +736,11 @@ const Collectiondashbord = () => {
     const name = "Sample Name";
     const description = "Sample Description";
     try {
-      if (!cid) {
-        alert("CID not available. Image must be uploaded first.");
+      if (!hash) {
+        toast.error("Hash not available. Image must be uploaded first.");
       }
-      const result = await storeNFT(file, name, description, cid);
-      await getLaunchpad(id, contractAddress, projectId, cid);
+      const result = await storeNFT(file, name, description, hash);
+      await getLaunchpad(id, contractAddress, projectId, hash);
       toast.success("Metadata uploaded successfully!");
       setLoaderthree(false);
       setMetadataUploaded(true);
@@ -952,6 +1007,16 @@ const Collectiondashbord = () => {
                   )}
                 </>
               )}
+
+              <label className="form-label"> Choose File</label>
+              <input
+                directory=""
+                webkitdirectory=""
+                type="file"
+                onChange={changeHandler}
+              />
+              <button onClick={handleImageChange}>Submit</button>
+
               {loadertwo ? (
                 <Loadertwo />
               ) : (
