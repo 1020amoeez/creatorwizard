@@ -211,6 +211,7 @@ const Collectiondashbord = () => {
         "fileHashes",
         JSON.stringify(Array.from(modifiedSet))
       );
+      setImagesUploaded(true);
       setLoaderthree(false);
       const successfulImages = imageUrlsSet;
       return successfulImages;
@@ -275,68 +276,68 @@ const Collectiondashbord = () => {
       );
       const data = await res.json();
       setMetaHash(data?.IpfsHash);
-
+      setMetadataUploaded(true);
       setLoaderthree(false);
     } catch (error) {
       setLoaderthree(false);
       console.error("Error fetching metadata:", error);
     }
   };
-  console.log(metahash, "hash");
+  // console.log(metahash, "hash");
 
-  const [uploadedImages, setUploadedImages] = useState(0);
-  const [totalImages, setTotalImages] = useState(null);
+  // const [uploadedImages, setUploadedImages] = useState(0);
+  // const [totalImages, setTotalImages] = useState(null);
 
-  const fetchImages = async (ipfsLink) => {
-    try {
-      const response = await axios.get(ipfsLink);
-      const parser = new DOMParser();
-      const htmlDocument = parser.parseFromString(response.data, "text/html");
-      const links = htmlDocument.getElementsByTagName("a");
-      const jsonFiles = Array.from(links)
-        .map((link) => "https://ipfs.io" + link.getAttribute("href"))
-        .filter(
-          (href) => href.endsWith(".json") && !href.includes("_metadata.json")
-        );
-      const imageUrlsSet = [];
+  // const fetchImages = async (ipfsLink) => {
+  //   try {
+  //     const response = await axios.get(ipfsLink);
+  //     const parser = new DOMParser();
+  //     const htmlDocument = parser.parseFromString(response.data, "text/html");
+  //     const links = htmlDocument.getElementsByTagName("a");
+  //     const jsonFiles = Array.from(links)
+  //       .map((link) => "https://ipfs.io" + link.getAttribute("href"))
+  //       .filter(
+  //         (href) => href.endsWith(".json") && !href.includes("_metadata.json")
+  //       );
+  //     const imageUrlsSet = [];
 
-      console.log(jsonFiles, jsonFiles.length, "jsonnn");
-      // setTotalImages(jsonFiles.length);
-      if (jsonFiles?.length / 2 !== modaldata?.totalSupply) {
-        if (jsonFiles?.length / 2 <= modaldata?.totalSupply) {
-          toast.error(
-            `The number of IPFS metadata is less than the total supply (${modaldata?.totalSupply})`
-          );
-          setLoader(false);
-          return false;
-        }
-      }
-      for (const file of jsonFiles?.slice(
-        0,
-        parseInt(modaldata?.totalSupply * 2)
-      )) {
-        let jsonRes;
-        if (file.includes("?filename=")) {
-        } else {
-          jsonRes = await fetchWithRetry(file);
-          if (jsonRes.data.image) {
-            const updatedImageLink = jsonRes.data.image.replace(
-              "ipfs://",
-              "https://ipfs.io/ipfs/"
-            );
-            imageUrlsSet.push(updatedImageLink);
-            setUploadedImages((prevUploadedImages) => prevUploadedImages + 1);
-          }
-        }
-      }
-      const successfulImages = imageUrlsSet;
-      console.log(successfulImages, "dasdfasdffasdf");
-      return successfulImages;
-    } catch (error) {
-      console.error("Error fetching metadata:", error);
-      throw error;
-    }
-  };
+  //     console.log(jsonFiles, jsonFiles.length, "jsonnn");
+  //     // setTotalImages(jsonFiles.length);
+  //     if (jsonFiles?.length / 2 !== modaldata?.totalSupply) {
+  //       if (jsonFiles?.length / 2 <= modaldata?.totalSupply) {
+  //         toast.error(
+  //           `The number of IPFS metadata is less than the total supply (${modaldata?.totalSupply})`
+  //         );
+  //         setLoader(false);
+  //         return false;
+  //       }
+  //     }
+  //     for (const file of jsonFiles?.slice(
+  //       0,
+  //       parseInt(modaldata?.totalSupply * 2)
+  //     )) {
+  //       let jsonRes;
+  //       if (file.includes("?filename=")) {
+  //       } else {
+  //         jsonRes = await fetchWithRetry(file);
+  //         if (jsonRes.data.image) {
+  //           const updatedImageLink = jsonRes.data.image.replace(
+  //             "ipfs://",
+  //             "https://ipfs.io/ipfs/"
+  //           );
+  //           imageUrlsSet.push(updatedImageLink);
+  //           setUploadedImages((prevUploadedImages) => prevUploadedImages + 1);
+  //         }
+  //       }
+  //     }
+  //     const successfulImages = imageUrlsSet;
+  //     console.log(successfulImages, "dasdfasdffasdf");
+  //     return successfulImages;
+  //   } catch (error) {
+  //     console.error("Error fetching metadata:", error);
+  //     throw error;
+  //   }
+  // };
 
   const transformStages = (mintStages, mintStartTime) => {
     return mintStages.map((stage, index) => {
@@ -385,34 +386,34 @@ const Collectiondashbord = () => {
 
       let stagesData = transformStages(mintStages, mintStartTime);
       // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
-      //   const gas = await contract.methods
-      //     .createProject(
-      //       name,
-      //       symbol,
-      //       metahash,
-      //       stagesData,
-      //       totalSupply,
-      //       perWalletLimit,
-      //       LimitedEddition
-      //     )
-      //     .estimateGas({ from: account });
-      //   const staked = await contract.methods
-      //     .createProject(
-      //       name,
-      //       symbol,
-      //       metahash,
-      //       stagesData,
-      //       totalSupply,
-      //       perWalletLimit,
-      //       LimitedEddition
-      //     )
-      //     .send({ from: account, gas, gasPrice: gasFunPrice });
-      //   const contractAddress =
-      //     staked?.events?.ProjectCreated?.returnValues?.erc721Contract;
-      //   let projectId =
-      //     staked?.events?.ProjectCreated?.returnValues?.projectId || "";
-      //   setContractAddress(contractAddress);
-      //   setProjectId(projectId);
+      const gas = await contract.methods
+        .createProject(
+          name,
+          symbol,
+          metahash,
+          stagesData,
+          totalSupply,
+          perWalletLimit,
+          LimitedEddition
+        )
+        .estimateGas({ from: account });
+      const staked = await contract.methods
+        .createProject(
+          name,
+          symbol,
+          metahash,
+          stagesData,
+          totalSupply,
+          perWalletLimit,
+          LimitedEddition
+        )
+        .send({ from: account, gas, gasPrice: gasFunPrice });
+      const contractAddress =
+        staked?.events?.ProjectCreated?.returnValues?.erc721Contract;
+      let projectId =
+        staked?.events?.ProjectCreated?.returnValues?.projectId || "";
+      setContractAddress(contractAddress);
+      setProjectId(projectId);
       await getLaunchpad(modaldata?._id, contractAddress, projectId);
       await getIpfsLaunchpad(modaldata?._id, account);
       setLoader(false);
@@ -638,8 +639,8 @@ const Collectiondashbord = () => {
       {loader && (
         <>
           <Loader
-            uploadedImages={uploadedImages}
-            totalImages={modaldata?.totalSupply}
+            // uploadedImages={uploadedImages}
+            // totalImages={modaldata?.totalSupply}
             modaldata={modaldata}
             text="Please wait..."
           />
@@ -1065,10 +1066,11 @@ const Collectiondashbord = () => {
             {/* <a className='btn-save'>{imagesUploaded && metadataUploaded ? 'List Launchpad' : 'Save'}</a> */}
             <a
               onClick={() =>
+                !(!imagesUploaded || !metadataUploaded) &&
                 ProjectContract(
                   modaldata?.name,
                   modaldata?.symbol,
-                  ipfLink,
+                  metahash,
                   modaldata?.mintStages,
                   modaldata?.totalSupply,
                   modaldata?.perWalletLimit,
@@ -1076,7 +1078,12 @@ const Collectiondashbord = () => {
                   modaldata?.mintStartTime
                 )
               }
-              className="btn-save"
+              className={`btn-save ${
+                (!imagesUploaded || !metadataUploaded) && "disabled"
+              }`}
+              style={{
+                opacity: !imagesUploaded || !metadataUploaded ? 0.5 : 1,
+              }}
               disabled={!imagesUploaded || !metadataUploaded}
             >
               List Launchpad

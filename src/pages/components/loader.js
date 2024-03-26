@@ -1,7 +1,3 @@
-
-
-
-
 // import useWindowDimensions from '@/hooks/getDimensions';
 // import React from 'react';
 
@@ -56,7 +52,7 @@
 //       }}>
 //           Uploading {Math.round(uploadedImages)}/{Math.round(totalImages)} files to IPFS...
 //       </p>
-      
+
 //           )}
 //           {text2 && (
 //             <p className="text-white text-center mr-5 new-loaderrr" style={{
@@ -87,73 +83,89 @@
 
 // export default Loader;
 
+import useWindowDimensions from "@/hooks/getDimensions";
+import React from "react";
 
-import useWindowDimensions from '@/hooks/getDimensions';
-import React from 'react';
-
-function Loader({ text, text2, uploadedImages, totalImages }) {
+function Loader({ text, text2 }) {
   const { width } = useWindowDimensions();
-  const progress = uploadedImages ? (uploadedImages / totalImages) * 100 : 0;
+  // const progress = uploadedImages ? (uploadedImages / totalImages) * 100 : 0;
 
   return (
     <>
-      <div className=''>
+      <div className="">
         <div
-          className='position-fixed w-100'
+          className="position-fixed w-100"
           style={{
             zIndex: 1100,
             position: "fixed",
             top: "50%",
             left: "50%",
-            transform: 'translate(-50%, -50%)',
+            transform: "translate(-50%, -50%)",
             width: "100%",
             height: "100%",
-            background: 'rgba(8, 5, 10, 0.5)',
-            backdropFilter: 'blur(20px)'
+            background: "rgba(8, 5, 10, 0.5)",
+            backdropFilter: "blur(20px)",
           }}
         >
-          <div className='h-100 d-flex align-items-center justify-content-center'>
-            <div className='d-flex flex-wrap align-items-center justify-content-center'>
+          <div className="h-100 d-flex align-items-center justify-content-center">
+            <div className="d-flex flex-wrap align-items-center justify-content-center">
               <img
                 width={150}
                 style={{
                   filter:
-                    'invert(99%) sepia(1%) saturate(2%) hue-rotate(168deg) brightness(120%) contrast(100%)',
+                    "invert(99%) sepia(1%) saturate(2%) hue-rotate(168deg) brightness(120%) contrast(100%)",
                 }}
-                src='https://v.fastcdn.co/u/430e104e/57579327-0-Loaders-3.svg'
-                alt='loader'
+                src="https://v.fastcdn.co/u/430e104e/57579327-0-Loaders-3.svg"
+                alt="loader"
               />
             </div>
           </div>
           {text && !text2 && (
-            <p className="text-white text-center mr-5 new-loaderrr" style={{
-              position: 'absolute',
-              top: "50%",
-              left: "50%",
-              transform: 'translate(-50%, 300%)',
-            }}>{text}</p>
+            <p
+              className="text-white text-center mr-5 new-loaderrr"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, 300%)",
+              }}
+            >
+              {text}
+            </p>
           )}
           {text2 && (
-            <p className="text-white text-center mr-5 new-loaderrr" style={{
-              position: 'absolute',
-              top: "50%",
-              left: "50%",
-              transform: 'translate(-50%, 400%)',
-            }}>{text2}</p>
-          )}
-
-          {uploadedImages !== null && !text2 && (
-            <p className="text-white text-center mr-5 new-loaderrr" style={{
-              position: 'absolute',
-              top: "50%",
-              left: "50%",
-              transform: 'translate(-50%, 400%)',
-            }}>
-              Uploading {Math.round(uploadedImages)}/{Math.round(totalImages)} files to IPFS...
+            <p
+              className="text-white text-center mr-5 new-loaderrr"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, 400%)",
+              }}
+            >
+              {text2}
             </p>
           )}
 
-          <div className="progress" style={{ width: '80%', margin: '20px auto' }}>
+          {/* {uploadedImages !== null && !text2 && (
+            <p
+              className="text-white text-center mr-5 new-loaderrr"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, 400%)",
+              }}
+            >
+              Uploading {Math.round(uploadedImages)}/{Math.round(totalImages)}{" "}
+              files to IPFS...
+            </p>
+          )} */}
+
+          {/* <div
+            className="progress"
+            style={{ width: "80%", margin: "20px auto" }}
+          >
             <div
               className="progress-bar"
               role="progressbar"
@@ -164,7 +176,7 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
             >
               {progress.toFixed(2)}%
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
@@ -172,4 +184,3 @@ function Loader({ text, text2, uploadedImages, totalImages }) {
 }
 
 export default Loader;
-
