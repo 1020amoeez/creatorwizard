@@ -1011,6 +1011,7 @@ const MyCollection = () => {
             {/* <a className='btn-save'>{imagesUploaded && metadataUploaded ? 'List Launchpad' : 'Save'}</a> */}
             <a
               onClick={() =>
+                !(!imagesUploaded || !metadataUploaded) &&
                 ProjectContractCollection(
                   modaldata?.name,
                   modaldata?.symbol,
@@ -1018,7 +1019,12 @@ const MyCollection = () => {
                   modaldata?.totalSupply
                 )
               }
-              className="btn-save"
+              className={`btn-save ${
+                (!imagesUploaded || !metadataUploaded) && "disabled"
+              }`}
+              style={{
+                opacity: !imagesUploaded || !metadataUploaded ? 0.5 : 1,
+              }}
               disabled={!imagesUploaded || !metadataUploaded}
             >
               List Launchpad

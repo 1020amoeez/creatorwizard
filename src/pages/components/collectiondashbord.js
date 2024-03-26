@@ -385,7 +385,16 @@ const Collectiondashbord = () => {
       // console.log(res?.length, modaldata?.totalSupply, 'totall');
 
       let stagesData = transformStages(mintStages, mintStartTime);
-      // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
+      // console.log(
+      //   name,
+      //   "symbol",
+      //   mintStartTime,
+      //   ipfLink,
+      //   stagesData,
+      //   weiAmounttwo,
+      //   LimitedEddition,
+      //   "newwww"
+      // );
       const gas = await contract.methods
         .createProject(
           name,
@@ -479,9 +488,10 @@ const Collectiondashbord = () => {
           Authorization: "Bearer " + accessToken,
         },
       };
-
-      await axios(config);
+      // const response = await axios(config);
+      // console.log(response.data, "statuswww");
       // onNext();
+      // localStorage.removeItem;
     } catch (error) {
       if (
         error.response &&
