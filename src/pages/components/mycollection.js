@@ -860,37 +860,116 @@ const MyCollection = () => {
                             onChange={(e) => setIpflink(e.target.value)} type="email" placeholder='Enter your media link' />
                         <p className="note-text">Note: Valid IPF Link Format <br />e.g. https://gateway.pinata.cloud/ipfs/QmcmUUkBLycE9J9bG9g8FSu3ASB9SeqmArjoe5z4A57Dku</p>
                     </div> */}
-          <div className="select-media">
-            <input
-              directory=""
-              webkitdirectory=""
-              type="file"
-              onChange={changeHandler}
-            />
-            <div className="right-side">
-              <h6>Select Media</h6>
-              <p>
-                Drag and drop or click to select up to 10,000 media files, up to
-                a total size of 5GB. JPG, PNG, SVG, and GIF are supported.
-              </p>
+          <label
+            htmlFor="uploadmedia"
+            style={{ width: "100%", height: "100%" }}
+          >
+            <div className="select-media">
+              <svg
+                style={{ width: "80px", height: "80px" }}
+                xmlns="http://www.w3.org/2000/svg"
+                width="31"
+                height="32"
+                viewBox="0 0 31 32"
+                fill="none"
+              >
+                <path
+                  d="M19.3747 29.8851H11.6247C4.61092 29.8851 1.61426 26.8884 1.61426 19.8747V12.1247C1.61426 5.11092 4.61092 2.11426 11.6247 2.11426H19.3747C26.3884 2.11426 29.3851 5.11092 29.3851 12.1247V19.8747C29.3851 26.8884 26.3884 29.8851 19.3747 29.8851ZM11.6247 4.05176C5.67009 4.05176 3.55176 6.17009 3.55176 12.1247V19.8747C3.55176 25.8293 5.67009 27.9476 11.6247 27.9476H19.3747C25.3293 27.9476 27.4476 25.8293 27.4476 19.8747V12.1247C27.4476 6.17009 25.3293 4.05176 19.3747 4.05176H11.6247Z"
+                  fill="#862FC0"
+                />
+                <path
+                  d="M11.6253 14.3854C9.66199 14.3854 8.07324 12.7967 8.07324 10.8333C8.07324 8.87 9.66199 7.28125 11.6253 7.28125C13.5887 7.28125 15.1774 8.87 15.1774 10.8333C15.1774 12.7967 13.5887 14.3854 11.6253 14.3854ZM11.6253 9.21875C10.7341 9.21875 10.0107 9.94208 10.0107 10.8333C10.0107 11.7246 10.7341 12.4479 11.6253 12.4479C12.5166 12.4479 13.2399 11.7246 13.2399 10.8333C13.2399 9.94208 12.5166 9.21875 11.6253 9.21875Z"
+                  fill="#862FC0"
+                />
+                <path
+                  d="M3.44915 25.9461C3.13915 25.9461 2.82915 25.7911 2.64831 25.5199C2.35123 25.0807 2.46748 24.4736 2.91956 24.1765L9.28748 19.9011C10.6825 18.9582 12.6071 19.0745 13.8729 20.1465L14.2991 20.5211C14.945 21.0765 16.0429 21.0765 16.6758 20.5211L22.0491 15.9099C23.4183 14.7345 25.5754 14.7345 26.9575 15.9099L29.0629 17.7182C29.4633 18.067 29.515 18.674 29.1662 19.0874C28.8175 19.4878 28.2104 19.5395 27.7971 19.1907L25.6916 17.3824C25.0458 16.827 23.9479 16.827 23.3021 17.3824L17.9287 21.9936C16.5596 23.169 14.4025 23.169 13.0204 21.9936L12.5941 21.6191C12 21.1153 11.0183 21.0636 10.3596 21.5157L3.99165 25.7911C3.82373 25.8945 3.62998 25.9461 3.44915 25.9461Z"
+                  fill="#862FC0"
+                />
+              </svg>
+              <input
+                id="uploadmedia"
+                directory=""
+                webkitdirectory=""
+                type="file"
+                onChange={changeHandler}
+                className="d-none"
+              />
+              <div className="right-side">
+                <h6>Select Media</h6>
+                <p>
+                  Drag and drop or click to select up to 10,000 media files, up
+                  to a total size of 5GB. JPG, PNG, SVG, and GIF are supported.
+                </p>
+              </div>
             </div>
-          </div>
-          <button className="btn-save-submit" onClick={handleImageChange}>
+          </label>
+          <button
+            className="btn-save-submit"
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={handleImageChange}
+          >
             Upload images
           </button>
-          <div className="select-media">
-            <input
-              //   directory=""
-              //   webkitdirectory=""
-              type="file"
-              onChange={changeMetaHandler}
-            />
-            <div className="right-side">
-              <h6>Select Metadata</h6>
-              <p>Drag and drop or click to upload a CSV file</p>
+          <label
+            style={{ width: "100%", height: "100%" }}
+            htmlFor="uploadmetadata"
+          >
+            <div className="select-media">
+              <svg
+                style={{ width: "50px", height: "50px" }}
+                xmlns="http://www.w3.org/2000/svg"
+                width="31"
+                height="32"
+                viewBox="0 0 31 32"
+                fill="none"
+              >
+                <path
+                  d="M20.6667 29.8851H10.3333C5.61875 29.8851 2.90625 27.1726 2.90625 22.458V9.54134C2.90625 4.82676 5.61875 2.11426 10.3333 2.11426H20.6667C25.3813 2.11426 28.0938 4.82676 28.0938 9.54134V22.458C28.0938 27.1726 25.3813 29.8851 20.6667 29.8851ZM10.3333 4.05176C6.63917 4.05176 4.84375 5.84717 4.84375 9.54134V22.458C4.84375 26.1522 6.63917 27.9476 10.3333 27.9476H20.6667C24.3608 27.9476 26.1562 26.1522 26.1562 22.458V9.54134C26.1562 5.84717 24.3608 4.05176 20.6667 4.05176H10.3333Z"
+                  fill="#862FC0"
+                />
+                <path
+                  d="M23.8962 12.4479H21.3128C19.3495 12.4479 17.7607 10.8592 17.7607 8.89583V6.3125C17.7607 5.78292 18.1999 5.34375 18.7295 5.34375C19.2591 5.34375 19.6982 5.78292 19.6982 6.3125V8.89583C19.6982 9.78708 20.4216 10.5104 21.3128 10.5104H23.8962C24.4257 10.5104 24.8649 10.9496 24.8649 11.4792C24.8649 12.0087 24.4257 12.4479 23.8962 12.4479Z"
+                  fill="#862FC0"
+                />
+                <path
+                  d="M15.4997 18.2607H10.333C9.80342 18.2607 9.36426 17.8216 9.36426 17.292C9.36426 16.7624 9.80342 16.3232 10.333 16.3232H15.4997C16.0293 16.3232 16.4684 16.7624 16.4684 17.292C16.4684 17.8216 16.0293 18.2607 15.4997 18.2607Z"
+                  fill="#862FC0"
+                />
+                <path
+                  d="M20.6663 23.4268H10.333C9.80342 23.4268 9.36426 22.9876 9.36426 22.458C9.36426 21.9284 9.80342 21.4893 10.333 21.4893H20.6663C21.1959 21.4893 21.6351 21.9284 21.6351 22.458C21.6351 22.9876 21.1959 23.4268 20.6663 23.4268Z"
+                  fill="#862FC0"
+                />
+              </svg>
+              <input
+                //   directory=""
+                //   webkitdirectory=""
+                id="uploadmetadata"
+                type="file"
+                onChange={changeMetaHandler}
+                className="d-none"
+              />
+              <div className="right-side">
+                <h6>Select Metadata</h6>
+                <p>Drag and drop or click to upload a CSV file</p>
+              </div>
             </div>
-          </div>
-          <button className="btn-save-submit" onClick={handleMetaChange}>
+          </label>
+          <button
+            className="btn-save-submit"
+            onClick={handleMetaChange}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "25px",
+            }}
+          >
             Upload metadata
           </button>
           {/* <div>
