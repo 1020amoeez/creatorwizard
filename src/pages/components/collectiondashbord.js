@@ -385,17 +385,17 @@ const Collectiondashbord = () => {
       setLoader(true);
 
       let stagesData = transformStages(mintStages, mintStartTime);
-      console.log(
-        name,
-        symbol,
-        metahash,
-        stagesData,
-        totalSupply,
-        perWalletLimit,
-        LimitedEddition,
-        mintStartTime,
-        "totall"
-      );
+      // console.log(
+      //   name,
+      //   symbol,
+      //   metahash,
+      //   stagesData,
+      //   totalSupply,
+      //   perWalletLimit,
+      //   LimitedEddition,
+      //   mintStartTime,
+      //   "totall"
+      // );
       const gas = await contract.methods
         .createProject(
           name,
@@ -424,8 +424,11 @@ const Collectiondashbord = () => {
         staked?.events?.ProjectCreated?.returnValues?.projectId || "";
       setContractAddress(contractAddress);
       setProjectId(projectId);
-      await getLaunchpad(modaldata?._id, contractAddress, projectId);
-      await getIpfsLaunchpad(modaldata?._id, account);
+      if (staked) {
+        await getLaunchpad(modaldata?._id, contractAddress, projectId);
+        await getIpfsLaunchpad(modaldata?._id, account);
+      }
+
       setLoader(false);
       handleClose();
     } catch (error) {
@@ -455,7 +458,6 @@ const Collectiondashbord = () => {
 
       await axios(config);
       // onNext();
-      toast.success("Collection Created Succesfully");
     } catch (error) {
       if (
         error.response &&
@@ -473,12 +475,12 @@ const Collectiondashbord = () => {
   const getIpfsLaunchpad = async (id, account) => {
     const fileHashes = JSON.parse(localStorage.getItem("fileHashes"));
     try {
-      const files = fileHashes.map((image, index) => ({
-        name: `image ${index + 1}`,
-        image: image,
-      }));
+      // const files = fileHashes.map((image, index) => ({
+      //   name: `image ${index + 1}`,
+      //   image: image,
+      // }));
       const launchpadData = {
-        files: files,
+        files: fileHashes,
         walletAddress: account,
       };
       const config = {
@@ -489,8 +491,11 @@ const Collectiondashbord = () => {
           Authorization: "Bearer " + accessToken,
         },
       };
-      // const response = await axios(config);
+      await axios(config);
+      const response = await axios(config);
       // console.log(response.data, "statuswww");
+      toast.success("Collection Created Succesfully");
+
       // onNext();
       // localStorage.removeItem;
     } catch (error) {
@@ -500,7 +505,7 @@ const Collectiondashbord = () => {
         error.response.data.message
       ) {
         console.error("Error in getLaunchpad:", error);
-        toast.error(error.response.data.message.error);
+        toast.error(error.response.data.message);
       } else {
         console.error("Error in getLaunchpad:", error);
       }
@@ -1003,8 +1008,8 @@ const Collectiondashbord = () => {
               <div className="right-side">
                 <h6>Select Media</h6>
                 <p>
-                  Drag and drop or click to select up to 10,000 media files, up
-                  to a total size of 5GB. JPG, PNG, SVG, and GIF are supported.
+                  Click here to select up to 10,000 media files, up to a total
+                  size of 5GB. JPG, PNG, SVG, and GIF are supported.
                 </p>
               </div>
             </div>
@@ -1061,7 +1066,7 @@ const Collectiondashbord = () => {
               />
               <div className="right-side">
                 <h6>Select Metadata</h6>
-                <p>Drag and drop or click to upload a CSV file</p>
+                <p>Click here to upload a CSV file</p>
               </div>
             </div>
           </label>
