@@ -237,14 +237,13 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         endDate.getMinutes() + parseInt(member.durationMins || 0)
       );
 
-      selectedDate = new Date(endDate); // Update selectedDate for the next iteration
+      selectedDate = new Date(endDate);
 
       return {
         name: member.name,
         mintStageTime: endDate.toISOString(),
         price: member.price,
         amount: member.amount,
-        // perWalletMintLimit: member.perWalletMintLimit
       };
     });
 

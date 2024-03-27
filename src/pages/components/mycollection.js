@@ -203,9 +203,10 @@ const MyCollection = () => {
         const parts = url.split("/");
         const lastPart = parts[parts.length - 1];
         const hash = lastPart.split("?")[0];
-        modifiedSet.add("/" + hash);
+        modifiedSet.push("/" + hash);
       });
       setcollectionHashes(modifiedSet);
+      console.log(modifiedSet, "mpdified");
       localStorage.setItem(
         "collectionHashes",
         JSON.stringify(Array.from(modifiedSet))
@@ -377,14 +378,19 @@ const MyCollection = () => {
       const staked = await contract.methods
         .deployCollection(name, symbol, metahash, totalSupply)
         .send({ from: account, gas, gasPrice: gasFunPrice });
+
       const contractAddress =
-        staked?.events?.newCollectionDeployed?.returnValues?.ERC721Deployed;
+        staked?.events?.NewCollectionDeployed?.returnValues?.ERC721Deployed;
+      // let projectId = staked?.events?.NewCollectionDeployed?.returnValues?.id;
       setContractAddress(contractAddress);
-      await getCollection(modaldata?._id, contractAddress);
-      await getIpfsCollection(modaldata?._id, account);
+      // setProjectId(projectId);
+      if (staked) {
+        await getCollection(modaldata?._id, contractAddress);
+        await getIpfsCollection(modaldata?._id, account);
+      }
+
       setLoader(false);
       handleClose();
-      return res;
     } catch (error) {
       console.error("Error in ProjectContract:", error);
       setLoader(false);
@@ -407,7 +413,6 @@ const MyCollection = () => {
         },
       };
       await axios(config);
-      // onNext();
     } catch (error) {
       if (
         error.response &&
@@ -444,7 +449,13 @@ const MyCollection = () => {
         },
       };
       await axios(config);
-      toast.success("Collection Created Succesfully");
+      // toast.success("Collection Created Succesfully");
+      if (response.status === 200 || response.status === 201) {
+        localStorage.removeItem("collectionHashes");
+        toast.success("Collection Created Successfully");
+      } else {
+        toast.error("Error creating collection");
+      }
       // onNext();
     } catch (error) {
       if (
@@ -912,18 +923,36 @@ const MyCollection = () => {
               </div>
             </div>
           </label>
-          <button
-            className="btn-save-submit"
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={handleImageChange}
-          >
-            Upload images
-          </button>
+          {selectedFile ? (
+            <button
+              className="btn-save-submit"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={handleImageChange}
+            >
+              Upload images
+            </button>
+          ) : (
+            <button
+              className="btn-save-submit"
+              disabled
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: 0.5,
+                cursor: "not-allowed",
+              }}
+            >
+              Upload images
+            </button>
+          )}
+
           <label
             style={{ width: "100%", height: "100%" }}
             htmlFor="uploadmetadata"
@@ -968,19 +997,38 @@ const MyCollection = () => {
               </div>
             </div>
           </label>
-          <button
-            className="btn-save-submit"
-            onClick={handleMetaChange}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "25px",
-            }}
-          >
-            Upload metadata
-          </button>
+          {selectedMetaFile ? (
+            <button
+              className="btn-save-submit"
+              onClick={handleMetaChange}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "25px",
+              }}
+            >
+              Upload metadata
+            </button>
+          ) : (
+            <button
+              className="btn-save-submit"
+              onClick={handleMetaChange}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "25px",
+                opacity: 0.5,
+                cursor: "not-allowed",
+              }}
+            >
+              Upload metadata
+            </button>
+          )}
+
           {/* <div>
             <input
               type="file"

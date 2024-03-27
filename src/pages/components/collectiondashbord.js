@@ -431,7 +431,6 @@ const Collectiondashbord = () => {
         await getLaunchpad(modaldata?._id, contractAddress, projectId);
         await getIpfsLaunchpad(modaldata?._id, account);
       }
-
       setLoader(false);
       handleClose();
     } catch (error) {
@@ -495,11 +494,13 @@ const Collectiondashbord = () => {
         },
       };
       await axios(config);
-      // console.log(response.data, "statuswww");
-      toast.success("Collection Created Succesfully");
-
-      // onNext();
-      // localStorage.removeItem;
+      // toast.success("Collection Created Succesfully");
+      if (response.status === 200 || response.status === 201) {
+        localStorage.removeItem("fileHashes");
+        toast.success("Collection Created Successfully");
+      } else {
+        toast.error("Error creating collection");
+      }
     } catch (error) {
       if (
         error.response &&
@@ -1016,18 +1017,35 @@ const Collectiondashbord = () => {
               </div>
             </div>
           </label>
-          <button
-            className="btn-save-submit"
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={handleImageChange}
-          >
-            Upload images
-          </button>
+          {selectedFile ? (
+            <button
+              className="btn-save-submit"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={handleImageChange}
+            >
+              Upload images
+            </button>
+          ) : (
+            <button
+              className="btn-save-submit"
+              disabled
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: 0.5,
+                cursor: "not-allowed",
+              }}
+            >
+              Upload images
+            </button>
+          )}
           <label
             style={{ width: "100%", height: "100%" }}
             htmlFor="uploadmetadata"
@@ -1072,19 +1090,37 @@ const Collectiondashbord = () => {
               </div>
             </div>
           </label>
-          <button
-            className="btn-save-submit"
-            onClick={handleMetaChange}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "25px",
-            }}
-          >
-            Upload metadata
-          </button>
+          {selectedMetaFile ? (
+            <button
+              className="btn-save-submit"
+              onClick={handleMetaChange}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "25px",
+              }}
+            >
+              Upload metadata
+            </button>
+          ) : (
+            <button
+              className="btn-save-submit"
+              onClick={handleMetaChange}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "25px",
+                opacity: 0.5,
+                cursor: "not-allowed",
+              }}
+            >
+              Upload metadata
+            </button>
+          )}
           {/* <div>
             <input
               type="file"
