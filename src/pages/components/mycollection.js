@@ -51,6 +51,7 @@ const MyCollection = () => {
   // const [stagesarray, setStagesArray] = useState([]);
   const fileInputRef = useRef(null);
   const fileInputRef2 = React.createRef();
+  const [loaderthree, setLoaderthree] = useState(false);
 
   const getNft = async (accessToken, status) => {
     setLoadertwo(true);
@@ -147,7 +148,7 @@ const MyCollection = () => {
     "9bbd417897c320cd04e5894acd00762adee32e6e72dfd393dec2f061df895c6c";
   const [selectedFile, setSelectedFile] = useState();
 
-  const [fileHashes, setFileHashes] = useState([]);
+  const [collectionHashes, setcollectionHashes] = useState([]);
   const changeHandler = (event) => {
     setSelectedFile(event.target.files);
   };
@@ -180,9 +181,11 @@ const MyCollection = () => {
         }
       );
       const resData = await res.json();
-      const response = await axios.get(
-        `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
-      );
+      // const response = await axios.get(
+      //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
+      // );
+      const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
+      const response = await fetchWithRetry(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
       const links = htmlDocument.getElementsByTagName("a");
@@ -195,18 +198,19 @@ const MyCollection = () => {
           imageUrlsSet.push(file);
         }
       }
-      const modifiedSet = new Set();
+      const modifiedSet = [];
       imageUrlsSet.forEach((url) => {
         const parts = url.split("/");
         const lastPart = parts[parts.length - 1];
         const hash = lastPart.split("?")[0];
-        modifiedSet.add(hash);
+        modifiedSet.add("/" + hash);
       });
-      setFileHashes(modifiedSet);
+      setcollectionHashes(modifiedSet);
       localStorage.setItem(
         "collectionHashes",
         JSON.stringify(Array.from(modifiedSet))
       );
+      setImagesUploaded(true);
       setLoaderthree(false);
       const successfulImages = imageUrlsSet;
       return successfulImages;
@@ -242,15 +246,15 @@ const MyCollection = () => {
         reader.readAsText(metadataFile);
       });
       let parsedMetadata = JSON.parse(metadataContent);
-      const fileHashesString = localStorage.getItem("collectionHashes");
-      const fileHashes = JSON.parse(fileHashesString);
-      if (fileHashes.length !== parsedMetadata.length) {
+      const collectionHashesString = localStorage.getItem("collectionHashes");
+      const collectionHashes = JSON.parse(collectionHashesString);
+      if (collectionHashes.length !== parsedMetadata.length) {
         toast.error("Metadata is not equal to image hash");
         setLoaderthree(false);
         return;
       }
       for (let i = 0; i < parsedMetadata.length; i++) {
-        parsedMetadata[i].hash = fileHashes[i];
+        parsedMetadata[i].hash = collectionHashes[i];
       }
 
       console.log(parsedMetadata, "parsed");
@@ -272,7 +276,7 @@ const MyCollection = () => {
       );
       const data = await res.json();
       setMetaHash(data?.IpfsHash);
-
+      setMetadataUploaded(true);
       setLoaderthree(false);
     } catch (error) {
       setLoaderthree(false);
@@ -349,7 +353,7 @@ const MyCollection = () => {
     totalSupply
   ) => {
     const val = localStorage.getItem("accessToken");
-    console.log(ipfLink, "dwde");
+    // console.log(ipfLink, "dwde");
     if (!account) {
       toast.error("Please connect Metamask to continue");
       return;
@@ -402,10 +406,8 @@ const MyCollection = () => {
           Authorization: "Bearer " + accessToken,
         },
       };
-
       await axios(config);
       // onNext();
-      toast.success("Collection Created Succesfully");
     } catch (error) {
       if (
         error.response &&
@@ -421,14 +423,16 @@ const MyCollection = () => {
   };
 
   const getIpfsCollection = async (id, account) => {
-    const fileHashes = JSON.parse(localStorage.getItem("collectionHashes"));
+    const collectionHashes = JSON.parse(
+      localStorage.getItem("collectionHashes")
+    );
     try {
-      const files = fileHashes.map((image, index) => ({
-        name: `image ${index + 1}`,
-        image: image,
-      }));
+      // const files = collectionHashes.map((image, index) => ({
+      //   name: `image ${index + 1}`,
+      //   image: image,
+      // }));
       const launchpadData = {
-        files: files,
+        files: collectionHashes,
         walletAddress: account,
       };
       const config = {
@@ -439,8 +443,8 @@ const MyCollection = () => {
           Authorization: "Bearer " + accessToken,
         },
       };
-
       await axios(config);
+      toast.success("Collection Created Succesfully");
       // onNext();
     } catch (error) {
       if (
@@ -555,6 +559,11 @@ const MyCollection = () => {
             modaldata={modaldata}
             text="Please wait..."
           />
+        </>
+      )}
+      {loaderthree && (
+        <>
+          <Loader text2="Uploading..." />
         </>
       )}
 

@@ -133,7 +133,7 @@ const Collectiondashbord = () => {
     setActiveTab(selectedTab);
   };
 
-  const fetchWithRetry = async (url, retries = 3, timeout = 10000) => {
+  const fetchWithRetry = async (url, retries = 3, timeout = 30000) => {
     console.log("fetchWithRetry", url);
     for (let i = 0; i < retries; i++) {
       try {
@@ -184,9 +184,11 @@ const Collectiondashbord = () => {
         }
       );
       const resData = await res.json();
-      const response = await axios.get(
-        `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
-      );
+      // const response = await axios.get(
+      //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
+      // );
+      const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
+      const response = await fetchWithRetry(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
       const links = htmlDocument.getElementsByTagName("a");
@@ -199,12 +201,12 @@ const Collectiondashbord = () => {
           imageUrlsSet.push(file);
         }
       }
-      const modifiedSet = new Set();
+      const modifiedSet = [];
       imageUrlsSet.forEach((url) => {
         const parts = url.split("/");
         const lastPart = parts[parts.length - 1];
         const hash = lastPart.split("?")[0];
-        modifiedSet.add(hash);
+        modifiedSet.push("/" + hash);
       });
       setFileHashes(modifiedSet);
       localStorage.setItem(
@@ -347,7 +349,7 @@ const Collectiondashbord = () => {
           ? new Date(mintStartTime).getTime() / 1000
           : new Date(mintStages[index - 1].mintStageTime).getTime() / 1000;
       let endTime = new Date(stage.mintStageTime).getTime() / 1000;
-      let amount = stage.amount.toString();
+      let amount = stage.amount;
       let sold = "0";
       let price = web3.utils.toWei(stage.price, "ether");
       let whiteList = false;
@@ -385,17 +387,18 @@ const Collectiondashbord = () => {
       setLoader(true);
 
       let stagesData = transformStages(mintStages, mintStartTime);
-      // console.log(
-      //   name,
-      //   symbol,
-      //   metahash,
-      //   stagesData,
-      //   totalSupply,
-      //   perWalletLimit,
-      //   LimitedEddition,
-      //   mintStartTime,
-      //   "totall"
-      // );
+      console.log(
+        name,
+        symbol,
+        metahash,
+        stagesData,
+        totalSupply,
+        perWalletLimit,
+        LimitedEddition,
+        mintStartTime,
+        "totall"
+      );
+      // console.log(fileHashes, "filehashes");
       const gas = await contract.methods
         .createProject(
           name,
@@ -492,7 +495,6 @@ const Collectiondashbord = () => {
         },
       };
       await axios(config);
-      const response = await axios(config);
       // console.log(response.data, "statuswww");
       toast.success("Collection Created Succesfully");
 
@@ -665,7 +667,7 @@ const Collectiondashbord = () => {
 
       {loaderthree && (
         <>
-          <Loader text2="Uploading images..." />
+          <Loader text2="Uploading..." />
         </>
       )}
 
