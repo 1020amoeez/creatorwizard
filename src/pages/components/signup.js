@@ -67,10 +67,10 @@ const Signup = () => {
       setConfirmPasswordError("Passwords do not match");
       return;
     }
-    if (otp.length === 0) {
-      setOtpError("Otp is Required");
-      return;
-    }
+    // if (otp.length === 0) {
+    //   setOtpError("Otp is Required");
+    //   return;
+    // }
 
     if (!account) {
       toast.error("Connect Wallet to Signup");
@@ -82,7 +82,7 @@ const Signup = () => {
       password: password,
       confirmPassword: confirmPassword,
       walletAddress: account || address,
-      otpCode: otp,
+      // otpCode: otp,
     });
     var config = {
       method: "post",
@@ -192,9 +192,9 @@ const Signup = () => {
                   type="email"
                   placeholder="Your email..."
                 />
-                <a onClick={handleShow} className="eye verify-text">
+                {/* <a onClick={handleShow} className="eye verify-text">
                   Verify
-                </a>
+                </a> */}
               </div>
               {emailError && <p className="text-danger">{emailError}</p>}
             </div>
@@ -454,7 +454,7 @@ const Signup = () => {
             {confirmPasswordError && (
               <p className="text-danger mb-5">{confirmPasswordError}</p>
             )}
-            <div className="option-field">
+            {/* <div className="option-field">
               <label>Enter Otp</label>
               <div className="twice-inputeye">
                 <input
@@ -467,15 +467,7 @@ const Signup = () => {
                 />
               </div>
               {otpError && <p className="text-danger mb-5">{otpError}</p>}
-              {/* <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="25"
-                                height="25"
-                                viewBox="0 0 25 25"
-                                fill="none"
-                            >
-                            </svg> */}
-            </div>
+            </div> */}
             <button onClick={userRegister} className="btn-sign">
               Sign Up
             </button>
