@@ -166,11 +166,13 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
       toast.error("Provide Collection Image");
     } else if (!createcollection?.featureImageUrl) {
       toast.error("Provide Feature Image");
-    } else if (!createcollection?.twitterUrl) {
-      toast.error("Enter Twitter Url");
-    } else if (!isValidUrl(createcollection?.twitterUrl)) {
-      toast.error("Twitter URL must be a valid URL");
-    } else {
+    }
+    //  else if (!createcollection?.twitterUrl) {
+    //   toast.error("Enter Twitter Url");
+    // } else if (!isValidUrl(createcollection?.twitterUrl)) {
+    //   toast.error("Twitter URL must be a valid URL");
+    // }
+    else {
       CreateCollection();
     }
   };
@@ -183,10 +185,19 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
       name: storedCollection?.name,
       symbol: storedCollection?.symbol,
       description: createcollection?.description,
-      twitterUrl: createcollection?.twitterUrl,
-      discordUrl: createcollection?.discordUrl,
-      websiteUrl: createcollection?.websiteUrl,
+      // twitterUrl: createcollection?.twitterUrl,
+      // discordUrl: createcollection?.discordUrl,
+      // websiteUrl: createcollection?.websiteUrl,
     };
+    if (storedCollection?.websiteUrl) {
+      collectionData.websiteUrl = storedCollection?.websiteUrl;
+    }
+    if (storedCollection?.discordUrl) {
+      collectionData.discordUrl = storedCollection?.discordUrl;
+    }
+    if (storedCollection?.twitterUrl) {
+      collectionData.twitterUrl = storedCollection?.twitterUrl;
+    }
 
     try {
       const imageUrl = await getMetaData(

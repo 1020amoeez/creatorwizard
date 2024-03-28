@@ -136,9 +136,9 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         name: formDataName?.name || "",
         symbol: formDataname?.symbol || "",
         description: formDataName?.description || "",
-        websiteUrl: formDataname?.websiteUrl || "",
-        discordUrl: formDataName?.discordUrl || "",
-        twitterUrl: formDataName?.twitterUrl || "",
+        // websiteUrl: formDataname?.websiteUrl || "",
+        // discordUrl: formDataName?.discordUrl || "",
+        // twitterUrl: formDataName?.twitterUrl || "",
         imageUrl: formDataName?.imageUrl || "",
         featureImageUrl: featureImageUrl || "",
         perWalletLimit: formDataName?.perWalletLimit || "",
@@ -147,7 +147,15 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         mintStages,
         mintEndTime,
       };
-
+      if (formDataName?.websiteUrl) {
+        formData.websiteUrl = formDataName?.websiteUrl;
+      }
+      if (formDataName?.discordUrl) {
+        formData.discordUrl = formDataName?.discordUrl;
+      }
+      if (formDataName?.twitterUrl) {
+        formData.twitterUrl = formDataName?.twitterUrl;
+      }
       // Handle additional properties
       if (formDataName?.limitedEddition) {
         formData.limitedEddition = formDataName.limitedEddition;

@@ -264,9 +264,6 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       name: formDataName?.name,
       symbol: formDataname?.symbol,
       description: formDataName?.description,
-      websiteUrl: formDataname?.websiteUrl,
-      discordUrl: formDataName?.discordUrl,
-      twitterUrl: formDataName?.twitterUrl,
       perWalletLimit: formDataName?.perWalletLimit,
       imageUrl: formDataName?.imageUrl,
       featureImageUrl: featureImageUrl,
@@ -274,7 +271,15 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       mintStages: stages,
       mintEndTime: mintEndTime,
     };
-
+    if (formDataName?.websiteUrl) {
+      launchpadData.websiteUrl = formDataName?.websiteUrl;
+    }
+    if (formDataName?.discordUrl) {
+      launchpadData.discordUrl = formDataName?.discordUrl;
+    }
+    if (formDataName?.twitterUrl) {
+      launchpadData.twitterUrl = formDataName?.twitterUrl;
+    }
     if (formDataName?.limitedEddition) {
       launchpadData.limitedEddition = formDataName?.limitedEddition;
     }

@@ -54,31 +54,43 @@ const Createlaunchpadcollection = () => {
   const [formDataname, setFormDataName] = useState(() => {
     if (isLocalStorageAvailable) {
       const savedData = localStorage.getItem("formDataname");
-      return savedData
-        ? JSON.parse(savedData)
-        : {
-            name: "",
-            symbol: "",
-            description: "",
-            limitedEddition: false,
-            openEddition: false,
-            totalSupply: "",
-            // price: "",
-            teamMembers: [],
-            mintStartTime: "",
-            mintStages: [],
-            earningAddress: "",
-            perWalletLimit: "",
-            earning: "",
-            platformFee: "",
-            launchpadImage: "",
-            featureImageUrl: "",
-            // email: "",
-            websiteUrl: "",
-            discordUrl: "",
-            twitterUrl: "",
-            // royalties: "",
+      const parsedData = savedData ? JSON.parse(savedData) : null;
+      if (parsedData && Array.isArray(parsedData.teamMembers)) {
+        const hasTwitterUrl = parsedData.teamMembers.some(
+          (member) => !!member.twitterUrl
+        );
+        if (hasTwitterUrl) {
+          return {
+            ...parsedData,
+            twitterUrl: parsedData.twitterUrl,
           };
+        } else {
+          // Exclude twitterUrl if not provided for any team member
+          const { twitterUrl, ...formDataWithoutTwitterUrl } = parsedData;
+          return formDataWithoutTwitterUrl;
+        }
+      } else {
+        return {
+          name: "",
+          symbol: "",
+          description: "",
+          limitedEddition: false,
+          openEddition: false,
+          totalSupply: "",
+          teamMembers: [],
+          mintStartTime: "",
+          mintStages: [],
+          earningAddress: "",
+          perWalletLimit: "",
+          earning: "",
+          platformFee: "",
+          launchpadImage: "",
+          featureImageUrl: "",
+          websiteUrl: "",
+          discordUrl: "",
+          twitterUrl: "",
+        };
+      }
     } else {
       return {
         name: "",
@@ -87,7 +99,6 @@ const Createlaunchpadcollection = () => {
         limitedEddition: false,
         openEddition: false,
         totalSupply: "",
-        // price: "",
         teamMembers: [],
         mintStartTime: "",
         mintStages: [],
@@ -97,54 +108,66 @@ const Createlaunchpadcollection = () => {
         platformFee: "",
         launchpadImage: "",
         featureImageUrl: "",
-        // email: "",
         websiteUrl: "",
         discordUrl: "",
         twitterUrl: "",
-        // royalties: "",
       };
     }
   });
+
+  // const [formDataname, setFormDataName] = useState(() => {
+  //   if (isLocalStorageAvailable) {
+  //     const savedData = localStorage.getItem("formDataname");
+  //     return savedData
+  //       ? JSON.parse(savedData)
+  //       : {
+  //           name: "",
+  //           symbol: "",
+  //           description: "",
+  //           limitedEddition: false,
+  //           openEddition: false,
+  //           totalSupply: "",
+  //           teamMembers: [],
+  //           mintStartTime: "",
+  //           mintStages: [],
+  //           earningAddress: "",
+  //           perWalletLimit: "",
+  //           earning: "",
+  //           platformFee: "",
+  //           launchpadImage: "",
+  //           featureImageUrl: "",
+  //           websiteUrl: "",
+  //           discordUrl: "",
+  //           twitterUrl: "",
+  //         };
+  //   } else {
+  //     return {
+  //       name: "",
+  //       symbol: "",
+  //       description: "",
+  //       limitedEddition: false,
+  //       openEddition: false,
+  //       totalSupply: "",
+  //       teamMembers: [],
+  //       mintStartTime: "",
+  //       mintStages: [],
+  //       earningAddress: "",
+  //       perWalletLimit: "",
+  //       earning: "",
+  //       platformFee: "",
+  //       launchpadImage: "",
+  //       featureImageUrl: "",
+  //       websiteUrl: "",
+  //       discordUrl: "",
+  //       twitterUrl: "",
+  //     };
+  //   }
+  // });
 
   useEffect(() => {
     localStorage.setItem("formDataname", JSON.stringify(formDataname));
   }, [formDataname]);
 
-  // const handleButtonClick = () => {
-  //     const formDataName = JSON.parse(localStorage.getItem('formDataname'));
-  //     const mintStages = formDataName?.mintStages || [];
-  //     const mintStartDateTime = formDataName?.mintStartTime ? new Date(formDataName?.mintStartTime) : new Date();
-  //     const mintEndDateTime = formDataName?.mintEndTime ? new Date(formDataName?.mintEndTime) : new Date();
-  //     mintStartDateTime.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds());
-  //     const mintStartTime = mintStartDateTime.toISOString();
-  //     const mintEndTime = mintEndDateTime.toISOString();
-  //     const formData = {
-  //         earningAddress: formDataName?.earningAddress || '',
-  //         name: formDataName?.name || '',
-  //         description: formDataName?.description || '',
-  //         discordUrl: formDataName?.discordUrl || '',
-  //         twitterUrl: formDataName?.twitterUrl || '',
-  //         email: formDataName?.email || '',
-  //         price: formDataName?.price || '',
-  //         // totalSupply: formDataName?.totalSupply || '',
-  //         imageUrl: formDataName?.imageUrl || '',
-  //         mintStartTime: mintStartTime,
-  //         earning: '90',
-  //         platformFee: '10',
-  //         teamMembers: formDataName?.teamMembers || [],
-  //         mintStages: mintStages,
-  //         mintEndTime: mintEndTime,
-  //     };
-  //     if (formDataName?.limitedEddition) {
-  //         formData.limitedEddition = formDataName?.limitedEddition;
-  //         formData.totalSupply = formDataName.totalSupply;
-  //     }
-  //     if (formDataName?.openEddition) {
-  //         formData.openEddition = formDataName?.openEddition;
-  //     }
-
-  //     CreateLaunchPad(formData);
-  // };
   const handleButtonClick = () => {
     const featureImageUrl = localStorage.getItem("featureImageUrl");
     const formDataName = JSON.parse(localStorage.getItem("formDataname"));
@@ -157,11 +180,6 @@ const Createlaunchpadcollection = () => {
       name: formDataName?.name || "",
       symbol: formDataname?.symbol || "",
       description: formDataName?.description || "",
-      websiteUrl: formDataname?.websiteUrl || "",
-      discordUrl: formDataName?.discordUrl || "",
-      twitterUrl: formDataName?.twitterUrl || "",
-      // email: formDataName?.email || '',
-      // price: formDataName?.price || '',
       perWalletLimit: formDataName?.perWalletLimit,
       imageUrl: formDataName?.imageUrl || "",
       featureImageUrl: featureImageUrl || "",
@@ -172,6 +190,15 @@ const Createlaunchpadcollection = () => {
       mintStages: mintStages,
       mintEndTime: mintEndTime,
     };
+    if (formDataName?.websiteUrl) {
+      formData.websiteUrl = formDataName?.websiteUrl;
+    }
+    if (formDataName?.discordUrl) {
+      formData.discordUrl = formDataName?.discordUrl;
+    }
+    if (formDataName?.twitterUrl) {
+      formData.twitterUrl = formDataName?.twitterUrl;
+    }
     if (formDataName?.limitedEddition) {
       formData.limitedEddition = formDataName?.limitedEddition;
       formData.totalSupply = formDataName.totalSupply;
