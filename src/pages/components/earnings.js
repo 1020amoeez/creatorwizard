@@ -114,7 +114,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
   // };
 
   const handleButtonClick = () => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
     if (!formDataname?.earningAddress) {
       toast.error("Enter Wallet Address");
     } else if (formDataname?.earningAddress.length !== 42) {
@@ -123,24 +123,18 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       const earningAddress = formDataname?.earningAddress;
       const formDataName = JSON.parse(localStorage.getItem("formDataname"));
 
-      // Parse dates from localStorage
       const mintStartTime = new Date(formDataName?.mintStartTime);
       const mintEndTime = new Date(formDataName?.mintEndTime);
 
-      // Clone mintStages array to prevent mutation
       const mintStages = [...formDataName?.mintStages];
 
-      // Prepare formData object
       const formData = {
         earningAddress,
         name: formDataName?.name || "",
         symbol: formDataname?.symbol || "",
         description: formDataName?.description || "",
-        // websiteUrl: formDataname?.websiteUrl || "",
-        // discordUrl: formDataName?.discordUrl || "",
-        // twitterUrl: formDataName?.twitterUrl || "",
         imageUrl: formDataName?.imageUrl || "",
-        featureImageUrl: featureImageUrl || "",
+        featureImageUrl: formDataName?.featureImageUrl || "",
         perWalletLimit: formDataName?.perWalletLimit || "",
         teamMembers: formDataName?.teamMembers || [],
         mintStartTime,

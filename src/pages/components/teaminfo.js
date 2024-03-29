@@ -216,7 +216,7 @@ const Teaminfo = ({ onNext, formDataname, setFormDataName, id, draftdata }) => {
   }, [image]);
 
   const CreateLaunchPad = async (formDataName) => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
     const launchpadData = {
       name: formDataName?.name,
       symbol: formDataname?.symbol,
@@ -226,7 +226,7 @@ const Teaminfo = ({ onNext, formDataname, setFormDataName, id, draftdata }) => {
       // twitterUrl: formDataName?.twitterUrl,
       teamMembers: formDataName?.teamMembers,
       imageUrl: formDataName?.imageUrl,
-      featureImageUrl: featureImageUrl,
+      featureImageUrl: formDataName?.featureImageUrl,
     };
     if (formDataname?.websiteUrl) {
       launchpadData.websiteUrl = formDataname?.websiteUrl;

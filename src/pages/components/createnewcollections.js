@@ -80,16 +80,13 @@ const CreateNewCollections = () => {
     const storedCollection = JSON.parse(
       localStorage.getItem("createcollection")
     );
-    const collectionimg = localStorage.getItem("collectionImageUrl");
+    // const collectionimg = localStorage.getItem("collectionImageUrl");
     const collectionData = {
       name: storedCollection?.name,
       symbol: storedCollection?.symbol,
       description: storedCollection?.description,
-      // twitterUrl: storedCollection?.twitterUrl,
-      // discordUrl: storedCollection?.discordUrl,
-      // websiteUrl: storedCollection?.websiteUrl,
       imageUrl: storedCollection?.imageUrl,
-      featureImageUrl: collectionimg,
+      featureImageUrl: storedCollection?.featureImageUrl,
       totalSupply: storedCollection?.totalSupply,
     };
     if (storedCollection?.websiteUrl) {

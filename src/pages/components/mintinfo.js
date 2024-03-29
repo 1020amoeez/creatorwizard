@@ -256,7 +256,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
   };
 
   const CreateLaunchPad = async (formDataName, mintStages, mintEndTime) => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
 
     const stages = mintStages && Array.isArray(mintStages) ? mintStages : [];
     const launchpadData = {
@@ -266,7 +266,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       description: formDataName?.description,
       perWalletLimit: formDataName?.perWalletLimit,
       imageUrl: formDataName?.imageUrl,
-      featureImageUrl: featureImageUrl,
+      featureImageUrl: formDataName?.featureImageUrl,
       teamMembers: formDataName?.teamMembers || [],
       mintStages: stages,
       mintEndTime: mintEndTime,

@@ -169,7 +169,7 @@ const Createlaunchpadcollection = () => {
   }, [formDataname]);
 
   const handleButtonClick = () => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
     const formDataName = JSON.parse(localStorage.getItem("formDataname"));
     const mintStages = formDataName?.mintStages || [];
     const mintStartTime =
@@ -182,7 +182,7 @@ const Createlaunchpadcollection = () => {
       description: formDataName?.description || "",
       perWalletLimit: formDataName?.perWalletLimit,
       imageUrl: formDataName?.imageUrl || "",
-      featureImageUrl: featureImageUrl || "",
+      featureImageUrl: formDataName?.featureImageUrl || "",
       mintStartTime: mintStartTime,
       earning: "95",
       platformFee: "5",

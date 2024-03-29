@@ -43,17 +43,6 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
 
-  // const handleImageChange = (e) => {
-  //     const file = e.target.files[0];
-
-  //     if (file) {
-  //         const reader = new FileReader();
-  //         reader.onload = () => {
-  //             setImage(reader.result);
-  //         };
-  //         reader.readAsDataURL(file);
-  //     }
-  // };
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -63,7 +52,6 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
           const imageUrl = await getMetaData(accessToken, reader.result);
           setCreateCollection({
             ...createcollection,
-            launchpadImage: reader.result,
             imageUrl: imageUrl,
           });
         } catch (error) {
@@ -81,13 +69,10 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
       const reader = new FileReader();
       reader.onload = async () => {
         try {
-          const imageUrl = await getMetaData(accessToken, reader.result);
-
-          localStorage.setItem("collectionImageUrl", imageUrl);
+          const featureImageUrl = await getMetaData(accessToken, reader.result);
           setCreateCollection({
             ...createcollection,
-            featureImageUrl: reader.result,
-            imageUrl: imageUrl,
+            featureImageUrl: featureImageUrl,
           });
         } catch (error) {
           toast.error(
@@ -162,17 +147,11 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
   const handleButtonClick = () => {
     if (!createcollection?.description) {
       toast.error("Enter Collection Description");
-    } else if (!createcollection?.launchpadImage) {
+    } else if (!createcollection?.imageUrl) {
       toast.error("Provide Collection Image");
     } else if (!createcollection?.featureImageUrl) {
       toast.error("Provide Feature Image");
-    }
-    //  else if (!createcollection?.twitterUrl) {
-    //   toast.error("Enter Twitter Url");
-    // } else if (!isValidUrl(createcollection?.twitterUrl)) {
-    //   toast.error("Twitter URL must be a valid URL");
-    // }
-    else {
+    } else {
       CreateCollection();
     }
   };
@@ -185,9 +164,8 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
       name: storedCollection?.name,
       symbol: storedCollection?.symbol,
       description: createcollection?.description,
-      // twitterUrl: createcollection?.twitterUrl,
-      // discordUrl: createcollection?.discordUrl,
-      // websiteUrl: createcollection?.websiteUrl,
+      imageUrl: createcollection?.imageUrl,
+      featureImageUrl: createcollection?.featureImageUrl,
     };
     if (storedCollection?.websiteUrl) {
       collectionData.websiteUrl = storedCollection?.websiteUrl;
@@ -197,24 +175,6 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
     }
     if (storedCollection?.twitterUrl) {
       collectionData.twitterUrl = storedCollection?.twitterUrl;
-    }
-
-    try {
-      const imageUrl = await getMetaData(
-        accessToken,
-        createcollection.launchpadImage
-      );
-      collectionData.imageUrl = imageUrl;
-      const featureImageUrl = await getMetaData(
-        accessToken,
-        createcollection.featureImageUrl
-      );
-      collectionData.featureImageUrl = featureImageUrl;
-    } catch (error) {
-      toast.error(
-        "Failed to upload image. Please provide a PNG, JPG,JPEG or Gif file."
-      );
-      return;
     }
 
     var config = {
@@ -272,10 +232,10 @@ const Stepdetail = ({ onNext, createcollection, setCreateCollection }) => {
           </div>
           <div className="profileimgmain">
             <h6 className="profilehead">Profile Image (500x500px)</h6>
-            {createcollection?.launchpadImage ? (
+            {createcollection?.imageUrl ? (
               <div className="uploadimg">
                 <img
-                  src={createcollection?.launchpadImage}
+                  src={createcollection?.imageUrl}
                   alt="uploadedimg"
                   className="uploadedimg"
                 />

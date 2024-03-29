@@ -77,7 +77,7 @@ const StepMint = ({ onNext, createcollection, setCreateCollection }) => {
     const storedCollection = JSON.parse(
       localStorage.getItem("createcollection")
     );
-    const collectionimg = localStorage.getItem("collectionImageUrl");
+    // const collectionimg = localStorage.getItem("collectionImageUrl");
     const collectionData = {
       name: storedCollection?.name,
       symbol: storedCollection?.symbol,
@@ -86,7 +86,7 @@ const StepMint = ({ onNext, createcollection, setCreateCollection }) => {
       // discordUrl: storedCollection?.discordUrl,
       // websiteUrl: storedCollection?.websiteUrl,
       imageUrl: storedCollection?.imageUrl,
-      featureImageUrl: collectionimg,
+      featureImageUrl: storedCollection?.featureImageUrl,
       totalSupply: createcollection?.totalSupply,
     };
     if (storedCollection?.websiteUrl) {
