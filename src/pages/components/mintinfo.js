@@ -237,7 +237,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         endDate.getMinutes() + parseInt(member.durationMins || 0)
       );
 
-      selectedDate = new Date(endDate);
+      selectedDate = new Date(endDate); // Update selectedDate for the next iteration
 
       return {
         name: member.name,
@@ -245,6 +245,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         price: member.price,
         amount: member.amount,
         allowList: isSwitchOn1,
+        // perWalletMintLimit: member.perWalletMintLimit
       };
     });
 
@@ -260,7 +261,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
   };
 
   const CreateLaunchPad = async (formDataName, mintStages, mintEndTime) => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
 
     const stages = mintStages && Array.isArray(mintStages) ? mintStages : [];
     const launchpadData = {
@@ -432,6 +433,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                       : "0 days, 0 hours, 0 mins"}
                   </p>
                   <p>{teamMember?.price} CORE</p>
+                  <p>{teamMember?.amount}</p>
                 </div>
               </div>
               <div className="right-side">
@@ -559,6 +561,17 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             />
             <span className="abs-text">Core</span>
           </div>
+          <div className="stepinputmain">
+            <p className="stepinputpara">Nft amount</p>
+            <input
+              type="number"
+              className="stepinput"
+              placeholder="Enter Amount"
+              name="amount"
+              value={modalInputValues?.amount}
+              onChange={handleModalInputChange}
+            />
+          </div>
           <div className="twice-input-fields">
             <label>Duration</label>
             <div className="option-parent">
@@ -631,21 +644,24 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                             </div>
                         </div> */}
 
-            {/* <div className="single-field">
-                            <h6>Allowlist</h6>
-                            <div className="derivativemain">
-                                <label class="switch">
-                                    <input type="checkbox" checked={isSwitchOn1}
-                                        onChange={handleToggleSwitch1} />
-                                    <div class="slidercheck"></div>
-                                    <div class="slider-card">
-                                        <div class="slider-card-face slider-card-front"></div>
-                                        <div class="slider-card-face slider-card-back"></div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div> */}
-            {isSwitchOn1 && (
+            <div className="single-field">
+              <h6>Allowlist</h6>
+              <div className="derivativemain">
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked={isSwitchOn1}
+                    onChange={handleToggleSwitch1}
+                  />
+                  <div class="slidercheck"></div>
+                  <div class="slider-card">
+                    <div class="slider-card-face slider-card-front"></div>
+                    <div class="slider-card-face slider-card-back"></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            {/* {isSwitchOn1 && (
               <>
                 <p className="para">
                   You can set specific mint limits and prices per wallet, which
@@ -658,7 +674,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                 </div>
                 <p className="last-para">Drag and drop a CSV file</p>
               </>
-            )}
+            )} */}
           </div>
           <div className="buymodalbtns">
             <button className="bluebtn" onClick={handleModalDoneClick}>

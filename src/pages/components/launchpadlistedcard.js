@@ -10,9 +10,10 @@ const Launchpadlistedcard = ({
   justlanding,
   ListedDetails,
   stagedata,
-  getFinallizeLaunchpad,
+  // getFinallizeLaunchpad,
   modaldata,
-  FinalizeContract,
+  GetCsvLaunchpad,
+  // FinalizeContract,
   GetRoyality,
   royality,
   setRoyality,
@@ -338,6 +339,25 @@ const Launchpadlistedcard = ({
               </button>
               {/* <p className='text-white'> {stagedata?.[0]?.contractAddress}</p> */}
             </div>
+            <p className="para">
+              You can set specific mint limits and prices per wallet, which will
+              override the global sale price and mint limit above for those
+              specified.
+            </p>
+            <div
+              onClick={() =>
+                GetCsvLaunchpad(
+                  stagedata?.projectId,
+                  stagedata?.creatorId,
+                  stagedata?.contractAddress
+                )
+              }
+              className="twice-elem"
+            >
+              <a href="#">Download CSV Template</a>
+              {/* <a href="#">Select CSV file</a> */}
+            </div>
+            {/* <p className="last-para">Drag and drop a CSV file</p> */}
             <div className="mintstagesmain">
               <h6 className="minthead">Mint Stages</h6>
               {/* {stagedata?.mintStages?.map((stage, index) => (

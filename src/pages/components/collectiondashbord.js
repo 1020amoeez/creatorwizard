@@ -515,43 +515,43 @@ const Collectiondashbord = () => {
     }
   };
   // console.log(modaldata?.projectId, "swdwde");
-  const FinalizeContract = async (projectId, id) => {
-    const val = localStorage.getItem("accessToken");
-    if (!account) {
-      toast.error("Please connect Metamask to continue");
-      return;
-    }
-    if (!val) {
-      toast.error("Please login First");
-      return;
-    }
+  // const FinalizeContract = async (projectId, id) => {
+  //   const val = localStorage.getItem("accessToken");
+  //   if (!account) {
+  //     toast.error("Please connect Metamask to continue");
+  //     return;
+  //   }
+  //   if (!val) {
+  //     toast.error("Please login First");
+  //     return;
+  //   }
 
-    try {
-      var gasFunPrice;
-      web3.eth.getGasPrice().then((result) => {
-        var result2 = parseInt(result) + 3000000000;
-        gasFunPrice = result2.toString();
-      });
-      setLoaderthree(true);
-      // const projectId = modaldata && modaldata.projectId ? Number(modaldata.projectId) : 0;
-      // console.log(id, 'project');
-      const gas = await contract.methods
-        .FinalizeSale(projectId)
-        .estimateGas({ from: account });
-      const staked = await contract.methods
-        .FinalizeSale(projectId)
-        .send({ from: account, gas, gasPrice: gasFunPrice });
-      setLoaderthree(false);
-      getFinallizeLaunchpad(id);
-      getNft(accessToken, activeTab);
-      handleClose();
-      return staked;
-    } catch (error) {
-      console.error("Error in FinalizeContract:", error);
-      setLoaderthree(false);
-      throw error;
-    }
-  };
+  //   try {
+  //     var gasFunPrice;
+  //     web3.eth.getGasPrice().then((result) => {
+  //       var result2 = parseInt(result) + 3000000000;
+  //       gasFunPrice = result2.toString();
+  //     });
+  //     setLoaderthree(true);
+  //     // const projectId = modaldata && modaldata.projectId ? Number(modaldata.projectId) : 0;
+  //     // console.log(id, 'project');
+  //     const gas = await contract.methods
+  //       .FinalizeSale(projectId)
+  //       .estimateGas({ from: account });
+  //     const staked = await contract.methods
+  //       .FinalizeSale(projectId)
+  //       .send({ from: account, gas, gasPrice: gasFunPrice });
+  //     setLoaderthree(false);
+  //     getFinallizeLaunchpad(id);
+  //     getNft(accessToken, activeTab);
+  //     handleClose();
+  //     return staked;
+  //   } catch (error) {
+  //     console.error("Error in FinalizeContract:", error);
+  //     setLoaderthree(false);
+  //     throw error;
+  //   }
+  // };
 
   const getFinallizeLaunchpad = async (id) => {
     try {
@@ -640,6 +640,41 @@ const Collectiondashbord = () => {
         .estimateGas({ from: account });
       const staked = await contract2.methods
         .setCollectionRoyalty(contractAddress, royaliy)
+        .send({ from: account, gas, gasPrice: gasFunPrice });
+      setLoader(false);
+      handleClose();
+      return staked;
+    } catch (error) {
+      console.error("Error in ProjectContract:", error);
+      setLoader(false);
+      throw error;
+    }
+  };
+  const GetCsvLaunchpad = async (projectId, creatorId, address) => {
+    const val = localStorage.getItem("accessToken");
+
+    if (!account) {
+      toast.error("Please connect Metamask to continue");
+      return;
+    }
+    if (!val) {
+      toast.error("Please login First");
+      return;
+    }
+    const addresses = Array.isArray(address) ? address : [address];
+    try {
+      var gasFunPrice;
+      web3.eth.getGasPrice().then((result) => {
+        var result2 = parseInt(result) + 3000000000;
+        gasFunPrice = result2.toString();
+      });
+      setLoader(true);
+      const creatorIdUint = web3.utils.toBN(creatorId);
+      const gas = await contract.methods
+        .addToWhitelist(projectId, creatorIdUint, addresses)
+        .estimateGas({ from: account });
+      const staked = await contract.methods
+        .addToWhitelist(projectId, creatorIdUint, addresses)
         .send({ from: account, gas, gasPrice: gasFunPrice });
       setLoader(false);
       handleClose();
@@ -893,7 +928,8 @@ const Collectiondashbord = () => {
                         GetRoyality={GetRoyality}
                         royaliy={royaliy}
                         setRoyality={setRoyality}
-                        FinalizeContract={FinalizeContract}
+                        GetCsvLaunchpad={GetCsvLaunchpad}
+                        // FinalizeContract={FinalizeContract}
                       />
                     </>
                   )}
