@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import moment from "moment";
 import { Modal } from "react-bootstrap";
@@ -78,6 +78,7 @@ const Launchpadlistedcard = ({
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const val = localStorage.getItem("accessToken");
@@ -113,6 +114,15 @@ const Launchpadlistedcard = ({
         );
       }
     }
+  };
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const handleFileInputChange = (event) => {
+    const files = Array.from(event.target.files);
+    console.log("Uploaded files:", files);
+    setSelectedFiles(files);
+  };
+  const handleSelectFileClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -344,19 +354,42 @@ const Launchpadlistedcard = ({
               override the global sale price and mint limit above for those
               specified.
             </p>
-            <div
-              onClick={() =>
-                GetCsvLaunchpad(
-                  stagedata?.projectId,
-                  stagedata?.creatorId,
-                  stagedata?.contractAddress
-                )
-              }
-              className="twice-elem"
-            >
-              <a href="#">Download CSV Template</a>
-              {/* <a href="#">Select CSV file</a> */}
+            <div className="twice-elem">
+              <a
+                onClick={() =>
+                  GetCsvLaunchpad(
+                    stagedata?.projectId,
+                    stagedata?.creatorId,
+                    stagedata?.contractAddress
+                  )
+                }
+                href="#"
+              >
+                Upload CSV Template
+              </a>
+              <a href="#" onClick={handleSelectFileClick}>
+                Select CSV file
+              </a>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept=".json"
+                multiple
+                onChange={handleFileInputChange}
+              />
             </div>
+            {selectedFiles.length > 0 && (
+              <div>
+                <p>Selected files:</p>
+                <ul>
+                  {selectedFiles.map((file, index) => (
+                    <li key={index}>{Object.values(file)[0]}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {/* <p className="text-white">{file}</p> */}
             {/* <p className="last-para">Drag and drop a CSV file</p> */}
             <div className="mintstagesmain">
               <h6 className="minthead">Mint Stages</h6>

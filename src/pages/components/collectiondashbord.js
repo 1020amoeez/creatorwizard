@@ -15,16 +15,11 @@ import ContractEnvironment from "@/utils/ContractEnvironment";
 import useWeb3 from "@/hooks/useWeb3";
 import { ToastContainer, toast } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
-// import { useWeb3React } from '@web3-react/core';
 import Loader from "./loader";
 import Loadertwo from "./loadertwo";
-// import { useRouter } from 'next/router';
-import { NFTStorage, File } from "nft.storage";
-import mime from "mime";
-// import { create as ipfsHttpClient } from 'ipfs-http-client'
-// import fs from 'fs';
-// import path from 'path';
-import { create } from "ipfs-http-client";
+// import { NFTStorage, File } from "nft.storage";
+// import mime from "mime";
+// import { create } from "ipfs-http-client";
 
 const Collectiondashbord = () => {
   const api_url = Environment.api_url;
