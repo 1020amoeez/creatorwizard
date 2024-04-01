@@ -268,17 +268,22 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       name: formDataName?.name,
       symbol: formDataname?.symbol,
       description: formDataName?.description,
-      websiteUrl: formDataname?.websiteUrl,
-      discordUrl: formDataName?.discordUrl,
-      twitterUrl: formDataName?.twitterUrl,
       perWalletLimit: formDataName?.perWalletLimit,
       imageUrl: formDataName?.imageUrl,
-      featureImageUrl: featureImageUrl,
+      featureImageUrl: formDataName?.featureImageUrl,
       teamMembers: formDataName?.teamMembers || [],
       mintStages: stages,
       mintEndTime: mintEndTime,
     };
-
+    if (formDataName?.websiteUrl) {
+      launchpadData.websiteUrl = formDataName?.websiteUrl;
+    }
+    if (formDataName?.discordUrl) {
+      launchpadData.discordUrl = formDataName?.discordUrl;
+    }
+    if (formDataName?.twitterUrl) {
+      launchpadData.twitterUrl = formDataName?.twitterUrl;
+    }
     if (formDataName?.limitedEddition) {
       launchpadData.limitedEddition = formDataName?.limitedEddition;
     }
@@ -411,7 +416,6 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                       d="M20.0079 22.488C19.685 24.2705 19.2716 26.0272 18.6904 27.7322C18.6646 27.8355 18.6646 27.913 18.6516 28.0164C17.6441 28.2618 16.585 28.4168 15.5 28.4168C14.4021 28.4168 13.3558 28.2618 12.3354 28.0164C12.3225 27.913 12.3354 27.8355 12.3096 27.7322C11.7412 26.0143 11.315 24.2705 10.9921 22.488C12.4904 22.656 13.9887 22.7722 15.5 22.7722C17.0112 22.7722 18.5225 22.656 20.0079 22.488Z"
                       fill="#862FC0"
                     />
-
                     <path
                       d="M20.3609 20.3609C17.1304 20.7685 13.8696 20.7685 10.639 20.3609C10.2314 17.1303 10.2314 13.8695 10.639 10.6389C13.8696 10.2314 17.1304 10.2314 20.3609 10.6389C20.7685 13.8695 20.7685 17.1303 20.3609 20.3609Z"
                       fill="#862FC0"
@@ -428,7 +432,6 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                       : "0 days, 0 hours, 0 mins"}
                   </p>
                   <p>{teamMember?.price} CORE</p>
-                  <p>{teamMember?.amount}</p>
                 </div>
               </div>
               <div className="right-side">
@@ -556,17 +559,6 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
             />
             <span className="abs-text">Core</span>
           </div>
-          <div className="stepinputmain">
-            <p className="stepinputpara">Nft amount</p>
-            <input
-              type="number"
-              className="stepinput"
-              placeholder="Enter Amount"
-              name="amount"
-              value={modalInputValues?.amount}
-              onChange={handleModalInputChange}
-            />
-          </div>
           <div className="twice-input-fields">
             <label>Duration</label>
             <div className="option-parent">
@@ -639,23 +631,20 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                             </div>
                         </div> */}
 
-            <div className="single-field">
-              <h6>Allowlist</h6>
-              <div className="derivativemain">
-                <label class="switch">
-                  <input
-                    type="checkbox"
-                    checked={isSwitchOn1}
-                    onChange={handleToggleSwitch1}
-                  />
-                  <div class="slidercheck"></div>
-                  <div class="slider-card">
-                    <div class="slider-card-face slider-card-front"></div>
-                    <div class="slider-card-face slider-card-back"></div>
-                  </div>
-                </label>
-              </div>
-            </div>
+            {/* <div className="single-field">
+                            <h6>Allowlist</h6>
+                            <div className="derivativemain">
+                                <label class="switch">
+                                    <input type="checkbox" checked={isSwitchOn1}
+                                        onChange={handleToggleSwitch1} />
+                                    <div class="slidercheck"></div>
+                                    <div class="slider-card">
+                                        <div class="slider-card-face slider-card-front"></div>
+                                        <div class="slider-card-face slider-card-back"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div> */}
             {isSwitchOn1 && (
               <>
                 <p className="para">

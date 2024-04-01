@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/hooks/useAuth";
+import { Modal } from "react-bootstrap";
 
 const Signup = () => {
   const api_url = Environment.api_url;
@@ -13,9 +14,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [otp, setOtp] = useState("");
   const [addresserror, setAddressError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [otpError, setOtpError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [showPass, setShowPass] = useState("password");
@@ -64,6 +67,10 @@ const Signup = () => {
       setConfirmPasswordError("Passwords do not match");
       return;
     }
+    // if (otp.length === 0) {
+    //   setOtpError("Otp is Required");
+    //   return;
+    // }
 
     if (!account) {
       toast.error("Connect Wallet to Signup");
@@ -75,6 +82,7 @@ const Signup = () => {
       password: password,
       confirmPassword: confirmPassword,
       walletAddress: account || address,
+      // otpCode: otp,
     });
     var config = {
       method: "post",
@@ -93,6 +101,45 @@ const Signup = () => {
         toast.error(error.response?.data?.message);
       });
   };
+
+  const VerifyEmail = () => {
+    const payload = {
+      email: email,
+    };
+    axios
+      .post(`${api_url}/genrateOtp/create-email-verification-code`, payload)
+      .then((response) => {
+        toast.info("Otp Sent To Your Email");
+        handleClose();
+        // window.location.href = "https://mail.google.com";
+        console.log("Email verification code sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error sending email verification code:", error);
+      });
+  };
+
+  //   const connectWallet = async (e) => {
+  //     if (account) {
+  //       const connectorId = window.localStorage.getItem("connectorId");
+  //       await logout(connectorId);
+  //       localStorage.removeItem("connectorId");
+  //       localStorage.removeItem("flag");
+  //     } else {
+  //       await login("injected", e);
+  //       localStorage.setItem("connectorId", "injected");
+  //       localStorage.setItem("flag", "true");
+  //       localStorage.setItem("chain", e);
+  //     }
+  //   };
+
+  //   const disconnectWallet = async () => {
+  //     const connectorId = window.localStorage.getItem("connectorId");
+  //     logout(connectorId);
+  //     localStorage.removeItem("connectorId");
+  //     localStorage.removeItem("flag");
+  //     localStorage.removeItem("chain");
+  //   };
 
   const connectWallet = async (e) => {
     if (account) {
@@ -116,6 +163,10 @@ const Signup = () => {
     localStorage.removeItem("chain");
   };
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <section className="login-section">
@@ -133,13 +184,18 @@ const Signup = () => {
             </div>
             <div className="option-field">
               <label>Email</label>
-              <input
-                style={{ paddingRight: "22px" }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Your email..."
-              />
+              <div className="twice-inputeye">
+                <input
+                  style={{ paddingRight: "22px" }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Your email..."
+                />
+                {/* <a onClick={handleShow} className="eye verify-text">
+                  Verify
+                </a> */}
+              </div>
               {emailError && <p className="text-danger">{emailError}</p>}
             </div>
             <div className="option-field wallletaddress-field">
@@ -398,6 +454,20 @@ const Signup = () => {
             {confirmPasswordError && (
               <p className="text-danger mb-5">{confirmPasswordError}</p>
             )}
+            {/* <div className="option-field">
+              <label>Enter Otp</label>
+              <div className="twice-inputeye">
+                <input
+                  value={otp}
+                  onChange={(e) => {
+                    setOtp(e.target.value);
+                    setOtpError("");
+                  }}
+                  placeholder="Enter Otp"
+                />
+              </div>
+              {otpError && <p className="text-danger mb-5">{otpError}</p>}
+            </div> */}
             <button onClick={userRegister} className="btn-sign">
               Sign Up
             </button>
@@ -410,6 +480,26 @@ const Signup = () => {
           </div>
         </div>
       </section>
+
+      <Modal className="buymodal" show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Verify Email</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="confirmemail-address">
+            <p>You’re just one step away from unlocking a magical journey.</p>
+            <p>
+              To complete your signup and start your journey with us, please
+              confirm your email address by clicking the link below:
+            </p>
+          </div>
+          <div className="buymodalbtns">
+            <button onClick={VerifyEmail} className="bluebtn">
+              Verify Email Address
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

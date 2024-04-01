@@ -73,8 +73,48 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  // const handleButtonClick = () => {
+  //     const featureImageUrl = localStorage.getItem('featureImageUrl');
+  //     if (!formDataname?.earningAddress) {
+  //         toast.error('Enter Wallet Address');
+  //     } else if (formDataname?.earningAddress.length !== 42) {
+  //         toast.error('Wallet Address length must be 42 characters long');
+  //     } else {
+  //         const earningAddress = formDataname?.earningAddress;
+  //         const formDataName = JSON.parse(localStorage.getItem('formDataname'));
+  //         const mintStartTime = new Date(formDataName?.mintStartTime);
+  //         const mintEndTime = new Date(formDataName?.mintEndTime);
+  //         const formData = {
+  //             earningAddress,
+  //             name: formDataName?.name || '',
+  //             symbol: formDataname?.symbol || '',
+  //             description: formDataName?.description || '',
+  //             websiteUrl: formDataname?.websiteUrl || '',
+  //             discordUrl: formDataName?.discordUrl || '',
+  //             twitterUrl: formDataName?.twitterUrl || '',
+  //             imageUrl: formDataName?.imageUrl || '',
+  //             featureImageUrl: featureImageUrl || '',
+  //             perWalletLimit: formDataName?.perWalletLimit || '',
+  //             teamMembers: formDataName?.teamMembers || [],
+  //             mintStartTime: mintStartTime,
+  //             mintStages: formDataName?.mintStages || [],
+  //             mintEndTime: mintEndTime,
+  //         };
+
+  //         if (formDataName?.limitedEddition) {
+  //             formData.limitedEddition = formDataName.limitedEddition;
+  //             formData.totalSupply = formDataName.totalSupply;
+  //         }
+  //         if (formDataName?.openEddition) {
+  //             formData.openEddition = formDataName.openEddition;
+  //         }
+
+  //         CreateLaunchPad(formData);
+  //     }
+  // };
+
   const handleButtonClick = () => {
-    const featureImageUrl = localStorage.getItem("featureImageUrl");
+    // const featureImageUrl = localStorage.getItem("featureImageUrl");
     if (!formDataname?.earningAddress) {
       toast.error("Enter Wallet Address");
     } else if (formDataname?.earningAddress.length !== 42) {
@@ -82,26 +122,34 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     } else {
       const earningAddress = formDataname?.earningAddress;
       const formDataName = JSON.parse(localStorage.getItem("formDataname"));
+
       const mintStartTime = new Date(formDataName?.mintStartTime);
       const mintEndTime = new Date(formDataName?.mintEndTime);
-      // const mintStages = [...formDataName?.mintStages];
+
+      const mintStages = [...formDataName?.mintStages];
+
       const formData = {
         earningAddress,
         name: formDataName?.name || "",
         symbol: formDataname?.symbol || "",
         description: formDataName?.description || "",
-        websiteUrl: formDataname?.websiteUrl || "",
-        discordUrl: formDataName?.discordUrl || "",
-        twitterUrl: formDataName?.twitterUrl || "",
         imageUrl: formDataName?.imageUrl || "",
-        featureImageUrl: featureImageUrl || "",
+        featureImageUrl: formDataName?.featureImageUrl || "",
         perWalletLimit: formDataName?.perWalletLimit || "",
         teamMembers: formDataName?.teamMembers || [],
-        mintStartTime: mintStartTime,
-        mintStages: formDataName?.mintStages || [],
-        mintEndTime: mintEndTime,
+        mintStartTime,
+        mintStages,
+        mintEndTime,
       };
-
+      if (formDataName?.websiteUrl) {
+        formData.websiteUrl = formDataName?.websiteUrl;
+      }
+      if (formDataName?.discordUrl) {
+        formData.discordUrl = formDataName?.discordUrl;
+      }
+      if (formDataName?.twitterUrl) {
+        formData.twitterUrl = formDataName?.twitterUrl;
+      }
       // Handle additional properties
       if (formDataName?.limitedEddition) {
         formData.limitedEddition = formDataName.limitedEddition;
@@ -130,6 +178,12 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     }
   };
 
+  // useEffect(() => {
+  //     if (account) {
+  //         setFormDataName({ ...formDataname, earningAddress: account });
+  //     }
+  // }, [account]);
+
   return (
     <>
       <section className="stepmain">
@@ -140,8 +194,8 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
               <h6>Drop earnings addresses</h6>
               <p>
                 Add a wallet to receive earnings from your primary sale. You can
-                add multiple wallets by using a splitter contract. OpenSea takes
-                a 10% fee on primary sales.
+                add multiple wallets by using a splitter contract. Wizard takes
+                a 5% fee on primary sales.
               </p>
             </div>
             <div className="bottom-option">

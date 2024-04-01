@@ -63,14 +63,9 @@ const Launchpadinfo = ({
           const imageUrl = await getMetaData(accessToken, reader.result);
           setFormDataName({
             ...formDataname,
-            launchpadImage: reader.result,
+            // launchpadImage: reader.result,
             imageUrl: imageUrl,
           });
-          // setFormDataName({
-          //     ...formDataname,
-          //     featureImageUrl: reader.result,
-          //     imageUrl: imageUrl
-          // });
         } catch (error) {
           toast.error(
             "Failed to upload image. Please provide a PNG, JPG, or JPEG file."
@@ -86,17 +81,11 @@ const Launchpadinfo = ({
       const reader = new FileReader();
       reader.onload = async () => {
         try {
-          const imageUrl = await getMetaData(accessToken, reader.result);
-          // setFormDataName({
-          //     ...formDataname,
-          //     launchpadImage: reader.result,
-          //     imageUrl: imageUrl
-          // });
-          localStorage.setItem("featureImageUrl", imageUrl);
+          const featureImageUrl = await getMetaData(accessToken, reader.result);
+
           setFormDataName({
             ...formDataname,
-            featureImageUrl: reader.result,
-            imageUrl: imageUrl,
+            featureImageUrl: featureImageUrl,
           });
         } catch (error) {
           toast.error(
@@ -115,7 +104,7 @@ const Launchpadinfo = ({
       toast.error("Enter Symbol");
     } else if (!formDataname?.description) {
       toast.error("Enter Launchpad Description");
-    } else if (!formDataname?.launchpadImage) {
+    } else if (!formDataname?.imageUrl) {
       toast.error("Enter Image");
     } else if (!formDataname?.featureImageUrl) {
       toast.error("Enter Featured Image");
@@ -127,18 +116,6 @@ const Launchpadinfo = ({
       !formDataname?.openEddition
     ) {
       toast.error("Enter Total Supply");
-    } else if (!formDataname?.websiteUrl) {
-      toast.error("Website URL is Required");
-    } else if (!isValidUrl(formDataname?.websiteUrl)) {
-      toast.error("Website URL must be a valid URL");
-    } else if (!formDataname?.discordUrl) {
-      toast.error("Discord URL is required");
-    } else if (!isValidUrl(formDataname?.discordUrl)) {
-      toast.error("Discord URL must be a valid URL");
-    } else if (!formDataname?.twitterUrl) {
-      toast.error("Twitter URL is required");
-    } else if (!isValidUrl(formDataname?.twitterUrl)) {
-      toast.error("Twitter URL must be a valid URL");
     } else {
       CreateLaunchPad();
     }
@@ -164,13 +141,18 @@ const Launchpadinfo = ({
       name: formDataname?.name,
       symbol: formDataname?.symbol,
       description: formDataname?.description,
-      // totalSupply: formDataname?.totalSupply,
-      // email: formDataname?.email,
-      websiteUrl: formDataname?.websiteUrl,
-      discordUrl: formDataname?.discordUrl,
-      twitterUrl: formDataname?.twitterUrl,
-      // price: formDataname?.price
+      imageUrl: formDataname?.imageUrl,
+      featureImageUrl: formDataname?.featureImageUrl,
     };
+    if (formDataname?.websiteUrl) {
+      launchpadData.websiteUrl = formDataname?.websiteUrl;
+    }
+    if (formDataname?.discordUrl) {
+      launchpadData.discordUrl = formDataname?.discordUrl;
+    }
+    if (formDataname?.twitterUrl) {
+      launchpadData.twitterUrl = formDataname?.twitterUrl;
+    }
     if (formDataname?.limitedEddition) {
       launchpadData.limitedEddition = formDataname?.limitedEddition;
     }
@@ -179,23 +161,6 @@ const Launchpadinfo = ({
     }
     if (!formDataname?.openEddition) {
       launchpadData.totalSupply = formDataname?.totalSupply;
-    }
-    try {
-      const imageUrl = await getMetaData(
-        accessToken,
-        formDataname.launchpadImage
-      );
-      launchpadData.imageUrl = imageUrl;
-      const featureImageUrl = await getMetaData(
-        accessToken,
-        formDataname.featureImageUrl
-      );
-      launchpadData.featureImageUrl = featureImageUrl;
-    } catch (error) {
-      toast.error(
-        "Failed to upload image. Please provide a PNG, JPG,JPEG or Gif file."
-      );
-      return;
     }
     var config = {
       method: "put",
@@ -346,23 +311,21 @@ const Launchpadinfo = ({
           </div>
           <div className="profileimgmain">
             <h6 className="profilehead">Launchpad Image (500x500px)</h6>
-            {formDataname?.launchpadImage ? (
+            {formDataname?.imageUrl ? (
               <div className="uploadimg">
                 <img
-                  src={formDataname?.launchpadImage}
+                  src={formDataname?.imageUrl}
                   alt="uploadedimg"
                   className="uploadedimg"
                 />
               </div>
             ) : null}
-            {/* Hidden file input */}
             <input
               type="file"
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleImageChange}
             />
-            {/* Upload button */}
             <button className="uploadbtn" onClick={handleButtonClickimg}>
               Upload
             </button>

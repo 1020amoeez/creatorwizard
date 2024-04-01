@@ -11,7 +11,7 @@
         font-weight: 400;
         line-height: 100%;
         /* 30px */
-        
+
         margin-bottom: 35px;
     }
 
@@ -39,7 +39,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: 100%;
-                
+
             }
 
             .nav-link {
@@ -51,7 +51,7 @@
                 font-weight: 400;
                 line-height: 100%;
                 /* 14px */
-                
+
             }
 
 
@@ -104,6 +104,8 @@
             border-radius: 6.61px;
             border: 0.661px solid #150B1C;
             background: #11091B;
+            position: relative;
+           
 
 
             .btn-mint {
@@ -128,6 +130,7 @@
                 object-fit: cover;
                 object-position: center;
                 border-radius: 6.61px;
+                position: relative;
 
                 .imgmain {
                     width: 100%;
@@ -274,7 +277,7 @@
             align-items: center;
             margin-top: 12px;
 
-            a{
+            a {
                 flex: 0 0 48%;
                 text-align: center;
             }
@@ -388,5 +391,54 @@
         a {
             width: 100%;
         }
+    }
+}
+
+
+
+.question-tool {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+}
+
+
+.dataonshow {
+    border-radius: 7px;
+    border: 1px solid #372849;
+    background: #1F162A;
+    box-shadow: 0px 10px 34px 0px rgba(0, 0, 0, 0.25);
+    padding: 18px 22px;
+    position: absolute;
+    top: 40px;
+    left: 85%;
+    width: 382px;
+    z-index: 999;
+
+    h6 {
+        color: #FFF;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
+        margin-bottom: 17px;
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.50);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+    }
+}
+
+@media (max-width:1024px){
+    .dataonshow{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -65%);
+        width: 90%;
     }
 }
