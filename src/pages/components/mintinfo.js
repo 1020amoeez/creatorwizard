@@ -244,6 +244,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         mintStageTime: endDate.toISOString(),
         price: member.price,
         amount: member.amount,
+        allowList: isSwitchOn1,
       };
     });
 
@@ -638,20 +639,23 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                             </div>
                         </div> */}
 
-            {/* <div className="single-field">
-                            <h6>Allowlist</h6>
-                            <div className="derivativemain">
-                                <label class="switch">
-                                    <input type="checkbox" checked={isSwitchOn1}
-                                        onChange={handleToggleSwitch1} />
-                                    <div class="slidercheck"></div>
-                                    <div class="slider-card">
-                                        <div class="slider-card-face slider-card-front"></div>
-                                        <div class="slider-card-face slider-card-back"></div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div> */}
+            <div className="single-field">
+              <h6>Allowlist</h6>
+              <div className="derivativemain">
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked={isSwitchOn1}
+                    onChange={handleToggleSwitch1}
+                  />
+                  <div class="slidercheck"></div>
+                  <div class="slider-card">
+                    <div class="slider-card-face slider-card-front"></div>
+                    <div class="slider-card-face slider-card-back"></div>
+                  </div>
+                </label>
+              </div>
+            </div>
             {isSwitchOn1 && (
               <>
                 <p className="para">
