@@ -14,7 +14,7 @@ const Navbar = () => {
   const api_url = Environment.api_url;
 
   const [profile, setProfile] = useState([]);
-  console.log(profile, "dedede");
+  // console.log(profile, "dedede");
   const [clickedbtn, setclickedbtn] = useState(true);
   let { account } = useWeb3React();
   const [balance, setBalance] = useState();

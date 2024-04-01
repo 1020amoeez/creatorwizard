@@ -25,7 +25,6 @@ import mime from "mime";
 // import fs from 'fs';
 // import path from 'path';
 import { create } from "ipfs-http-client";
-import { IpfsStorage2 } from "./ipfs";
 
 const Collectiondashbord = () => {
   const api_url = Environment.api_url;
