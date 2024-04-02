@@ -161,7 +161,7 @@ const Collectiondashbord = () => {
       const metadata = JSON.stringify({
         name: fileNames.join(", "),
       });
-      formData.append("pinataMetadata", metadata);
+      // formData.append("pinataMetadata", metadata);
       const options = JSON.stringify({
         cidVersion: 0,
       });
@@ -182,7 +182,7 @@ const Collectiondashbord = () => {
       //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
       // );
       const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
-      const response = await fetchWithRetry(ipfsUrl);
+      const response = await axios.get(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
       const links = htmlDocument.getElementsByTagName("a");
@@ -471,10 +471,6 @@ const Collectiondashbord = () => {
   const getIpfsLaunchpad = async (id, account) => {
     const fileHashes = JSON.parse(localStorage.getItem("fileHashes"));
     try {
-      // const files = fileHashes.map((image, index) => ({
-      //   name: `image ${index + 1}`,
-      //   image: image,
-      // }));
       const launchpadData = {
         files: fileHashes,
         walletAddress: account,
@@ -502,7 +498,7 @@ const Collectiondashbord = () => {
         error.response.data.message
       ) {
         console.error("Error in getLaunchpad:", error);
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message.error);
       } else {
         console.error("Error in getLaunchpad:", error);
       }
@@ -644,7 +640,46 @@ const Collectiondashbord = () => {
       throw error;
     }
   };
-  const GetCsvLaunchpad = async (projectId, creatorId, address) => {
+
+  const fileInputRef3 = useRef(null);
+  const [selectedwallets, setSelectedWallets] = useState([]);
+  const [fileContents, setFileContents] = useState([]);
+
+  const handleFileInputChange = async (event) => {
+    const files = Array.from(event.target.files);
+    console.log("Uploaded files:", files);
+    setSelectedWallets(files);
+    const fileContents = [];
+    for (const file of files) {
+      const content = await readFileContent(file);
+      fileContents.push(content);
+    }
+    setFileContents(fileContents);
+    console.log(fileContents, "filee");
+  };
+
+  const handleSelectFileClick = () => {
+    fileInputRef3.current.click();
+  };
+
+  const readFileContent = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const content = JSON.parse(event.target.result);
+          resolve(content);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsText(file);
+    });
+  };
+  const GetCsvLaunchpad = async (projectId, creatorId) => {
+    console.log(projectId, creatorId, fileContents, "content");
+
     const val = localStorage.getItem("accessToken");
 
     if (!account) {
@@ -655,30 +690,86 @@ const Collectiondashbord = () => {
       toast.error("Please login First");
       return;
     }
-    const addresses = Array.isArray(address) ? address : [address];
+
     try {
+      setLoader(true);
+
       var gasFunPrice;
       web3.eth.getGasPrice().then((result) => {
         var result2 = parseInt(result) + 3000000000;
         gasFunPrice = result2.toString();
       });
-      setLoader(true);
-      const creatorIdUint = web3.utils.toBN(creatorId);
+
+      const validAddresses = fileContents.filter(web3.utils.isAddress);
+
       const gas = await contract.methods
-        .addToWhitelist(projectId, creatorIdUint, addresses)
+        .addToWhitelist(
+          projectId,
+          "2",
+          validAddresses.map((address) => address.toLowerCase())
+        )
         .estimateGas({ from: account });
+
       const staked = await contract.methods
-        .addToWhitelist(projectId, creatorIdUint, addresses)
+        .addToWhitelist(
+          projectId,
+          "2",
+          validAddresses.map((address) => address.toLowerCase())
+        )
         .send({ from: account, gas, gasPrice: gasFunPrice });
+
+      // Set loader to false after successful transaction
       setLoader(false);
       handleClose();
       return staked;
     } catch (error) {
       console.error("Error in ProjectContract:", error);
+      // Set loader to false in case of error
       setLoader(false);
       throw error;
     }
   };
+
+  // const GetCsvLaunchpad = async (projectId, creatorId) => {
+  //   console.log(projectId, creatorId, fileContents, "content");
+
+  //   const val = localStorage.getItem("accessToken");
+
+  //   if (!account) {
+  //     toast.error("Please connect Metamask to continue");
+  //     return;
+  //   }
+  //   if (!val) {
+  //     toast.error("Please login First");
+  //     return;
+  //   }
+
+  //   try {
+  //     var gasFunPrice;
+  //     web3.eth.getGasPrice().then((result) => {
+  //       var result2 = parseInt(result) + 3000000000;
+  //       gasFunPrice = result2.toString();
+  //     });
+  //     // setLoader(true);
+
+  //     // console.log("Addresses:", fileContents);
+
+  //     // return;
+  //     const gas = await contract.methods
+  //       .addToWhitelist(projectId, "2", fileContents)
+  //       .estimateGas({ from: account });
+  //     const staked = await contract.methods
+  //       .addToWhitelist(projectId, "2", fileContents)
+  //       .send({ from: account, gas, gasPrice: gasFunPrice });
+  //     setLoader(false);
+  //     handleClose();
+  //     return staked;
+  //   } catch (error) {
+  //     console.error("Error in ProjectContract:", error);
+  //     setLoader(false);
+  //     throw error;
+  //   }
+  // };
 
   return (
     <>
@@ -923,6 +1014,11 @@ const Collectiondashbord = () => {
                         royaliy={royaliy}
                         setRoyality={setRoyality}
                         GetCsvLaunchpad={GetCsvLaunchpad}
+                        handleSelectFileClick={handleSelectFileClick}
+                        handleFileInputChange={handleFileInputChange}
+                        selectedwallets={selectedwallets}
+                        fileContents={fileContents}
+                        fileInputRef3={fileInputRef3}
                         // FinalizeContract={FinalizeContract}
                       />
                     </>

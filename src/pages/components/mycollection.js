@@ -164,7 +164,7 @@ const MyCollection = () => {
       const metadata = JSON.stringify({
         name: fileNames.join(", "),
       });
-      formData.append("pinataMetadata", metadata);
+      // formData.append("pinataMetadata", metadata);
       const options = JSON.stringify({
         cidVersion: 0,
       });
@@ -185,7 +185,8 @@ const MyCollection = () => {
       //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
       // );
       const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
-      const response = await fetchWithRetry(ipfsUrl);
+      const response = await axios.get(ipfsUrl);
+      // const response = await fetchWithRetry(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
       const links = htmlDocument.getElementsByTagName("a");

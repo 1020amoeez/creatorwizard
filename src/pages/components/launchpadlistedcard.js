@@ -14,9 +14,14 @@ const Launchpadlistedcard = ({
   modaldata,
   GetCsvLaunchpad,
   // FinalizeContract,
+  handleSelectFileClick,
+  handleFileInputChange,
+  selectedwallets,
+  fileContents,
   GetRoyality,
   royality,
   setRoyality,
+  fileInputRef3,
 }) => {
   // const launchpadData = [
   //     {
@@ -78,7 +83,6 @@ const Launchpadlistedcard = ({
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const val = localStorage.getItem("accessToken");
@@ -114,42 +118,6 @@ const Launchpadlistedcard = ({
         );
       }
     }
-  };
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [fileContents, setFileContents] = useState([]);
-
-  const handleFileInputChange = async (event) => {
-    const files = Array.from(event.target.files);
-    console.log("Uploaded files:", files);
-    setSelectedFiles(files);
-
-    // Read content of each file
-    const fileContents = [];
-    for (const file of files) {
-      const content = await readFileContent(file);
-      fileContents.push(content);
-    }
-    setFileContents(fileContents);
-  };
-
-  const handleSelectFileClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const readFileContent = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const content = JSON.parse(event.target.result);
-          resolve(content);
-        } catch (error) {
-          reject(error);
-        }
-      };
-      reader.onerror = (error) => reject(error);
-      reader.readAsText(file);
-    });
   };
 
   return (
@@ -381,14 +349,10 @@ const Launchpadlistedcard = ({
               override the global sale price and mint limit above for those
               specified.
             </p>
-            <div className="twice-elem">
+            {/* <div className="twice-elem">
               <a
                 onClick={() =>
-                  GetCsvLaunchpad(
-                    stagedata?.projectId,
-                    stagedata?.creatorId,
-                    stagedata?.contractAddress
-                  )
+                  GetCsvLaunchpad(stagedata?.projectId, stagedata?.creatorId)
                 }
                 href="#"
               >
@@ -399,23 +363,50 @@ const Launchpadlistedcard = ({
               </a>
               <input
                 type="file"
-                ref={fileInputRef}
+                ref={fileInputRef3}
                 style={{ display: "none" }}
                 accept=".json"
                 multiple
                 onChange={handleFileInputChange}
               />
+            </div> */}
+            <div className="twice-elem">
+              {selectedwallets.length > 0 ? (
+                <a
+                  onClick={() =>
+                    GetCsvLaunchpad(stagedata?.projectId, stagedata?.creatorId)
+                  }
+                  href="#"
+                >
+                  Upload CSV Template
+                </a>
+              ) : (
+                <>
+                  <a href="#" onClick={handleSelectFileClick}>
+                    Select CSV file
+                  </a>
+                  <input
+                    type="file"
+                    ref={fileInputRef3}
+                    style={{ display: "none" }}
+                    accept=".json"
+                    multiple
+                    onChange={handleFileInputChange}
+                  />
+                </>
+              )}
             </div>
-            {selectedFiles.length > 0 && (
+
+            {/* {selectedwallets.length > 0 && (
               <div>
                 <p>Selected files:</p>
-                <ul>
-                  {selectedFiles.map((file, index) => (
-                    <li key={index}>{Object.values(file)[0]}</li>
+                <ul className="text-white">
+                  {fileContents.map((content, index) => (
+                    <li key={index}>{JSON.stringify(content)}</li>
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
             {/* <p className="text-white">{file}</p> */}
             {/* <p className="last-para">Drag and drop a CSV file</p> */}
             <div className="mintstagesmain">

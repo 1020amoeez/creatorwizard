@@ -52,35 +52,8 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       [name]: value,
     }));
   };
-  // console.log(teamMembers);
-  // const handleModalDoneClick = () => {
-  //     const memberIndex = teamMembers.findIndex(member => member.id === currId);
-  //     console.log(currId);
-  //     if (memberIndex !== -1) {
-  //         const updatedTeamMembers = [...teamMembers];
-  //         updatedTeamMembers[memberIndex] = {
-  //             ...updatedTeamMembers[memberIndex],
-  //             name: modalInputValues.name,
-  //             durationHours: modalInputValues.durationHours,
-  //             durationMins: modalInputValues.durationMins,
-  //             durationDays: modalInputValues.durationDays,
-  //             price: modalInputValues.price
-  //         };
-  //         setTeamMembers(updatedTeamMembers);
-  //     } else {
-  //         const newTeamMember = {
-  //             name: modalInputValues.name,
-  //             durationHours: modalInputValues.durationHours,
-  //             durationMins: modalInputValues.durationMins,
-  //             durationDays: modalInputValues.durationDays,
-  //             price: modalInputValues.price
-  //         };
-  //         setTeamMembers(prevTeamMembers => [...prevTeamMembers, newTeamMember]);
-  //     }
-  //     handleClose();
-  // };
+
   const handleModalDoneClick = () => {
-    console.log(currId);
     const newTeamMember = {
       id: currId,
       name: modalInputValues.name,
@@ -89,7 +62,6 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       durationDays: modalInputValues.durationDays,
       price: modalInputValues.price,
       amount: modalInputValues.amount,
-      // perWalletMintLimit: modalInputValues.perWalletMintLimit
     };
     setTeamMembers((prevTeamMembers) => {
       return prevTeamMembers.map((member) => {
@@ -224,7 +196,24 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       toast.error("Start Date must be at least today date");
       return;
     }
+    const totalAmount = teamMembers.reduce(
+      (acc, member) => acc + parseInt(member.amount),
+      0
+    );
 
+    if (teamMembers.length > 1) {
+      if (totalAmount !== parseInt(formDataname?.totalSupply)) {
+        toast.error("TotalSupply and sum of Stages amount should be same");
+        return;
+      }
+    } else {
+      if (
+        parseInt(teamMembers[0]?.amount) !== parseInt(formDataname?.totalSupply)
+      ) {
+        toast.error("TotalSupply and Stage amount should be same");
+        return;
+      }
+    }
     const mintStages = teamMembers.map((member) => {
       const endDate = new Date(selectedDate);
       endDate.setDate(
@@ -236,19 +225,15 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       endDate.setMinutes(
         endDate.getMinutes() + parseInt(member.durationMins || 0)
       );
-
-      selectedDate = new Date(endDate); // Update selectedDate for the next iteration
-
+      selectedDate = new Date(endDate);
       return {
         name: member.name,
         mintStageTime: endDate.toISOString(),
         price: member.price,
         amount: member.amount,
         allowList: isSwitchOn1,
-        // perWalletMintLimit: member.perWalletMintLimit
       };
     });
-
     const mintEndTime = mintStages[mintStages.length - 1]?.mintStageTime || "";
     const formDataName = {
       ...JSON.parse(localStorage.getItem("formDataname")),
