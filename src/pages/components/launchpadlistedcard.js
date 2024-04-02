@@ -116,13 +116,40 @@ const Launchpadlistedcard = ({
     }
   };
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const handleFileInputChange = (event) => {
+  const [fileContents, setFileContents] = useState([]);
+
+  const handleFileInputChange = async (event) => {
     const files = Array.from(event.target.files);
     console.log("Uploaded files:", files);
     setSelectedFiles(files);
+
+    // Read content of each file
+    const fileContents = [];
+    for (const file of files) {
+      const content = await readFileContent(file);
+      fileContents.push(content);
+    }
+    setFileContents(fileContents);
   };
+
   const handleSelectFileClick = () => {
     fileInputRef.current.click();
+  };
+
+  const readFileContent = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const content = JSON.parse(event.target.result);
+          resolve(content);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsText(file);
+    });
   };
 
   return (
