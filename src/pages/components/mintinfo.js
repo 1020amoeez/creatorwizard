@@ -23,6 +23,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       durationDays: "",
       durationHours: "",
       durationMins: "",
+      allowList: false,
     },
   ]);
   const [currId, setCurrId] = useState();
@@ -36,6 +37,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     durationDays: "",
     durationHours: "",
     durationMins: "",
+    allowList: false,
     // perWalletMintLimit: ''
   });
   const [accessToken, setAccessToken] = useState("");
@@ -46,11 +48,16 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
   }, []);
 
   const handleModalInputChange = (e) => {
-    const { name, value } = e.target;
-    setModalInputValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const { name, value, checked } = e.target;
+    name === "allowList"
+      ? setModalInputValues((prevState) => ({
+          ...prevState,
+          [name]: checked,
+        }))
+      : setModalInputValues((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
   };
 
   const handleModalDoneClick = () => {
@@ -62,6 +69,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
       durationDays: modalInputValues.durationDays,
       price: modalInputValues.price,
       amount: modalInputValues.amount,
+      allowList: modalInputValues.allowList,
     };
     setTeamMembers((prevTeamMembers) => {
       return prevTeamMembers.map((member) => {
@@ -104,6 +112,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         durationDays: "",
         durationHours: "",
         durationMins: "",
+        allowList: false,
       },
     ]);
   };
@@ -125,11 +134,11 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
     setSwitchOn(!isSwitchOn);
   };
 
-  const [isSwitchOn1, setSwitchOn1] = useState(false);
+  // const [isSwitchOn1, setSwitchOn1] = useState(false);
 
-  const handleToggleSwitch1 = () => {
-    setSwitchOn1(!isSwitchOn1);
-  };
+  // const handleToggleSwitch1 = () => {
+  //   setSwitchOn1(!isSwitchOn1);
+  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -231,7 +240,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         mintStageTime: endDate.toISOString(),
         price: member.price,
         amount: member.amount,
-        allowList: isSwitchOn1,
+        allowList: member.allowList,
       };
     });
     const mintEndTime = mintStages[mintStages.length - 1]?.mintStageTime || "";
@@ -635,8 +644,11 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                 <label class="switch">
                   <input
                     type="checkbox"
-                    checked={isSwitchOn1}
-                    onChange={handleToggleSwitch1}
+                    name="allowList"
+                    checked={modalInputValues?.allowList}
+                    onChange={handleModalInputChange}
+                    // checked={isSwitchOn1}
+                    // onChange={handleToggleSwitch1}
                   />
                   <div class="slidercheck"></div>
                   <div class="slider-card">

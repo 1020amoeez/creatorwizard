@@ -344,11 +344,11 @@ const Launchpadlistedcard = ({
               </button>
               {/* <p className='text-white'> {stagedata?.[0]?.contractAddress}</p> */}
             </div>
-            <p className="para">
+            {/* <p className="para">
               You can set specific mint limits and prices per wallet, which will
               override the global sale price and mint limit above for those
               specified.
-            </p>
+            </p> */}
             {/* <div className="twice-elem">
               <a
                 onClick={() =>
@@ -370,32 +370,6 @@ const Launchpadlistedcard = ({
                 onChange={handleFileInputChange}
               />
             </div> */}
-            <div className="twice-elem">
-              {selectedwallets.length > 0 ? (
-                <a
-                  onClick={() =>
-                    GetCsvLaunchpad(stagedata?.projectId, stagedata?.creatorId)
-                  }
-                  href="#"
-                >
-                  Upload CSV Template
-                </a>
-              ) : (
-                <>
-                  <a href="#" onClick={handleSelectFileClick}>
-                    Select CSV file
-                  </a>
-                  <input
-                    type="file"
-                    ref={fileInputRef3}
-                    style={{ display: "none" }}
-                    accept=".json"
-                    multiple
-                    onChange={handleFileInputChange}
-                  />
-                </>
-              )}
-            </div>
 
             {/* {selectedwallets.length > 0 && (
               <div>
@@ -485,6 +459,35 @@ const Launchpadlistedcard = ({
                           </h6>
                         </div>
                       </div>
+                      {stage?.allowList === true && (
+                        <div className="twice-elem">
+                          {selectedwallets.length > 0 ? (
+                            <a
+                              onClick={() =>
+                                GetCsvLaunchpad(stagedata?.projectId, index)
+                              }
+                              href="#"
+                            >
+                              Upload CSV Template
+                            </a>
+                          ) : (
+                            <>
+                              <a href="#" onClick={handleSelectFileClick}>
+                                Select CSV file
+                              </a>
+                              <input
+                                type="file"
+                                ref={fileInputRef3}
+                                style={{ display: "none" }}
+                                accept=".json"
+                                multiple
+                                onChange={handleFileInputChange}
+                              />
+                            </>
+                          )}
+                        </div>
+                      )}
+
                       {/* <div className="innermintstages">
                                                 <div className="left">
                                                     <p className="namepara">Per-wallet mint limit</p>

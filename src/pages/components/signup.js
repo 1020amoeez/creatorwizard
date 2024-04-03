@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/hooks/useAuth";
 import { Modal } from "react-bootstrap";
+import { browserName, isBrowser } from "react-device-detect";
 
 const Signup = () => {
   const api_url = Environment.api_url;
@@ -208,6 +209,114 @@ const Signup = () => {
                   type="text"
                   placeholder="Your Wallet Address..."
                 />
+                {/* {isBrowser ? (
+                  <div
+                    className="connectmain d-sm-none d-flex "
+                    onClick={() => {
+                      connectWallet("1115");
+                      handleClose();
+                    }}
+                  >
+                    <img
+                      src="\assets\navbarassets\metamask.svg"
+                      alt="connectimg"
+                      className="connectimg"
+                    />
+                    <p className="connectpara">Metamask</p>
+                  </div>
+                ) : (
+                  <>
+                    {browserName === "Safari" ||
+                    browserName === "Mobile Safari" ||
+                    browserName === "Brave" ||
+                    browserName === "Firefox" ||
+                    browserName === "Chrome" ? (
+                      <a
+                        id="speicalAZ213"
+                        href="https://metamask.app.link/dapp/wizardgallery.xyz//"
+                        className="hideBTN"
+                      >
+                        <div className="connectmain d-sm-none d-flex ">
+                          <img
+                            src="\assets\navbarassets\metamask.svg"
+                            alt="connectimg"
+                            className="connectimg"
+                          />
+                          <p className="connectpara">Metamask</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div
+                        className="connectmain d-sm-none d-flex "
+                        onClick={() => {
+                          connectWallet("1115");
+                          handleClose();
+                        }}
+                      >
+                        <img
+                          src="\assets\navbarassets\metamask.svg"
+                          alt="connectimg"
+                          className="connectimg"
+                        />
+                        <p className="connectpara">Metamask</p>
+                      </div>
+                    )}
+                  </>
+                )} */}
+                {isBrowser ? (
+                  <div
+                    className="connectmain d-sm-none d-flex "
+                    onClick={() => {
+                      connectWallet("1115");
+                      handleClose();
+                    }}
+                  >
+                    <img
+                      src="\assets\navbarassets\metamask.svg"
+                      alt="connectimg"
+                      className="connectimg"
+                    />
+                    <p className="connectpara">Metamask</p>
+                  </div>
+                ) : (
+                  <>
+                    {browserName === "Safari" ||
+                    browserName === "Mobile Safari" ||
+                    browserName === "Brave" ||
+                    browserName === "Firefox" ||
+                    browserName === "Chrome" ? (
+                      <a
+                        id="speicalAZ213"
+                        href="https://metamask.app.link/dapp/wizardgallery.xyz//"
+                        className="hideBTN"
+                      >
+                        <div className="connectmain d-sm-none d-flex ">
+                          <img
+                            src="\assets\navbarassets\metamask.svg"
+                            alt="connectimg"
+                            className="connectimg"
+                          />
+                          <p className="connectpara">Metamask</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div
+                        className="connectmain d-sm-none d-flex "
+                        onClick={() => {
+                          connectWallet("1115");
+                          handleClose();
+                        }}
+                      >
+                        <img
+                          src="\assets\navbarassets\metamask.svg"
+                          alt="connectimg"
+                          className="connectimg"
+                        />
+                        <p className="connectpara">Metamask</p>
+                      </div>
+                    )}
+                  </>
+                )}
                 {account ? (
                   <a
                     onClick={() => disconnectWallet()}
@@ -228,6 +337,7 @@ const Signup = () => {
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
             </div>
+
             <div className="option-field">
               <label>Password</label>
               <div className="twice-inputeye">

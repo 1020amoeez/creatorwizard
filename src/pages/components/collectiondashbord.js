@@ -181,7 +181,9 @@ const Collectiondashbord = () => {
       // const response = await axios.get(
       //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
       // );
-      const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
+      const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${resData.IpfsHash}`;
+      //  const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
+      // const response = await axios.get(ipfsUrl, { timeout: 30000 });
       const response = await axios.get(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
@@ -229,7 +231,7 @@ const Collectiondashbord = () => {
       setLoaderthree(true);
 
       const metadataFile = Array.from(selectedMetaFile).find(
-        (file) => file.name === "metadata.json"
+        (file) => file.name === "metadata10.json"
       );
       const metadataContent = await new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -336,7 +338,6 @@ const Collectiondashbord = () => {
   // };
 
   const transformStages = (mintStages, mintStartTime) => {
-    console.log(mintStages, "mint");
     return mintStages.map((stage, index) => {
       let startTime =
         index === 0
@@ -346,7 +347,8 @@ const Collectiondashbord = () => {
       let amount = stage.amount;
       let sold = "0";
       let price = web3.utils.toWei(stage.price, "ether");
-      let whiteList = false;
+      // let whiteList = index === 0 ? true : false;
+      let whiteList = stage.allowList;
       let closed = false;
       return [startTime, endTime, amount, sold, price, whiteList, closed];
     });
@@ -643,7 +645,7 @@ const Collectiondashbord = () => {
 
   const fileInputRef3 = useRef(null);
   const [selectedwallets, setSelectedWallets] = useState([]);
-  const [fileContents, setFileContents] = useState([]);
+  let [fileContents, setFileContents] = useState([]);
 
   const handleFileInputChange = async (event) => {
     const files = Array.from(event.target.files);
@@ -677,8 +679,8 @@ const Collectiondashbord = () => {
       reader.readAsText(file);
     });
   };
-  const GetCsvLaunchpad = async (projectId, creatorId) => {
-    console.log(projectId, creatorId, fileContents, "content");
+  const GetCsvLaunchpad = async (projectId, stageIndex) => {
+    // console.log(projectId, stageIndex, "idddß");
 
     const val = localStorage.getItem("accessToken");
 
@@ -690,7 +692,6 @@ const Collectiondashbord = () => {
       toast.error("Please login First");
       return;
     }
-
     try {
       setLoader(true);
 
@@ -699,32 +700,18 @@ const Collectiondashbord = () => {
         var result2 = parseInt(result) + 3000000000;
         gasFunPrice = result2.toString();
       });
-
-      const validAddresses = fileContents.filter(web3.utils.isAddress);
-
       const gas = await contract.methods
-        .addToWhitelist(
-          projectId,
-          "2",
-          validAddresses.map((address) => address.toLowerCase())
-        )
+        .addToWhitelist(projectId, stageIndex, fileContents[0])
         .estimateGas({ from: account });
 
       const staked = await contract.methods
-        .addToWhitelist(
-          projectId,
-          "2",
-          validAddresses.map((address) => address.toLowerCase())
-        )
+        .addToWhitelist(projectId, stageIndex, fileContents[0])
         .send({ from: account, gas, gasPrice: gasFunPrice });
-
-      // Set loader to false after successful transaction
       setLoader(false);
       handleClose();
       return staked;
     } catch (error) {
       console.error("Error in ProjectContract:", error);
-      // Set loader to false in case of error
       setLoader(false);
       throw error;
     }
