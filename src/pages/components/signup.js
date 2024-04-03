@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/hooks/useAuth";
 import { Modal } from "react-bootstrap";
+import { browserName, isBrowser } from "react-device-detect";
 
 const Signup = () => {
   const api_url = Environment.api_url;
@@ -212,7 +213,7 @@ const Signup = () => {
                   <a
                     onClick={() => disconnectWallet()}
                     href="#"
-                    className="connect-btn ifdisconnect"
+                    className="connect-btn ifdisconnect d-sm-flex d-none"
                   >
                     Disconnect
                   </a>
@@ -220,10 +221,65 @@ const Signup = () => {
                   <a
                     onClick={() => connectWallet("1116")}
                     href="#"
-                    className="connect-btn"
+                    className="connect-btn d-sm-flex d-none"
                   >
                     Connect Wallet
                   </a>
+                )}
+
+                {isBrowser ? (
+                  <a
+                    className="connect-btn d-sm-none d-flex "
+                    onClick={() => {
+                      connectWallet("1115");
+                      handleClose();
+                    }}
+                  >
+                    <img
+                      src="\assets\navbarassets\metamask.svg"
+                      alt="connectimg"
+                      className="connectimg"
+                    />
+                    <p className="connectpara">Metamask</p>
+                  </a>
+                ) : (
+                  <>
+                    {browserName === "Safari" ||
+                    browserName === "Mobile Safari" ||
+                    browserName === "Brave" ||
+                    browserName === "Firefox" ||
+                    browserName === "Chrome" ? (
+                      <a
+                        id="speicalAZ213"
+                        href="https://metamask.app.link/dapp/creator.wizardgallery.xyz/signup"
+                        className="hideBTN"
+                      >
+                        <div className="connect-btn d-sm-none d-flex ">
+                          <img
+                            src="\assets\navbarassets\metamask.svg"
+                            alt="connectimg"
+                            className="connectimg"
+                          />
+                          <p className="connectpara">Metamask</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div
+                        className="connect-btn d-sm-none d-flex "
+                        onClick={() => {
+                          connectWallet("1115");
+                          handleClose();
+                        }}
+                      >
+                        <img
+                          src="\assets\navbarassets\metamask.svg"
+                          alt="connectimg"
+                          className="connectimg"
+                        />
+                        <p className="connectpara">Metamask</p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
