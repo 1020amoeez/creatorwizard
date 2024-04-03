@@ -239,7 +239,7 @@ const Mintinfo = ({ onNext, formDataname, setFormDataName, draftdata }) => {
         name: member.name,
         mintStageTime: endDate.toISOString(),
         price: member.price,
-        // amount: "5",
+        // amount: "12",
         // perWalletMintLimit: member.perWalletMintLimit
       };
     });

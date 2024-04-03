@@ -115,12 +115,12 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
 
   const handleButtonClick = () => {
     // const featureImageUrl = localStorage.getItem("featureImageUrl");
-    if (!formDataname?.earningAddress) {
+    if (!account) {
       toast.error("Enter Wallet Address");
-    } else if (formDataname?.earningAddress.length !== 42) {
+    } else if (account.length !== 42) {
       toast.error("Wallet Address length must be 42 characters long");
     } else {
-      const earningAddress = formDataname?.earningAddress;
+      const earningAddress = account;
       const formDataName = JSON.parse(localStorage.getItem("formDataname"));
 
       const mintStartTime = new Date(formDataName?.mintStartTime);
@@ -207,13 +207,14 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                   <input
                     placeholder="Earning Address"
                     type="text"
-                    value={formDataname?.earningAddress}
-                    onChange={(e) =>
-                      setFormDataName({
-                        ...formDataname,
-                        earningAddress: e.target.value,
-                      })
-                    }
+                    value={account}
+                    // onChange={(e) =>
+                    //   setFormDataName({
+                    //     ...formDataname,
+                    //     earningAddress: e.target.value,
+                    //   })
+                    // }
+                    disabled
                   />
                 </p>
                 {/* <p className="addres-text-new">
