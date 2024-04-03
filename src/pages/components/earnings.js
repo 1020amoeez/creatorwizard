@@ -207,7 +207,12 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                   <input
                     placeholder="Earning Address"
                     type="text"
-                    value={account}
+                    // value={account}
+                    value={
+                      account
+                        ? `${account.slice(0, 20)}...${account.slice(-4)}`
+                        : ""
+                    }
                     // onChange={(e) =>
                     //   setFormDataName({
                     //     ...formDataname,
@@ -217,6 +222,7 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                     disabled
                   />
                 </p>
+
                 {/* <p className="addres-text-new">
                                     <input
                                         placeholder='Earning Address'
@@ -225,7 +231,6 @@ const Earnings = ({ onNext, formDataname, setFormDataName, draftdata }) => {
                                         onChange={(e) => setFormDataName({ ...formDataname, earningAddress: e.target.value })}
                                     />
                                 </p> */}
-
                 <div className="input-field">
                   <input type="text" placeholder="95" readOnly />
                   <span>%</span>
