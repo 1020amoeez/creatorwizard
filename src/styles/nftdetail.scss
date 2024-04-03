@@ -1251,6 +1251,8 @@
           }
 
           .mintstagesmain {
+            overflow-y: scroll;
+            max-height: 400px;
             .minthead {
               color: #fff;
               font-size: 18px;

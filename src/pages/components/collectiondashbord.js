@@ -231,7 +231,7 @@ const Collectiondashbord = () => {
       setLoaderthree(true);
 
       const metadataFile = Array.from(selectedMetaFile).find(
-        (file) => file.name === "metadata10.json"
+        (file) => file.name === "metadata10000.json"
       );
       const metadataContent = await new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -255,7 +255,7 @@ const Collectiondashbord = () => {
         parsedMetadata[i].hash = fileHashes[i];
       }
 
-      console.log(parsedMetadata, "parsed");
+      // console.log(parsedMetadata, "parsed");
       const formData = new FormData();
       const jsonBlob = new Blob([JSON.stringify(parsedMetadata)], {
         type: "application/json",
