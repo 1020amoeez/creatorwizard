@@ -28,7 +28,7 @@ const Navbar = () => {
   // const [profileData, setProfileData] = useState({});
   const [name, setName] = useState("");
   // const [imageprofile, setImageProfile] = useState("");
-  console.log(isBrowser, "isBrowser");
+  // console.log(isBrowser, "isBrowser");
 
   useEffect(() => {
     let walletconn = localStorage.getItem("wallet");
@@ -452,7 +452,7 @@ const Navbar = () => {
             <span className="bold">Privacy Policy.</span>
           </p>
           <div
-            className=""
+            className="connectmain"
             onClick={() => {
               // setclickedbtn(() => { (false), localStorage.setItem("wallet", false) });
               connectWallet("1116");
@@ -482,7 +482,7 @@ const Navbar = () => {
             <p className="connectpara">WalletConnect</p>
           </div>
 
-          {/* {isBrowser ? (
+          {isBrowser ? (
             <div
               className="connectmain d-flex"
               onClick={() => {
@@ -535,7 +535,7 @@ const Navbar = () => {
                 </div>
               )}
             </>
-          )} */}
+          )}
         </Offcanvas.Body>
       </Offcanvas>
 

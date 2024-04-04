@@ -1,284 +1,284 @@
 .login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 125px);
+  padding: 125px 0;
+  position: relative;
+  overflow: hidden;
+
+  .gradient-linear {
+    border-radius: 1532px;
+    background: rgba(134, 47, 192, 0.3);
+    filter: blur(220px);
+    position: absolute;
+    top: -80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 1532px;
+    height: 885px;
+    flex-shrink: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .parent {
+    max-width: 544px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: calc(100vh - 125px);
-    padding: 125px 0;
-    position: relative;
-    overflow: hidden;
+    gap: 25px;
 
-    .gradient-linear {
-        border-radius: 1532px;
-        background: rgba(134, 47, 192, 0.3);
-        filter: blur(220px);
-        position: absolute;
-        top: -80%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 1532px;
-        height: 885px;
-        flex-shrink: 0;
-        z-index: -1;
-        pointer-events: none;
-    }
+    .main-card {
+      border-radius: 20px;
+      border: 0.661px solid #150b1c;
+      background: rgba(134, 47, 192, 0.08);
+      padding: 30px 25px;
+      width: 100%;
 
-    .parent {
-        max-width: 544px;
+      .main-heading {
+        text-align: center;
+        margin-bottom: 30px;
+
+        h6 {
+          color: #fff;
+          font-size: 30px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 100%;
+
+          margin-bottom: 20px;
+        }
+
+        p {
+          color: var(--Light-Text-Color, #745f8c);
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 160%;
+        }
+      }
+
+      .option-field {
+        margin-bottom: 30px;
+        position: relative;
+
+        label {
+          display: block;
+          color: #fff;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 100%;
+
+          margin-bottom: 15px;
+        }
+
+        .twice-inputeye {
+          position: relative;
+        }
+
+        input {
+          width: 100%;
+          border-radius: 7px;
+          background: rgba(134, 47, 192, 0.09);
+          padding: 24px 22px;
+          color: #fff;
+          border: none;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 100%;
+          padding-right: 80px;
+
+          &::placeholder {
+            color: var(--Light-Text-Color, #745f8c);
+          }
+        }
+
+        .eye {
+          position: absolute;
+          top: 50%;
+          right: 15px;
+          transform: translate(0, -50%);
+        }
+      }
+
+      .btn-remember {
+        display: block;
+        color: #fff;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        text-decoration: underline !important;
+      }
+
+      .btn-sign {
+        border-radius: 10px;
+        background: #862fc0;
+        padding: 15px 22px;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        gap: 25px;
-
-        .main-card {
-            border-radius: 20px;
-            border: 0.661px solid #150B1C;
-            background: rgba(134, 47, 192, 0.08);
-            padding: 30px 25px;
-            width: 100%;
-
-            .main-heading {
-                text-align: center;
-                margin-bottom: 30px;
-
-                h6 {
-                    color: #FFF;
-                    font-size: 30px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 100%;
-                    
-                    margin-bottom: 20px;
-                }
-
-                p {
-                    color: var(--Light-Text-Color, #745F8C);
-                    font-size: 16px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 160%;
-                }
-            }
-
-            .option-field {
-                margin-bottom: 30px;
-                position: relative;
-
-                label {
-                    display: block;
-                    color: #FFF;
-                    font-size: 16px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 100%;
-                    
-                    margin-bottom: 15px;
-                }
-
-                .twice-inputeye{
-                    position: relative;
-                }
-
-                input {
-                    width: 100%;
-                    border-radius: 7px;
-                    background: rgba(134, 47, 192, 0.09);
-                    padding: 24px 22px;
-                    color: #fff;
-                    border: none;
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 100%;
-                    padding-right: 80px;
-
-                    &::placeholder {
-                        color: var(--Light-Text-Color, #745F8C);
-                    }
-                }
-
-                .eye {
-                    position: absolute;
-                    top: 50%;
-                    right: 15px;
-                    transform: translate(0, -50%);
-                }
-            }
-
-            .btn-remember {
-                display: block;
-                color: #FFF;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 28px;
-                text-decoration: underline !important;
-            }
-
-            .btn-sign {
-                border-radius: 10px;
-                background: #862FC0;
-                padding: 15px 22px;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #FFF;
-                text-align: center;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: normal;
-                margin-top: 50px;
-                margin-bottom: 15px;
-                border: none;
-            }
-
-            .btn-forgot {
-                color: #862FC0;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 28px;
-                text-align: center;
-                display: flex;
-                width: 100%;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-    }
-
-    .password-must {
-        .valid {
-            color: green;
-        }
-
-        .invalid {
-            color: red;
-        }
-
-        margin-bottom: 30px;
-
-        h5 {
-            color: #FFF;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-        }
-
-        ul {
-            li {
-                color: #A3A3A3;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: normal;
-                list-style-type: disc;
-                list-style-position: inside;
-                margin: 5px 0;
-
-                &::marker {
-                    background-color: #862FC0;
-                    color: #862FC0;
-                }
-            }
-        }
-    }
-
-    .success {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        h6 {
-            color: #FFF;
-            font-size: 30px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 100%;
-            
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        p {
-            color: var(--Light-Text-Color, #745F8C);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 160%;
-            text-align: center;
-        }
-    }
-
-    .twice-items {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .btn-forgotpassword {
-            color: #FFF;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 28px;
-        }
-    }
-}
-
-@media (max-width:1024px) {
-    .login-section {
-        padding: 100px 15px;
-    }
-
-    .login-section .parent .main-card .main-heading h6 {
-        font-size: 25px;
-    }
-
-    .login-section .parent .main-card .main-heading p {
-        font-size: 14px;
-    }
-}
-
-@media (max-width:600px){
-    // .login-section .parent .main-card .option-field .eye{
-    //     top: 66%;
-    // }
-}
-
-@media (max-width:390px){
-    .wallletaddress-field .twice-elem .connect-btn{
-        padding: 10px;
-        font-size: 14px;
-        height: 66px;
-    }
-    .wallletaddress-field .twice-elem{
-        gap: 5px;
-    }
-}
-
-.verify-text{
-    color: #862FC0 !important;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 28px;
-}
-
-.confirmemail-address{
-    p{
-        color: #FFF;
+        color: #fff;
+        text-align: center;
         font-size: 16px;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 500;
         line-height: normal;
-        letter-spacing: 0.36px;
-        text-align: start;
-        margin: 15px 0;
+        margin-top: 50px;
+        margin-bottom: 15px;
+        border: none;
+      }
+
+      .btn-forgot {
+        color: #862fc0;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        text-align: center;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
     }
+  }
+
+  .password-must {
+    .valid {
+      color: green;
+    }
+
+    .invalid {
+      color: red;
+    }
+
+    margin-bottom: 30px;
+
+    h5 {
+      color: #fff;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    ul {
+      li {
+        color: #a3a3a3;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        list-style-type: disc;
+        list-style-position: inside;
+        margin: 5px 0;
+
+        &::marker {
+          background-color: #862fc0;
+          color: #862fc0;
+        }
+      }
+    }
+  }
+
+  .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h6 {
+      color: #fff;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: var(--Light-Text-Color, #745f8c);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+      text-align: center;
+    }
+  }
+
+  .twice-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn-forgotpassword {
+      color: #fff;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-section {
+    padding: 100px 15px;
+  }
+
+  .login-section .parent .main-card .main-heading h6 {
+    font-size: 25px;
+  }
+
+  .login-section .parent .main-card .main-heading p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  // .login-section .parent .main-card .option-field .eye{
+  //     top: 66%;
+  // }
+}
+
+@media (max-width: 390px) {
+  .wallletaddress-field .twice-elem .connect-btn {
+    padding: 10px;
+    font-size: 14px;
+    height: 66px;
+  }
+  .wallletaddress-field .twice-elem {
+    gap: 5px;
+  }
+}
+
+.verify-text {
+  color: #862fc0 !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.confirmemail-address {
+  p {
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.36px;
+    text-align: start;
+    margin: 15px 0;
+  }
 }
