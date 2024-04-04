@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/hooks/useAuth";
 import { Modal } from "react-bootstrap";
-import { browserName, isBrowser } from "react-device-detect";
+import { browserName, isBrowser, isMobile } from "react-device-detect";
 
 const Signup = () => {
   const api_url = Environment.api_url;
@@ -30,7 +30,7 @@ const Signup = () => {
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-  console.log(isBrowser, "vv");
+  // console.log(isBrowser, "vv");
   const userRegister = () => {
     setEmailError("");
     setPasswordError("");
@@ -225,10 +225,9 @@ const Signup = () => {
                     Connect Wallet
                   </a>
                 )}
-
                 {/* {isBrowser ? (
                   <div
-                    className="connect-btn  d-flex "
+                    className="connect-btn d-flex"
                     onClick={() => {
                       connectWallet("1116");
                       handleClose();
@@ -247,7 +246,8 @@ const Signup = () => {
                     browserName === "Mobile Safari" ||
                     browserName === "Brave" ||
                     browserName === "Firefox" ||
-                    browserName === "Chrome" ? (
+                    browserName === "Chrome" ||
+                    browserName === "Google Chrome" ? (
                       <a
                         id="speicalAZ213"
                         href="https://metamask.app.link/dapp/creator.wizardgallery.xyz//"
