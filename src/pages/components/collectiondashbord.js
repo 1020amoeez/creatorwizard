@@ -182,8 +182,7 @@ const Collectiondashbord = () => {
       //   `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`
       // );
       const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${resData.IpfsHash}`;
-      //  const ipfsUrl = `https://ipfs-lb.com/ipfs/${resData.IpfsHash}`;
-      // const response = await axios.get(ipfsUrl, { timeout: 30000 });
+
       const response = await axios.get(ipfsUrl);
       const parser = new DOMParser();
       const htmlDocument = parser.parseFromString(response.data, "text/html");
@@ -230,9 +229,15 @@ const Collectiondashbord = () => {
       console.log("Selected Files", selectedMetaFile);
       setLoaderthree(true);
 
-      const metadataFile = Array.from(selectedMetaFile).find(
-        (file) => file.name === "metadata10000.json"
+      const metadataFile = Array.from(selectedMetaFile).find((file) =>
+        file.name.endsWith(".json")
       );
+      if (!metadataFile) {
+        toast.error("No metadata file found");
+        setLoaderthree(false);
+        return;
+      }
+
       const metadataContent = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -243,6 +248,7 @@ const Collectiondashbord = () => {
         };
         reader.readAsText(metadataFile);
       });
+
       let parsedMetadata = JSON.parse(metadataContent);
       const fileHashesString = localStorage.getItem("fileHashes");
       const fileHashes = JSON.parse(fileHashesString);
@@ -255,7 +261,6 @@ const Collectiondashbord = () => {
         parsedMetadata[i].hash = fileHashes[i];
       }
 
-      // console.log(parsedMetadata, "parsed");
       const formData = new FormData();
       const jsonBlob = new Blob([JSON.stringify(parsedMetadata)], {
         type: "application/json",
@@ -281,6 +286,63 @@ const Collectiondashbord = () => {
       console.error("Error fetching metadata:", error);
     }
   };
+
+  // const handleMetaChange = async () => {
+  //   try {
+  //     console.log("Selected Files", selectedMetaFile);
+  //     setLoaderthree(true);
+
+  //     const metadataFile = Array.from(selectedMetaFile).find(
+  //       (file) => file.name === "metadata10000.json"
+  //     );
+  //     const metadataContent = await new Promise((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onload = (event) => {
+  //         resolve(event.target.result);
+  //       };
+  //       reader.onerror = (error) => {
+  //         reject(error);
+  //       };
+  //       reader.readAsText(metadataFile);
+  //     });
+  //     let parsedMetadata = JSON.parse(metadataContent);
+  //     const fileHashesString = localStorage.getItem("fileHashes");
+  //     const fileHashes = JSON.parse(fileHashesString);
+  //     if (fileHashes.length !== parsedMetadata.length) {
+  //       toast.error("Metadata is not equal to image hash");
+  //       setLoaderthree(false);
+  //       return;
+  //     }
+  //     for (let i = 0; i < parsedMetadata.length; i++) {
+  //       parsedMetadata[i].hash = fileHashes[i];
+  //     }
+
+  //     // console.log(parsedMetadata, "parsed");
+  //     const formData = new FormData();
+  //     const jsonBlob = new Blob([JSON.stringify(parsedMetadata)], {
+  //       type: "application/json",
+  //     });
+  //     formData.append("file", jsonBlob);
+  //     const res = await fetch(
+  //       "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           pinata_api_key: `${apikey}`,
+  //           pinata_secret_api_key: `${secretapikey}`,
+  //         },
+  //         body: formData,
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     setMetaHash(data?.IpfsHash);
+  //     setMetadataUploaded(true);
+  //     setLoaderthree(false);
+  //   } catch (error) {
+  //     setLoaderthree(false);
+  //     console.error("Error fetching metadata:", error);
+  //   }
+  // };
   // console.log(metahash, "hash");
 
   // const [uploadedImages, setUploadedImages] = useState(0);

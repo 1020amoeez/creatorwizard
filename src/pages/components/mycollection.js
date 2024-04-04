@@ -228,15 +228,20 @@ const MyCollection = () => {
     setSelectedMetaFile(event.target.files);
   };
   const [metahash, setMetaHash] = useState();
-
   const handleMetaChange = async () => {
     try {
       console.log("Selected Files", selectedMetaFile);
       setLoaderthree(true);
 
-      const metadataFile = Array.from(selectedMetaFile).find(
-        (file) => file.name === "metadata.json"
+      const metadataFile = Array.from(selectedMetaFile).find((file) =>
+        file.name.endsWith(".json")
       );
+      if (!metadataFile) {
+        toast.error("No metadata file found");
+        setLoaderthree(false);
+        return;
+      }
+
       const metadataContent = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -247,19 +252,19 @@ const MyCollection = () => {
         };
         reader.readAsText(metadataFile);
       });
+
       let parsedMetadata = JSON.parse(metadataContent);
-      const collectionHashesString = localStorage.getItem("collectionHashes");
-      const collectionHashes = JSON.parse(collectionHashesString);
-      if (collectionHashes.length !== parsedMetadata.length) {
+      const fileHashesString = localStorage.getItem("fileHashes");
+      const fileHashes = JSON.parse(fileHashesString);
+      if (fileHashes.length !== parsedMetadata.length) {
         toast.error("Metadata is not equal to image hash");
         setLoaderthree(false);
         return;
       }
       for (let i = 0; i < parsedMetadata.length; i++) {
-        parsedMetadata[i].hash = collectionHashes[i];
+        parsedMetadata[i].hash = fileHashes[i];
       }
 
-      console.log(parsedMetadata, "parsed");
       const formData = new FormData();
       const jsonBlob = new Blob([JSON.stringify(parsedMetadata)], {
         type: "application/json",
@@ -285,6 +290,62 @@ const MyCollection = () => {
       console.error("Error fetching metadata:", error);
     }
   };
+  // const handleMetaChange = async () => {
+  //   try {
+  //     console.log("Selected Files", selectedMetaFile);
+  //     setLoaderthree(true);
+
+  //     const metadataFile = Array.from(selectedMetaFile).find(
+  //       (file) => file.name === "metadata.json"
+  //     );
+  //     const metadataContent = await new Promise((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onload = (event) => {
+  //         resolve(event.target.result);
+  //       };
+  //       reader.onerror = (error) => {
+  //         reject(error);
+  //       };
+  //       reader.readAsText(metadataFile);
+  //     });
+  //     let parsedMetadata = JSON.parse(metadataContent);
+  //     const collectionHashesString = localStorage.getItem("collectionHashes");
+  //     const collectionHashes = JSON.parse(collectionHashesString);
+  //     if (collectionHashes.length !== parsedMetadata.length) {
+  //       toast.error("Metadata is not equal to image hash");
+  //       setLoaderthree(false);
+  //       return;
+  //     }
+  //     for (let i = 0; i < parsedMetadata.length; i++) {
+  //       parsedMetadata[i].hash = collectionHashes[i];
+  //     }
+
+  //     console.log(parsedMetadata, "parsed");
+  //     const formData = new FormData();
+  //     const jsonBlob = new Blob([JSON.stringify(parsedMetadata)], {
+  //       type: "application/json",
+  //     });
+  //     formData.append("file", jsonBlob);
+  //     const res = await fetch(
+  //       "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           pinata_api_key: `${apikey}`,
+  //           pinata_secret_api_key: `${secretapikey}`,
+  //         },
+  //         body: formData,
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     setMetaHash(data?.IpfsHash);
+  //     setMetadataUploaded(true);
+  //     setLoaderthree(false);
+  //   } catch (error) {
+  //     setLoaderthree(false);
+  //     console.error("Error fetching metadata:", error);
+  //   }
+  // };
 
   const [uploadedImages, setUploadedImages] = useState(0);
   const [totalImages, setTotalImages] = useState(null);
