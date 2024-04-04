@@ -226,8 +226,7 @@ const Signup = () => {
                     Connect Wallet
                   </a>
                 )}
-
-                {isBrowser ? (
+                {/* {isBrowser ? (
                   <a
                     className="connect-btn d-sm-none d-flex "
                     onClick={() => {
@@ -266,6 +265,60 @@ const Signup = () => {
                     ) : (
                       <div
                         className="connect-btn d-sm-none d-flex "
+                        onClick={() => {
+                          connectWallet("1116");
+                          handleClose();
+                        }}
+                      >
+                        <img
+                          src="\assets\navbarassets\metamask.svg"
+                          alt="connectimg"
+                          className="connectimg"
+                        />
+                        <p className="connectpara">Metamask</p>
+                      </div>
+                    )}
+                  </>
+                )} */}{" "}
+                {isBrowser ? (
+                  <div
+                    className="connectmain d-sm-none d-flex "
+                    onClick={() => {
+                      connectWallet("1116");
+                      handleClose();
+                    }}
+                  >
+                    <img
+                      src="\assets\navbarassets\metamask.svg"
+                      alt="connectimg"
+                      className="connectimg"
+                    />
+                    <p className="connectpara">Metamask</p>
+                  </div>
+                ) : (
+                  <>
+                    {browserName === "Safari" ||
+                    browserName === "Mobile Safari" ||
+                    browserName === "Brave" ||
+                    browserName === "Firefox" ||
+                    browserName === "Chrome" ? (
+                      <a
+                        id="speicalAZ213"
+                        href="https://metamask.app.link/dapp/wizardgallery.xyz//"
+                        className="hideBTN"
+                      >
+                        <div className="connectmain d-sm-none d-flex ">
+                          <img
+                            src="\assets\navbarassets\metamask.svg"
+                            alt="connectimg"
+                            className="connectimg"
+                          />
+                          <p className="connectpara">Metamask</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div
+                        className="connectmain d-sm-none d-flex "
                         onClick={() => {
                           connectWallet("1116");
                           handleClose();
