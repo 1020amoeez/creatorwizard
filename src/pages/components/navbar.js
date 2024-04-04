@@ -28,6 +28,7 @@ const Navbar = () => {
   // const [profileData, setProfileData] = useState({});
   const [name, setName] = useState("");
   // const [imageprofile, setImageProfile] = useState("");
+  console.log(isBrowser, "isBrowser");
 
   useEffect(() => {
     let walletconn = localStorage.getItem("wallet");
@@ -451,7 +452,7 @@ const Navbar = () => {
             <span className="bold">Privacy Policy.</span>
           </p>
           <div
-            className="connectmain "
+            className=""
             onClick={() => {
               // setclickedbtn(() => { (false), localStorage.setItem("wallet", false) });
               connectWallet("1116");
@@ -481,7 +482,7 @@ const Navbar = () => {
             <p className="connectpara">WalletConnect</p>
           </div>
 
-          {isBrowser ? (
+          {/* {isBrowser ? (
             <div
               className="connectmain d-flex"
               onClick={() => {
@@ -502,8 +503,7 @@ const Navbar = () => {
               browserName === "Mobile Safari" ||
               browserName === "Brave" ||
               browserName === "Firefox" ||
-              browserName === "Chrome" ||
-              browserName === "Google Chrome" ? (
+              browserName === "Chrome" ? (
                 <a
                   id="speicalAZ213"
                   href="https://metamask.app.link/dapp/creator.wizardgallery.xyz//"
@@ -535,7 +535,7 @@ const Navbar = () => {
                 </div>
               )}
             </>
-          )}
+          )} */}
         </Offcanvas.Body>
       </Offcanvas>
 
