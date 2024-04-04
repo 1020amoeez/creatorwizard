@@ -9,6 +9,7 @@ import Web3 from "web3";
 import Environment from "@/utils/Enviroment";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { browserName, isBrowser } from "react-device-detect";
 
 const Navbar = () => {
   const api_url = Environment.api_url;
@@ -450,7 +451,7 @@ const Navbar = () => {
             <span className="bold">Privacy Policy.</span>
           </p>
           <div
-            className="connectmain"
+            className="connectmain "
             onClick={() => {
               // setclickedbtn(() => { (false), localStorage.setItem("wallet", false) });
               connectWallet("1116");
@@ -465,20 +466,76 @@ const Navbar = () => {
             <p className="connectpara">Metamask</p>
           </div>
           <div
-            className="connectmain-two"
+            className="connectmain-two d-none d-sm-flex"
             onClick={() => {
               // setclickedbtn(false);
-              connectWallet("1116");
+              trustWallet("1116");
               handleClose();
             }}
           >
             <img
-              src="\assets\navbarassets\metamask.svg"
+              src="\assets\navbarassets\walletconnect.svg"
               alt="connectimg"
               className="connectimg"
             />
-            <p className="connectpara">MetaMask</p>
+            <p className="connectpara">WalletConnect</p>
           </div>
+
+          {isBrowser ? (
+            <div
+              className="connectmain d-flex"
+              onClick={() => {
+                connectWallet("1116");
+                handleClose();
+              }}
+            >
+              <img
+                src="\assets\navbarassets\metamask.svg"
+                alt="connectimg"
+                className="connectimg"
+              />
+              <p className="connectpara">Metamask</p>
+            </div>
+          ) : (
+            <>
+              {browserName === "Safari" ||
+              browserName === "Mobile Safari" ||
+              browserName === "Brave" ||
+              browserName === "Firefox" ||
+              browserName === "Chrome" ||
+              browserName === "Google Chrome" ? (
+                <a
+                  id="speicalAZ213"
+                  href="https://metamask.app.link/dapp/creator.wizardgallery.xyz//"
+                  className="hideBTN"
+                >
+                  <div className="connect-btn connectmain-two d-sm-none d-flex ">
+                    <img
+                      src="\assets\navbarassets\metamask.svg"
+                      alt="connectimg"
+                      className="connectimg"
+                    />
+                    <p className="connectpara">Metamask</p>
+                  </div>
+                </a>
+              ) : (
+                <div
+                  className="connect-btn d-sm-none d-flex "
+                  onClick={() => {
+                    connectWallet("1116");
+                    handleClose();
+                  }}
+                >
+                  <img
+                    src="\assets\navbarassets\metamask.svg"
+                    alt="connectimg"
+                    className="connectimg"
+                  />
+                  <p className="connectpara">Metamask</p>
+                </div>
+              )}
+            </>
+          )}
         </Offcanvas.Body>
       </Offcanvas>
 
