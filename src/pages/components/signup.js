@@ -226,7 +226,7 @@ const Signup = () => {
                     Connect Wallet
                   </a>
                 )}
-                {/* {isBrowser ? (
+                {isBrowser ? (
                   <a
                     className="connect-btn d-sm-none d-flex "
                     onClick={() => {
@@ -279,8 +279,8 @@ const Signup = () => {
                       </div>
                     )}
                   </>
-                )} */}{" "}
-                {isBrowser ? (
+                )}
+                {/* {isBrowser ? (
                   <div
                     className="connectmain d-sm-none d-flex "
                     onClick={() => {
@@ -333,7 +333,7 @@ const Signup = () => {
                       </div>
                     )}
                   </>
-                )}
+                )} */}
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
             </div>
