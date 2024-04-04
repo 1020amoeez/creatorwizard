@@ -226,7 +226,7 @@ const Signup = () => {
                   </a>
                 )}
 
-                {isBrowser ? (
+                {/* {isBrowser ? (
                   <div
                     className="connect-btn  d-flex "
                     onClick={() => {
@@ -279,7 +279,7 @@ const Signup = () => {
                       </div>
                     )}
                   </>
-                )}
+                )} */}
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
             </div>
