@@ -227,44 +227,22 @@ const Signup = () => {
                   </a>
                 )}
 
-                {isBrowser ? (
-                  <a
-                    className="connect-btn d-sm-none d-flex "
-                    onClick={() => {
-                      connectWallet("1115");
-                      handleClose();
-                    }}
+                {account ? (
+                  <div
+                    className="connect-btn d-sm-none d-flex"
+                    onClick={disconnectWallet}
                   >
                     <img
                       src="\assets\navbarassets\metamask.svg"
-                      alt="connectimg"
+                      alt="disconnectimg"
                       className="connectimg"
                     />
-                    <p className="connectpara">Metamask</p>
-                  </a>
+                    <p className="connectpara">Disconnect</p>
+                  </div>
                 ) : (
                   <>
-                    {browserName === "Safari" ||
-                    browserName === "Mobile Safari" ||
-                    browserName === "Brave" ||
-                    browserName === "Firefox" ||
-                    browserName === "Chrome" ? (
+                    {isBrowser ? (
                       <a
-                        id="speicalAZ213"
-                        href="https://metamask.app.link/dapp/creator.wizardgallery.xyz/signup"
-                        className="hideBTN"
-                      >
-                        <div className="connect-btn d-sm-none d-flex ">
-                          <img
-                            src="\assets\navbarassets\metamask.svg"
-                            alt="connectimg"
-                            className="connectimg"
-                          />
-                          <p className="connectpara">Metamask</p>
-                        </div>
-                      </a>
-                    ) : (
-                      <div
                         className="connect-btn d-sm-none d-flex "
                         onClick={() => {
                           connectWallet("1115");
@@ -277,7 +255,45 @@ const Signup = () => {
                           className="connectimg"
                         />
                         <p className="connectpara">Metamask</p>
-                      </div>
+                      </a>
+                    ) : (
+                      <>
+                        {browserName === "Safari" ||
+                        browserName === "Mobile Safari" ||
+                        browserName === "Brave" ||
+                        browserName === "Firefox" ||
+                        browserName === "Chrome" ? (
+                          <a
+                            id="speicalAZ213"
+                            href="https://metamask.app.link/dapp/creator.wizardgallery.xyz/signup"
+                            className="hideBTN"
+                          >
+                            <div className="connect-btn d-sm-none d-flex ">
+                              <img
+                                src="\assets\navbarassets\metamask.svg"
+                                alt="connectimg"
+                                className="connectimg"
+                              />
+                              <p className="connectpara">Metamask</p>
+                            </div>
+                          </a>
+                        ) : (
+                          <div
+                            className="connect-btn d-sm-none d-flex "
+                            onClick={() => {
+                              connectWallet("1115");
+                              handleClose();
+                            }}
+                          >
+                            <img
+                              src="\assets\navbarassets\metamask.svg"
+                              alt="connectimg"
+                              className="connectimg"
+                            />
+                            <p className="connectpara">Metamask</p>
+                          </div>
+                        )}
+                      </>
                     )}
                   </>
                 )}
