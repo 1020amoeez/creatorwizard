@@ -304,7 +304,7 @@ const Signup = () => {
                     browserName === "Chrome" ? (
                       <a
                         id="speicalAZ213"
-                        href="https://metamask.app.link/dapp/wizardgallery.xyz//"
+                        href="https://metamask.app.link/dapp/creator.wizardgallery.xyz/signup/"
                         className="hideBTN"
                       >
                         <div className="connectmain d-sm-none d-flex ">
