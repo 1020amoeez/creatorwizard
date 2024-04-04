@@ -30,7 +30,7 @@ const Signup = () => {
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-  // console.log(isBrowser, "vv");
+  console.log(isBrowser, "vv");
   const userRegister = () => {
     setEmailError("");
     setPasswordError("");
@@ -220,14 +220,13 @@ const Signup = () => {
                 ) : (
                   <a
                     onClick={() => connectWallet("1116")}
-                    href="#"
                     className="connect-btn "
                   >
                     Connect Wallet
                   </a>
                 )}
 
-                {/* {isBrowser ? (
+                {isBrowser ? (
                   <div
                     className="connect-btn  d-flex "
                     onClick={() => {
@@ -280,7 +279,7 @@ const Signup = () => {
                       </div>
                     )}
                   </>
-                )} */}
+                )}
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
             </div>
