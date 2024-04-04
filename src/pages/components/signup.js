@@ -245,7 +245,7 @@ const Signup = () => {
                       <a
                         className="connect-btn d-sm-none d-flex "
                         onClick={() => {
-                          connectWallet("1115");
+                          connectWallet("1116");
                           handleClose();
                         }}
                       >
@@ -281,7 +281,7 @@ const Signup = () => {
                           <div
                             className="connect-btn d-sm-none d-flex "
                             onClick={() => {
-                              connectWallet("1115");
+                              connectWallet("1116");
                               handleClose();
                             }}
                           >
