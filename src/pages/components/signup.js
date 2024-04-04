@@ -30,7 +30,7 @@ const Signup = () => {
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-
+  // console.log(isBrowser, "vv");
   const userRegister = () => {
     setEmailError("");
     setPasswordError("");
@@ -143,6 +143,7 @@ const Signup = () => {
   //   };
 
   const connectWallet = async (e) => {
+    console.log("connector");
     if (account) {
       const connectorId = window.localStorage.getItem("connectorId");
       await logout(connectorId);
@@ -212,8 +213,7 @@ const Signup = () => {
                 {account ? (
                   <a
                     onClick={() => disconnectWallet()}
-                    href="#"
-                    className="connect-btn ifdisconnect d-sm-flex d-none"
+                    className="connect-btn ifdisconnect "
                   >
                     Disconnect
                   </a>
@@ -221,17 +221,18 @@ const Signup = () => {
                   <a
                     onClick={() => connectWallet("1116")}
                     href="#"
-                    className="connect-btn d-sm-flex d-none"
+                    className="connect-btn "
                   >
                     Connect Wallet
                   </a>
                 )}
+
                 {/* {isBrowser ? (
-                  <a
-                    className="connect-btn d-sm-none d-flex "
+                  <div
+                    className="connect-btn  d-flex "
                     onClick={() => {
                       connectWallet("1116");
-                      // handleClose();
+                      handleClose();
                     }}
                   >
                     <img
@@ -240,7 +241,7 @@ const Signup = () => {
                       className="connectimg"
                     />
                     <p className="connectpara">Metamask</p>
-                  </a>
+                  </div>
                 ) : (
                   <>
                     {browserName === "Safari" ||
@@ -259,7 +260,7 @@ const Signup = () => {
                             alt="connectimg"
                             className="connectimg"
                           />
-                          <p className="connectpara">Metamask</p>
+                          <p className="connectpara">Metamask22</p>
                         </div>
                       </a>
                     ) : (
@@ -267,7 +268,7 @@ const Signup = () => {
                         className="connect-btn d-sm-none d-flex "
                         onClick={() => {
                           connectWallet("1116");
-                          // handleClose();
+                          handleClose();
                         }}
                       >
                         <img
@@ -280,59 +281,6 @@ const Signup = () => {
                     )}
                   </>
                 )} */}
-
-                {isBrowser ? (
-                  <a
-                    className="connect-btn d-sm-none d-flex "
-                    onClick={() => {
-                      connectWallet("1116");
-                    }}
-                  >
-                    <img
-                      src="\assets\navbarassets\metamask.svg"
-                      alt="connectimg"
-                      className="connectimg"
-                    />
-                    <p className="connectpara">Metamask</p>
-                  </a>
-                ) : (
-                  <>
-                    {browserName === "Safari" ||
-                    browserName === "Mobile Safari" ||
-                    browserName === "Brave" ||
-                    browserName === "Firefox" ||
-                    browserName === "Chrome" ? (
-                      <a
-                        id="speicalAZ213"
-                        href="https://metamask.app.link/dapp/creator.wizardgallery.xyz//"
-                        className="hideBTN"
-                      >
-                        <div className="connect-btn d-sm-none d-flex ">
-                          <img
-                            src="\assets\navbarassets\metamask.svg"
-                            alt="connectimg"
-                            className="connectimg"
-                          />
-                          <p className="connectpara">Metamask</p>
-                        </div>
-                      </a>
-                    ) : (
-                      <div
-                        className="connect-btn d-sm-none d-flex "
-                        onClick={() => {
-                          connectWallet("1116");
-                        }}
-                      >
-                        <img
-                          src="\assets\navbarassets\metamask.svg"
-                          alt="connectimg"
-                          className="connectimg"
-                        />
-                        <p className="connectpara">Metamask</p>
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
               {addresserror && <p className="text-danger">{addresserror}</p>}
             </div>
