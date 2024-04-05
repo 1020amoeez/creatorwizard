@@ -226,12 +226,13 @@ const Collectiondashbord = () => {
             console.error('Error fetching images:', error);
         }
     };
-
+    const { toBN, toWei } = web3.utils;
     const transformStages = (mintStages, mintStartTime) => {
         return mintStages.map((stage, index) => {
             let startTime = index === 0 ? new Date(mintStartTime).getTime() / 1000 : new Date(mintStages[index - 1].mintStageTime).getTime() / 1000;
             let endTime = new Date(stage.mintStageTime).getTime() / 1000;
-            let price = web3.utils.toWei(stage.price, 'ether');
+            // let price = web3.utils.toWei(stage.price, 'ether');
+            let price = toWei(stage.price.toString(), "ether");
             let whiteList = false;
 
             return [startTime, endTime, price, whiteList];

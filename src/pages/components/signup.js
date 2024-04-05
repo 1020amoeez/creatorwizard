@@ -227,7 +227,7 @@ const Signup = () => {
                 )}
                 {isBrowser ? (
                   <div
-                    className="connect-btn d-flex"
+                    className="connect-btn d-flex d-sm-none"
                     onClick={() => {
                       connectWallet("1116");
                       handleClose();
@@ -253,7 +253,7 @@ const Signup = () => {
                         href="https://metamask.app.link/dapp/creator.wizardgallery.xyz//"
                         className="hideBTN"
                       >
-                        <div className="connect-btn d-sm-none d-flex ">
+                        <div className="connect-btn d-sm-none d-flex  ">
                           <img
                             src="\assets\navbarassets\metamask.svg"
                             alt="connectimg"
