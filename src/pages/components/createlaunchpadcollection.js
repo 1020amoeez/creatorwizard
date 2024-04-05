@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import Footer from "./footer";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useWeb3React } from "@web3-react/core";
 
 const StepLaunchpadInfo = dynamic(() => import("./launchpadinfo"), {
   loading: () => <p>Loading...</p>,
@@ -45,6 +46,7 @@ const Createlaunchpadcollection = () => {
   const [id, setId] = useState([]);
   const [draftdata, setDraftData] = useState([]);
   const [ide, setIde] = useState("");
+  const { account } = useWeb3React();
 
   const router = useRouter();
   useEffect(() => {
@@ -176,7 +178,7 @@ const Createlaunchpadcollection = () => {
       formDataName?.mintStartTime || new Date().toISOString();
     const mintEndTime = formDataName?.mintEndTime || new Date().toISOString();
     const formData = {
-      earningAddress: formDataName?.earningAddress || "",
+      earningAddress: account,
       name: formDataName?.name || "",
       symbol: formDataname?.symbol || "",
       description: formDataName?.description || "",
