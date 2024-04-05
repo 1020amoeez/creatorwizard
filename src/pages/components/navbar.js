@@ -484,7 +484,7 @@ const Navbar = () => {
 
           {isBrowser ? (
             <div
-              className="connectmain d-flex"
+              className="connectmain d-flex d-sm-none d-flex"
               onClick={() => {
                 connectWallet("1116");
                 handleClose();
@@ -493,7 +493,7 @@ const Navbar = () => {
               <img
                 src="\assets\navbarassets\metamask.svg"
                 alt="connectimg"
-                className="connectimg"
+                className="connectimg d-sm-none d-flex"
               />
               <p className="connectpara">Metamask</p>
             </div>
@@ -520,7 +520,7 @@ const Navbar = () => {
                 </a>
               ) : (
                 <div
-                  className="connect-btn d-sm-none d-flex "
+                  className="connect-btn d-sm-none d-flex d-sm-none d-flex"
                   onClick={() => {
                     connectWallet("1116");
                     handleClose();
