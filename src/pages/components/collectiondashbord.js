@@ -49,6 +49,7 @@ const Collectiondashbord = () => {
     const [stagedata, setStageData] = useState([] || '');
     const [image, setImage] = useState([]);
     const [royaliy, setRoyality] = useState('');
+    const [launchpad, setLaunchpad] = useState('launchpad');
     // const [stagesarray, setStagesArray] = useState([]);
 
     const [show1, setShow1] = useState(false);
@@ -60,7 +61,7 @@ const Collectiondashbord = () => {
         try {
             const config = {
                 method: "get",
-                url: `${api_url}/launchpads?status=${status}`,
+                url: `${api_url}/launchpads?status=${status}&type=${launchpad}`,
                 headers: {
                     Authorization: "Bearer " + accessToken,
                 },
