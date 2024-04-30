@@ -279,9 +279,9 @@ const Collectiondashbord = () => {
 
             let stagesData = transformStages(mintStages, mintStartTime);
             // console.log(name, 'symbol', mintStartTime, ipfLink, stagesData, weiAmounttwo, LimitedEddition, 'newwww');
-            const gas = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
+            const gas = await contract.methods.createProject(name, symbol, ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
                 .estimateGas({ from: account });
-            const staked = await contract.methods.createProject(name, 'symbol', ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
+            const staked = await contract.methods.createProject(name, symbol, ipfLink, stagesData, totalSupply, perWalletLimit, LimitedEddition)
                 .send({ from: account, gas, gasPrice: gasFunPrice });
 
             const contractAddress = staked?.events?.ProjectCreated?.returnValues?.erc721Contract;
@@ -789,7 +789,7 @@ const Collectiondashbord = () => {
                     <button style={{ maxWidth: "100%", marginTop: "18px" }} className={`stepbtn ${account ? 'bluebtn' : 'opacitylowifdisable bluebtn'}`} onClick={() => {
                         handleShow(); ProjectContract(
                             modaldata?.name,
-                            'symbol',
+                            modaldata?.symbol,
                             ipfLink,
                             modaldata?.mintStages,
                             modaldata?.totalSupply,
